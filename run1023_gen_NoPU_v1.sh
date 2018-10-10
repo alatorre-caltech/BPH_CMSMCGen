@@ -38,24 +38,20 @@ cp $MC_frag_file Configuration/GenProduction/python/${process_name}_13TeV-pythia
 
 scram b -j9
 
-echo "cmsDriver.py Configuration/GenProduction/python/${process_name}_13TeV-pythia8-evtgen_cfi.py --fileout file:${process_name}_GEN-SIM.root --mc --eventcontent RAWSIM --datatier GEN-SIM --conditions 102X_upgrade2018_realistic_v12 --beamspot Realistic25ns13TeVEarly2018Collision --step GEN,SIM --nThreads 8 --geometry DB:Extended --era Run2_2018 --python_filename step1_${process_name}_GEN-SIM_cfg.py --no_exec -n $N_evts"
+cmsDriver.py Configuration/GenProduction/python/${process_name}_13TeV-pythia8-evtgen_cfi.py --fileout file:${process_name}_AODSIM.root --mc --eventcontent AODSIM --datatier AODSIM --conditions 102X_upgrade2018_realistic_v12 --beamspot Realistic25ns13TeVEarly2018Collision --step GEN,SIM,DIGI,L1,DIGI2RAW,HLT:@relval2018,RAW2DIGI,RECO,RECOSIM,EI --nThreads 4 --geometry DB:Extended --era Run2_2018 --python_filename step1_${process_name}_AODSIM_cfg.py --no_exec -n $N_evts
 
-cmsDriver.py Configuration/GenProduction/python/${process_name}_13TeV-pythia8-evtgen_cfi.py --fileout file:${process_name}_GEN-SIM.root --mc --eventcontent RAWSIM --datatier GEN-SIM --conditions 102X_upgrade2018_realistic_v12 --beamspot Realistic25ns13TeVEarly2018Collision --step GEN,SIM --nThreads 8 --geometry DB:Extended --era Run2_2018 --python_filename step1_${process_name}_GEN-SIM_cfg.py --no_exec -n $N_evts
-# --customise Configuration/DataProcessing/Utils.addMonitoring
 
-mv ./step1_${process_name}_GEN-SIM_cfg.py $out_dir/
+mv ./step1_${process_name}_AODSIM_cfg.py $out_dir/
 mv Configuration $out_dir/
 cd $out_dir
 
-cmsRun step1_${process_name}_GEN-SIM_cfg.py &> step1.log
+cmsRun step1_${process_name}_AODSIM_cfg.py &> step1.log
 
 
 
 
-echo "Step 2: RAW -> MINIAOD"
+echo "Step 2: AOD -> MINIAOD"
 
-echo "cmsDriver.py --filein file:${process_name}_GEN-SIM.root --fileout file:${process_name}_MINIAODSIM.root --mc --eventcontent MINIAODSIM --runUnscheduled --datatier MINIAODSIM --conditions 102X_upgrade2018_realistic_v12 --era Run2_2018 --step DIGI,L1,DIGI2RAW,HLT:@relval2018,RAW2DIGI,RECO,RECOSIM,EI,PAT --nThreads 8 --python_filename step2_${process_name}_MINIAODSIM_cfg.py --no_exec -n -1"
-
-cmsDriver.py --filein file:${process_name}_GEN-SIM.root --fileout file:${process_name}_MINIAODSIM.root --mc --eventcontent MINIAODSIM --runUnscheduled --datatier MINIAODSIM --conditions 102X_upgrade2018_realistic_v12 --era Run2_2018 --step DIGI,L1,DIGI2RAW,HLT:@relval2018,RAW2DIGI,RECO,RECOSIM,EI,PAT --nThreads 8 --python_filename step2_${process_name}_MINIAODSIM_cfg.py --no_exec -n -1
+cmsDriver.py --filein file:${process_name}_AODSIM.root --fileout file:${process_name}_MINIAODSIM.root --mc --eventcontent MINIAODSIM --runUnscheduled --datatier MINIAODSIM --conditions 102X_upgrade2018_realistic_v12 --step PAT --era Run2_2018 --nThreads 4 --python_filename step2_${process_name}_MINIAODSIM_cfg.py --no_exec -n -1
 
 cmsRun step2_${process_name}_MINIAODSIM_cfg.py &> step2.log

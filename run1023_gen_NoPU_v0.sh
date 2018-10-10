@@ -1,7 +1,7 @@
 #!/bin/bash
 
 process_name=HardQCD_bbar_Bu_D0munu_KPimunu
-version=NoPU_10-2-3_v0
+version=NoPU_10-2-3_v1
 out_loc=/afs/cern.ch/user/o/ocerri/cernbox/BPhysics/data/cmsMC_private
 N_evts=$1
 # N_evts=100000
