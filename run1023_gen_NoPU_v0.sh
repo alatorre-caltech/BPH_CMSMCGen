@@ -1,6 +1,14 @@
 #!/bin/bash
 
-process_name=HardQCD_bbar_Bu_D0munu_KPimunu
+# process_name=HardQCD_bbar_Bu_D0munu_KPimunu
+# process_name=BPH_gammaTRIAL_Tag-Bm_D0kpmunu_Probe-Bp_D0kpmunu
+# process_name=BPH_Tag-Bm_D0kpmunu_Probe-Bp_D0kptaunu_tau2mununu
+# process_name=BPH_Tag-Bm_D0kpmunu_Probe-Bp_D0stkpNeumunu
+# process_name=BPH_Tag-Bm_D0kpmunu_Probe-Bp_D0stkpNeutaunu_tau2mununu
+
+process_name=BPH_Tag-Bm_D0kpmunu_Probe-B0_MuNuDmst-pD0bar-kp-
+# process_name=BPH_Tag-Bm_D0kpmunu_Probe-B0_TauNuDmst-pD0bar-kp-tau2mununu
+
 version=NoPU_10-2-3_v1
 out_loc=/afs/cern.ch/user/o/ocerri/cernbox/BPhysics/data/cmsMC_private
 N_evts=$1
@@ -28,11 +36,12 @@ else
 fi
 
 echo "Step 1: GEN-SIM"
-cd /afs/cern.ch/user/o/ocerri/cernbox/BPhysics/CMSSW_10_2_3/src
+# cd /afs/cern.ch/user/o/ocerri/cernbox/BPhysics/CMSSW_10_2_3/src
+cd /afs/cern.ch/user/o/ocerri/work/CMSSW_10_2_3/src/
 
 eval `scramv1 runtime -sh`
 
-mkdir -p Configuration/GenProduction/python
+# mkdir -p Configuration/GenProduction/python
 
 cp $MC_frag_file Configuration/GenProduction/python/${process_name}_13TeV-pythia8-evtgen_cfi.py
 
@@ -43,14 +52,18 @@ echo "cmsDriver.py Configuration/GenProduction/python/${process_name}_13TeV-pyth
 cmsDriver.py Configuration/GenProduction/python/${process_name}_13TeV-pythia8-evtgen_cfi.py --fileout file:${process_name}_GEN-SIM.root --mc --eventcontent RAWSIM --datatier GEN-SIM --conditions 102X_upgrade2018_realistic_v12 --beamspot Realistic25ns13TeVEarly2018Collision --step GEN,SIM --nThreads 8 --geometry DB:Extended --era Run2_2018 --python_filename step1_${process_name}_GEN-SIM_cfg.py --no_exec -n $N_evts
 # --customise Configuration/DataProcessing/Utils.addMonitoring
 
+echo "process.MessageLogger.cerr.FwkReport.reportEvery = 1000" >> step1_${process_name}_GEN-SIM_cfg.py
+
+
 mv ./step1_${process_name}_GEN-SIM_cfg.py $out_dir/
-mv Configuration $out_dir/
+mkdir -p $out_dir/Configuration/GenProduction/python
+cp Configuration/GenProduction/python/${process_name}_13TeV-pythia8-evtgen_cfi.py $out_dir/Configuration/GenProduction/python/${process_name}_13TeV-pythia8-evtgen_cfi.py
+# mv Configuration $out_dir/
 cd $out_dir
 
 cmsRun step1_${process_name}_GEN-SIM_cfg.py &> step1.log
 
-
-
+exit
 
 echo "Step 2: RAW -> MINIAOD"
 

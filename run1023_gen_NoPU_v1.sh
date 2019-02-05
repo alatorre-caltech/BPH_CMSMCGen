@@ -1,6 +1,9 @@
 #!/bin/bash
+echo "Does not work"
+exit
 
 process_name=HardQCD_bbar_Bu_D0munu_KPimunu
+# process_name=BPH_Tag-Bm_D0kpmunu_Probe-Bp_D0kpmunu
 version=NoPU_10-2-3_v1
 out_loc=/afs/cern.ch/user/o/ocerri/cernbox/BPhysics/data/cmsMC_private
 N_evts=$1
