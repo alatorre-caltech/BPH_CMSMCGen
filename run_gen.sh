@@ -22,6 +22,7 @@ eval `scramv1 runtime -sh`
 cd $out_dir
 mkdir -p Configuration/GenProduction/python
 cp $MC_frag_file Configuration/GenProduction/python/${process_name}_13TeV-pythia8-evtgen_cfi.py
+
 cmsDriver.py Configuration/GenProduction/python/${process_name}_13TeV-pythia8-evtgen_cfi.py --fileout file:${process_name}_GEN-SIM.root --mc --eventcontent RAWSIM --datatier GEN-SIM --conditions 93X_mc2017_realistic_v3 --beamspot Realistic25ns13TeVEarly2017Collision --step GEN,SIM --nThreads 1 --geometry DB:Extended --era Run2_2017 --python_filename step1_${process_name}_GEN-SIM_cfg.py --no_exec --customise Configuration/DataProcessing/Utils.addMonitoring -n 50
 
 cmsRun step1_${process_name}_GEN-SIM_cfg.py
