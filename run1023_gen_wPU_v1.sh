@@ -1,9 +1,10 @@
 #!/bin/bash
 
-# process_name=BPH_Tag-B0_MuNuDmst-pD0bar-kp_13TeV-pythia8_SoftQCD_PTFilter5_0p0-evtgen_HQET2_central
-process_name=BPH_Tag-B0_MuNuDmst-pD0bar-kp_13TeV-pythia8_Hardbbbar_PTHat3p0-evtgen_HQET2_central
+process_name=BPH_Tag-B0_MuNuDmst-pD0bar-kp_13TeV-pythia8_SoftQCD_PTFilter5_0p0-evtgen_HQET2_central
+# process_name=BPH_Tag-B0_MuNuDmst-pD0bar-kp_13TeV-pythia8_Hardbbbar_PTHat5p0-evtgen_HQET2_central
 
-version=NoPU_10-2-3_v0
+N_PU=35
+version=PU${N_PU}_10-2-3_v0
 out_loc=/afs/cern.ch/user/o/ocerri/cernbox/BPhysics/data/cmsMC_private
 N_evts=$1
 # N_evts=100000
@@ -42,9 +43,10 @@ cp $MC_frag_file Configuration/GenProduction/python/${process_name}_cfi.py
 scram b -j12
 
 cmsDriver.py Configuration/GenProduction/python/${process_name}_cfi.py --fileout file:${process_name}_GEN-SIM.root --mc --eventcontent RAWSIM --datatier GEN-SIM --conditions 102X_upgrade2018_realistic_v15 --beamspot Realistic25ns13TeVEarly2018Collision --step GEN,SIM --nThreads 8 --geometry DB:Extended --era Run2_2018 --python_filename step1_${process_name}_GEN-SIM_cfg.py --no_exec -n $N_evts
+# --customise Configuration/DataProcessing/Utils.addMonitoring
 
 echo "process.RandomNumberGeneratorService.generator.initialSeed = 1" >> step1_${process_name}_GEN-SIM_cfg.py
-echo "process.MessageLogger.cerr.FwkReport.reportEvery = 1000" >> step1_${process_name}_GEN-SIM_cfg.py
+echo "process.MessageLogger.cerr.FwkReport.reportEvery = 100" >> step1_${process_name}_GEN-SIM_cfg.py
 
 
 mv ./step1_${process_name}_GEN-SIM_cfg.py $out_dir/
@@ -58,8 +60,13 @@ cmsRun step1_${process_name}_GEN-SIM_cfg.py &> step1.log
 
 
 echo "Step 2: RAW -> MINIAOD"
+# Create PU file list
+# das_client --query="file dataset = /MinBias_TuneCP5_13TeV-pythia8/RunIIFall18GS-102X_upgrade2018_realistic_v9-v1/GEN-SIM" --limit=0 >> MinBias_TuneCP5_13TeV-pythia8_RunIIFall18GS-102X_upgrade2018_realistic_v9-v1_list.txt
 
-cmsDriver.py --mc --eventcontent PREMIXRAW --datatier GEN-SIM-RAW --conditions 102X_upgrade2018_realistic_v15 --step DIGI,L1,DIGI2RAW,HLT:@relval2018 --nThreads 8 --era Run2_2018 --filein file:${process_name}_GEN-SIM.root --fileout file:${process_name}_RAW.root --python_filename step2_${process_name}_RAW_cfg.py --no_exec -n -1
+cmsDriver.py --mc --eventcontent RAWSIM --datatier GEN-SIM-RAW --conditions 102X_upgrade2018_realistic_v15 --step DIGI,L1,DIGI2RAW,HLT:@relval2018 --nThreads 8 --era Run2_2018 --filein file:${process_name}_GEN-SIM.root --fileout file:${process_name}_RAW.root --python_filename step2_${process_name}_RAW_cfg.py --no_exec -n -1 --geometry DB:Extended --pileup "AVE_25_BX_25ns,{'N': ${N_PU}}" --pileup_input "dbs:/MinBias_TuneCP5_13TeV-pythia8/RunIIFall18GS-102X_upgrade2018_realistic_v9-v1/GEN-SIM"
+# --pileup_input /store/mc/RunIIFall18GS/MinBias_TuneCP5_13TeV-pythia8/GEN-SIM/102X_upgrade2018_realistic_v9-v1/90013/18A5353D-9492-E811-A9DC-24BE05C488E1.root
+ # --pileup_input "das:/MinBias_TuneCP5_13TeV-pythia8/RunIIFall18GS-102X_upgrade2018_realistic_v9-v1/GEN-SIM"
+
 
 cmsRun step2_${process_name}_RAW_cfg.py &> step2.log
 
