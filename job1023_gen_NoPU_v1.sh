@@ -54,3 +54,6 @@ cmsDriver.py --filein file:${process_name}_AODSIM.root --fileout file:${process_
 cmsRun step4_${process_name}_MINIAODSIM_cfg.py
 
 cp ${process_name}_MINIAODSIM.root $out_dir/${process_name}_MINIAODSIM_${N_seed}.root
+
+rm ./step*.py
+rm ./*.root

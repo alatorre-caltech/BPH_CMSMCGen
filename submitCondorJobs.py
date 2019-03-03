@@ -14,7 +14,7 @@ def processCmd(cmd, quite = 0):
 
 
 #_____________________________________________________________________________________________________________
-#example line: python submitCondorJobs.py --nev 20000 --njobs 100 --maxtime 12h
+#example line: python submitCondorJobs.py --nev 30000 --njobs 500 --maxtime 12h --PU 0
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
 
@@ -24,7 +24,8 @@ if __name__ == "__main__":
 
     parser.add_argument ('--PU', help='PU collisions to be generated', default=0, type=int)
 
-    parser.add_argument ('-P', '--process', help='Process name', default='BPH_Tag-B0_MuNuDmst-pD0bar-kp_13TeV-pythia8_SoftQCD_PTFilter5_0p0-evtgen_HQET2_central')
+    # parser.add_argument ('-P', '--process', help='Process name', default='BPH_Tag-B0_MuNuDmst-pD0bar-kp_13TeV-pythia8_SoftQCD_PTFilter5_0p0-evtgen_HQET2_central')
+    parser.add_argument ('-P', '--process', help='Process name', default='BPH_Tag-B0_TauNuDmst-pD0bar-kp-t2mnn_pythia8_SoftQCD_PTFilter5_0p0-evtgen_HQET2_central')
     # parser.add_argument ('-P', '--process', help='Process name', default='BPH_Tag-B0_MuNuDmst-pD0bar-kp_13TeV-pythia8_Hardbbbar_PTHat3p0-evtgen_HQET2_central')
     # parser.add_argument ('-P', '--process', help='Process name', default='BPH_Tag-B0_MuNuDmst-pD0bar-kp_13TeV-pythia8_Hardbbbar_PTHat5p0-evtgen_HQET2_central')
 
