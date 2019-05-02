@@ -26,11 +26,12 @@ if __name__ == "__main__":
 
     # parser.add_argument ('-P', '--process', help='Process name', default='BPH_Tag-B0_MuNuDmst-pD0bar-kp_13TeV-pythia8_SoftQCD_PTFilter5_0p0-evtgen_HQET2_central')
     parser.add_argument ('-P', '--process', help='Process name', default='BPH_Tag-B0_TauNuDmst-pD0bar-kp-t2mnn_pythia8_SoftQCD_PTFilter5_0p0-evtgen_HQET2_central')
+
     # parser.add_argument ('-P', '--process', help='Process name', default='BPH_Tag-B0_MuNuDmst-pD0bar-kp_13TeV-pythia8_Hardbbbar_PTHat3p0-evtgen_HQET2_central')
     # parser.add_argument ('-P', '--process', help='Process name', default='BPH_Tag-B0_MuNuDmst-pD0bar-kp_13TeV-pythia8_Hardbbbar_PTHat5p0-evtgen_HQET2_central')
 
     parser.add_argument ('--version', help='Process version', default='v0')
-    parser.add_argument ('--CMSSW_loc', help='CMSSW src loc', default='/afs/cern.ch/user/o/ocerri/work/CMSSW_10_2_3/src')
+    parser.add_argument ('--CMSSW_loc', help='CMSSW src loc', default='/afs/cern.ch/user/o/ocerri/work/generation_CMSSW/CMSSW_10_2_3/src')
     parser.add_argument ('--outdir', help='output directory ', default='/afs/cern.ch/user/o/ocerri/cernbox/BPhysics/data/cmsMC_private')
     parser.add_argument ('--force_production', action='store_true', default=False, help='Proceed even if the directory is already existing')
     parser.add_argument ('--maxtime', help='Max wall run time [s=seconds, m=minutes, h=hours, d=days]', default='8h')
@@ -72,7 +73,7 @@ if __name__ == "__main__":
         sys.exit()
     else:
         print '--->> I hope you already compiled '+args.CMSSW_loc
-        aux = raw_input('Have you? (y/n) ')
+        aux = raw_input('Have you? (y/n)\n')
         if 'n' in aux:
             exit()
 
@@ -87,7 +88,7 @@ if __name__ == "__main__":
             exit()
 
     os.system('chmod +x job1023_gen_NoPU_v1.sh')
-    print 'Creating submission script\n\n'
+    print 'Creating submission script'
 
     fsub = open('jobs.sub', 'w')
     exec_base = 'executable    = /afs/cern.ch/user/o/ocerri/cernbox/BPhysics/MCGeneration/BPH_CMSMCGen/'
@@ -118,4 +119,5 @@ if __name__ == "__main__":
     fsub.close()
 
     output = processCmd('condor_submit jobs.sub')
+    print 'Jobs submitted'
     os.rename('jobs.sub', outdir+'/cfg/jobs.sub')

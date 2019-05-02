@@ -1,7 +1,8 @@
 #!/bin/bash
 
-process_name=BPH_Tag-B0_MuNuDmst-pD0bar-kp_13TeV-pythia8_SoftQCD_PTFilter5_0p0-evtgen_HQET2_central
+# process_name=BPH_Tag-B0_MuNuDmst-pD0bar-kp_13TeV-pythia8_SoftQCD_PTFilter5_0p0-evtgen_HQET2_central
 # process_name=BPH_Tag-B0_MuNuDmst-pD0bar-kp_13TeV-pythia8_Hardbbbar_PTHat5p0-evtgen_HQET2_central
+process_name=BPH_Tag-B0_TauNuDmst-pD0bar-kp-t2mnn_pythia8_SoftQCD_PTFilter5_0p0-evtgen_HQET2_central
 
 N_PU=35
 version=PU${N_PU}_10-2-3_v0
@@ -32,7 +33,7 @@ fi
 
 echo "Step 1: GEN-SIM"
 # cd /afs/cern.ch/user/o/ocerri/cernbox/BPhysics/CMSSW_10_2_3/src
-cd /afs/cern.ch/user/o/ocerri/work/CMSSW_10_2_3/src/
+cd /afs/cern.ch/user/o/ocerri/work/generation_CMSSW/CMSSW_10_2_3/src/
 
 eval `scramv1 runtime -sh`
 
