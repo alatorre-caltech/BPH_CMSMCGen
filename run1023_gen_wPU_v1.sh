@@ -2,7 +2,13 @@
 
 # process_name=BPH_Tag-B0_MuNuDmst-pD0bar-kp_13TeV-pythia8_SoftQCD_PTFilter5_0p0-evtgen_HQET2_central
 # process_name=BPH_Tag-B0_MuNuDmst-pD0bar-kp_13TeV-pythia8_Hardbbbar_PTHat5p0-evtgen_HQET2_central
-process_name=BPH_Tag-B0_TauNuDmst-pD0bar-kp-t2mnn_pythia8_SoftQCD_PTFilter5_0p0-evtgen_HQET2_central
+# process_name=BPH_Tag-B0_TauNuDmst-pD0bar-kp-t2mnn_pythia8_SoftQCD_PTFilter5_0p0-evtgen_HQET2_central
+# process_name=BPH_Tag-Bp_MuNuD10-2420_DmstPi_13TeV-pythia8_SoftQCD_PTFilter5_0p0-evtgen_HQET2_central
+# process_name=BPH_NoCuts_Tag-B0_MuNuDmst-pD0bar-kp_13TeV-pythia8_SoftQCD_PTFilter5_0p0-evtgen_HQET2_central
+process_name=BPH_NoCuts_Tag-B0_TauNuDmst-pD0bar-kp-t2mnn_pythia8_SoftQCD_PTFilter5_0p0-evtgen_HQET2_central
+
+# process_name=BPH_13TeV-pythia8_SoftQCD_PTFilter5_0p0
+
 
 N_PU=35
 version=PU${N_PU}_10-2-3_v0
@@ -59,7 +65,6 @@ cd $out_dir
 echo "--> Running step 1"
 cmsRun step1_${process_name}_GEN-SIM_cfg.py &> step1.log
 
-
 echo "Step 2: RAW -> MINIAOD"
 # Create PU file list
 # das_client --query="file dataset = /MinBias_TuneCP5_13TeV-pythia8/RunIIFall18GS-102X_upgrade2018_realistic_v9-v1/GEN-SIM" --limit=0 >> MinBias_TuneCP5_13TeV-pythia8_RunIIFall18GS-102X_upgrade2018_realistic_v9-v1_list.txt
@@ -68,13 +73,14 @@ cmsDriver.py --mc --eventcontent RAWSIM --datatier GEN-SIM-RAW --conditions 102X
 # --pileup_input /store/mc/RunIIFall18GS/MinBias_TuneCP5_13TeV-pythia8/GEN-SIM/102X_upgrade2018_realistic_v9-v1/90013/18A5353D-9492-E811-A9DC-24BE05C488E1.root
  # --pileup_input "das:/MinBias_TuneCP5_13TeV-pythia8/RunIIFall18GS-102X_upgrade2018_realistic_v9-v1/GEN-SIM"
 
-
+echo "--> Running step 2"
 cmsRun step2_${process_name}_RAW_cfg.py &> step2.log
 
 
 
 cmsDriver.py --filein file:${process_name}_RAW.root --fileout file:${process_name}_AODSIM.root --mc --eventcontent AODSIM runUnscheduled --datatier AODSIM --conditions 102X_upgrade2018_realistic_v15 --step RAW2DIGI,RECO,RECOSIM,EI --nThreads 8 --era Run2_2018 --python_filename step3_${process_name}_AODSIM_cfg.py --no_exec -n -1
 
+echo "--> Running step 3"
 cmsRun step3_${process_name}_AODSIM_cfg.py &> step3.log
 rm ${process_name}_RAW.root
 
@@ -82,5 +88,6 @@ rm ${process_name}_RAW.root
 
 cmsDriver.py --filein file:${process_name}_AODSIM.root --fileout file:${process_name}_MINIAODSIM.root --mc --eventcontent MINIAODSIM --runUnscheduled --datatier MINIAODSIM --conditions 102X_upgrade2018_realistic_v15 --step PAT --era Run2_2018 --nThreads 8 --python_filename step4_${process_name}_MINIAODSIM_cfg.py --no_exec -n -1
 
+echo "--> Running step 4"
 cmsRun step4_${process_name}_MINIAODSIM_cfg.py &> step4.log
 rm ${process_name}_AODSIM.root

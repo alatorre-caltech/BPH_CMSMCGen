@@ -24,11 +24,16 @@ if __name__ == "__main__":
 
     parser.add_argument ('--PU', help='PU collisions to be generated', default=0, type=int)
 
+#_____________________________________________________________________________________________________________
     # parser.add_argument ('-P', '--process', help='Process name', default='BPH_Tag-B0_MuNuDmst-pD0bar-kp_13TeV-pythia8_SoftQCD_PTFilter5_0p0-evtgen_HQET2_central')
-    parser.add_argument ('-P', '--process', help='Process name', default='BPH_Tag-B0_TauNuDmst-pD0bar-kp-t2mnn_pythia8_SoftQCD_PTFilter5_0p0-evtgen_HQET2_central')
+    # parser.add_argument ('-P', '--process', help='Process name', default='BPH_Tag-B0_TauNuDmst-pD0bar-kp-t2mnn_pythia8_SoftQCD_PTFilter5_0p0-evtgen_HQET2_central')
 
     # parser.add_argument ('-P', '--process', help='Process name', default='BPH_Tag-B0_MuNuDmst-pD0bar-kp_13TeV-pythia8_Hardbbbar_PTHat3p0-evtgen_HQET2_central')
     # parser.add_argument ('-P', '--process', help='Process name', default='BPH_Tag-B0_MuNuDmst-pD0bar-kp_13TeV-pythia8_Hardbbbar_PTHat5p0-evtgen_HQET2_central')
+
+    parser.add_argument ('-P', '--process', help='Process name', default='BPH_Tag-Bp_MuNuD10-2420_DmstPi_13TeV-pythia8_SoftQCD_PTFilter5_0p0-evtgen_HQET2_central')
+#_____________________________________________________________________________________________________________
+
 
     parser.add_argument ('--version', help='Process version', default='v0')
     parser.add_argument ('--CMSSW_loc', help='CMSSW src loc', default='/afs/cern.ch/user/o/ocerri/work/generation_CMSSW/CMSSW_10_2_3/src')
@@ -110,14 +115,15 @@ if __name__ == "__main__":
     fsub.write('\n')
     fsub.write('+MaxRuntime   = '+str(maxRunTime))
     fsub.write('\n')
-    fsub.write('+JobBatchName = '+args.process)
-    fsub.write('\n')
+    # fsub.write('+JobBatchName = '+args.process)
+    # fsub.write('\n')
     fsub.write('x509userproxy = $ENV(X509_USER_PROXY)')
     fsub.write('\n')
     fsub.write('queue '+str(njobs))
     fsub.write('\n')
     fsub.close()
 
+    print 'Submitting jobs...'
     output = processCmd('condor_submit jobs.sub')
     print 'Jobs submitted'
     os.rename('jobs.sub', outdir+'/cfg/jobs.sub')
