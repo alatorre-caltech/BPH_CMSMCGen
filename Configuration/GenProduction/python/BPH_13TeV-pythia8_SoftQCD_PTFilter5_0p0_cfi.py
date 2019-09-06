@@ -77,7 +77,7 @@ mufilter = cms.EDFilter(
     "PythiaFilter",  # trigger muon with kinematic cuts.
     ParticleID        = cms.untracked.int32(-13),
     ChargeConjugation = cms.untracked.bool(False),
-    MinPt             = cms.untracked.double(5.),
+    MinPt             = cms.untracked.double(6.5),
     MinEta            = cms.untracked.double(-2.5),
     MaxEta            = cms.untracked.double(2.5),
 )
