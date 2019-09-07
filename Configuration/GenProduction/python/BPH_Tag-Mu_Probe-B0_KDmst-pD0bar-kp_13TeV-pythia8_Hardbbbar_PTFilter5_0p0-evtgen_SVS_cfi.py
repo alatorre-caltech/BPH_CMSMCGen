@@ -34,14 +34,22 @@ Decay B0
 1.000     MyD*- K+         PHOTOS  SVS;
 Enddecay
 #
+#
+######## Forcing the other B to always decay into a muon ##############
+#
 Decay anti-B0
-1.000     D*+ mu- anti-nu_mu PHOTS ISGW2;
+1.000     D*+ mu- anti-nu_mu        PHOTOS ISGW2;
 Enddecay
 #
 Decay B+
-1.000     D*+ mu- anti-nu_mu PHOTS ISGW2;
+1.000     anti-D*0 mu+ nu_mu        PHOTOS ISGW2;
 Enddecay
+CDecay B-
 #
+Decay B_s0
+1.000   D_s*-    mu+    nu_mu        PHOTOS  ISGW2;
+Enddecay
+CDecay anti-B_s0
 End
 """
                                             )
@@ -78,11 +86,11 @@ Bfilter = cms.EDFilter(
     "PythiaDauVFilter",
     ParticleID         = cms.untracked.int32(511),  ## B0
     ChargeConjugation  = cms.untracked.bool(False),
-    NumberDaughters    = cms.untracked.int32(3),
+    NumberDaughters    = cms.untracked.int32(2),
     DaughterIDs        = cms.untracked.vint32(-413, 321),
-    MinPt              = cms.untracked.vdouble(-1., 1.),
-    MinEta             = cms.untracked.vdouble(-9999999., -4.),
-    MaxEta             = cms.untracked.vdouble( 9999999., 4.)
+    MinPt              = cms.untracked.vdouble(-1., 0.3),
+    MinEta             = cms.untracked.vdouble(-9999999., -3.),
+    MaxEta             = cms.untracked.vdouble( 9999999., 3.)
 )
 
 

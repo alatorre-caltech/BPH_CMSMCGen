@@ -14,10 +14,13 @@
 # ------------- CONTROL REGION -------------
 process_name=BPH_Tag-Mu_Probe-B0_KDmst-pD0bar-kp_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen_SVS
 
+# ntuplizer_config=cmssw_privateMC_Tag_B0_MuDmst-pD0bar-kp.py
+ntuplizer_config=cmssw_privateMC_Tag_Mu-Probe-B0_KDmst-pD0bar-kp.py
+
 output_flag=test
 
 N_PU=0
-version=PU${N_PU}_10-2-3 #_v0
+version=PU${N_PU}_10-2-3_v0
 out_loc=/afs/cern.ch/user/o/ocerri/cernbox/BPhysics/data/cmsMC_private
 N_evts=$1
 # N_evts=100000
@@ -43,11 +46,11 @@ else
   # fi
 fi
 
+#Save output
+exec &> ${out_dir}/test.log
+
 cd /afs/cern.ch/user/o/ocerri/work/generation_CMSSW/CMSSW_10_2_3/src/
-
 eval `scramv1 runtime -sh`
-
-# mkdir -p Configuration/GenProduction/python
 
 cp $MC_frag_file Configuration/GenProduction/python/${process_name}_cfi.py
 
@@ -112,6 +115,22 @@ echo "--> Running step 4"
 date
 cmsRun step4_${output_flag}_MINIAODSIM_cfg.py &> step4.log
 rm ${output_flag}_AODSIM.root
+
+echo "Generation finished"
+date
+
+if [ -z "$ntuplizer_config" ]
+then
+  echo "No ntuplizer"
+else
+  echo "Step 5: MINIAOD -> CAND"
+  date
+  cd /afs/cern.ch/user/o/ocerri/work/CMSSW_10_2_3/src/ntuplizer/BPH_RDntuplizer
+  eval `scramv1 runtime -sh`
+  echo "--> Running step 5"
+  date
+  cmsRun config/$ntuplizer_config inputFile=$out_dir/test_MINIAODSIM.root outputFile=$out_dir/test_B02DstMuCAND.root &> $out_dir/step5.log
+fi
 
 echo "Job finished"
 date
