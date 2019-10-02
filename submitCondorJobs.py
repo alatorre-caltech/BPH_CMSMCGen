@@ -32,11 +32,8 @@ if __name__ == "__main__":
     parser.add_argument ('--nev', help='number of events per job', default=1000)
     parser.add_argument ('--njobs', help='number of jobs', default=10)
     parser.add_argument ('--st_seed', help='starting seed', default=1, type=int)
-
     parser.add_argument ('--PU', help='PU collisions to be generated', default=0, type=int)
-
-#_____________________________________________________________________________________________________________entral')
-
+#_____________________________________________________________________________________________________________
     parser.add_argument ('-P', '--process', help='Process name', default=
     # 'BPH_Tag-B0_MuNuDmst-pD0bar-kp_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen_ISGW2'
     # 'BPH_Tag-B0_TauNuDmst-pD0bar-kp-t2mnn_pythia8_Hardbbbar_PTFilter5_0p0-evtgen_ISGW2'
@@ -45,14 +42,15 @@ if __name__ == "__main__":
     )
 #_____________________________________________________________________________________________________________
 
-
     parser.add_argument ('--version', help='Process version', default='')
     parser.add_argument ('--CMSSW_loc', help='CMSSW src loc', default='/afs/cern.ch/user/o/ocerri/work/generation_CMSSW/CMSSW_10_2_3/src')
     parser.add_argument ('--outdir', help='output directory ', default='/afs/cern.ch/user/o/ocerri/cernbox/BPhysics/data/cmsMC_private')
     parser.add_argument ('--force_production', action='store_true', default=False, help='Proceed even if the directory is already existing')
+
     parser.add_argument ('--maxtime', help='Max wall run time [s=seconds, m=minutes, h=hours, d=days]', default='8h')
-    # parser.add_argument ('--memory', help='min virtual memory', default='8000')
-    # parser.add_argument ('--disk', help='min disk space', default='8000')
+    parser.add_argument ('--memory', help='min virtual memory', default='2000')
+    parser.add_argument ('--disk', help='min disk space', default='4000')
+    parser.add_argument ('--cpu', help='cpu threads', default='1')
 
     args = parser.parse_args()
 
@@ -123,7 +121,21 @@ if __name__ == "__main__":
     fsub.write('+MaxRuntime   = '+str(maxRunTime))
     fsub.write('\n')
     if os.uname()[1] == 'login-1.hep.caltech.edu':
+        fsub.write('+RunAsOwner = True')
+        fsub.write('\n')
+        fsub.write('+InteractiveUser = True')
+        fsub.write('\n')
         fsub.write('+SingularityImage = "/cvmfs/singularity.opensciencegrid.org/bbockelm/cms:rhel7"')
+        fsub.write('\n')
+        fsub.write('+SingularityBindCVMFS = True')
+        fsub.write('\n')
+        fsub.write('run_as_owner = True')
+        fsub.write('\n')
+        fsub.write('RequestDisk = ' + args.disk)
+        fsub.write('\n')
+        fsub.write('RequestMemory = ' + args.memory)
+        fsub.write('\n')
+        fsub.write('RequestCpus = ' + args.cpu)
         fsub.write('\n')
     fsub.write('x509userproxy = $ENV(X509_USER_PROXY)')
     fsub.write('\n')
