@@ -12,6 +12,17 @@ def processCmd(cmd, quite = 0):
         print 'Output:\n   ['+output+'] \n'
     return output
 
+def compileCMSSW(CMSSW_loc):
+    aux = raw_input('Do you want to compile CMSSW now? (y/n)\n')
+    if 'y' in aux:
+        print 'Now compiling ' + CMSSW_loc
+        cmd = 'cd ' + CMSSW_loc
+        cmd += '; source /cvmfs/cms.cern.ch/cmsset_default.sh'
+        cmd += '; eval `scramv1 runtime -sh`'
+        cmd += '; scram b -j12'
+        os.system(cmd)
+        return True
+    else: return False
 
 #_____________________________________________________________________________________________________________
 #example line: python submitCondorJobs.py --nev 30000 --njobs 500 --maxtime 12h --PU 0
@@ -67,18 +78,22 @@ if __name__ == "__main__":
     mc_frag_name = args.process+'_cfi.py'
     print 'Running process:', args.process
     if not os.path.exists(mc_frag_dir+'/'+mc_frag_name):
+        print 'Pre-existing MC fragment not found. Copying it from Configuration/GenProduction/python/'
         cmd = 'cp '
-        cmd += '/eos/user/o/ocerri/BPhysics/MCGeneration/BPH_CMSMCGen/Configuration/GenProduction/python/'
+        cmd += 'Configuration/GenProduction/python/'
         cmd += mc_frag_name
         cmd += ' '+mc_frag_dir+'/'
         os.system(cmd)
-        print 'Compile '+args.CMSSW_loc
+        compileCMSSW(args.CMSSW_loc)
+        print 'Re-run please.'
         sys.exit()
     else:
         print '--->> I hope you already compiled '+args.CMSSW_loc
         aux = raw_input('Have you? (y/n)\n')
         if 'n' in aux:
-            exit()
+            compileCMSSW(args.CMSSW_loc)
+            print 'Re-run please.'
+            sys.exit()
 
     if not os.path.exists(outdir):
         os.makedirs(outdir)
@@ -94,7 +109,7 @@ if __name__ == "__main__":
     print 'Creating submission script'
 
     fsub = open('jobs.sub', 'w')
-    fsub.write('executable    = /afs/cern.ch/user/o/ocerri/cernbox/BPhysics/MCGeneration/BPH_CMSMCGen/job1023_gen_v1.sh')
+    fsub.write('executable    = ' + os.environ['PWD'] + '/job1023_gen_v1.sh')
     fsub.write('\n')
     exec_args = str(nev)+' '+str(st_seed)+' $(ProcId) '+args.process+' '+outdir+' '+args.CMSSW_loc+' '+str(args.PU)
     fsub.write('arguments     = ' + exec_args)
@@ -107,6 +122,9 @@ if __name__ == "__main__":
     fsub.write('\n')
     fsub.write('+MaxRuntime   = '+str(maxRunTime))
     fsub.write('\n')
+    if os.uname()[1] == 'login-1.hep.caltech.edu':
+        fsub.write('+SingularityImage = "/cvmfs/singularity.opensciencegrid.org/bbockelm/cms:rhel7"')
+        fsub.write('\n')
     fsub.write('x509userproxy = $ENV(X509_USER_PROXY)')
     fsub.write('\n')
     fsub.write('universe = vanilla')
@@ -119,3 +137,6 @@ if __name__ == "__main__":
     output = processCmd('condor_submit jobs.sub')
     print 'Jobs submitted'
     os.rename('jobs.sub', outdir+'/cfg/jobs.sub')
+    call = '"python submitCondorJobs.py ' + ' '.join(sys.argv) + '"'
+    cmd = 'echo ' + call + ' >> ' + outdir+'/cfg/call.log'
+    os.system(cmd)

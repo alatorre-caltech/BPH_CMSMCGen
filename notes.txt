@@ -1,0 +1,3 @@
+To run on Caltech T2 add:
+
+--CMSSW_loc /storage/user/ocerri/work/CMSSW_10_2_3/src --outdir /storage/user/ocerri/cmsMC_private
