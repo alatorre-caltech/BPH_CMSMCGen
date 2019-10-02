@@ -27,7 +27,7 @@ then
 fi
 mkdir $out_dir/${output_flag}_${N_seed}
 
-
+source /cvmfs/cms.cern.ch/cmsset_default.sh
 cd $CMSSW_src_dir
 eval `scramv1 runtime -sh`
 cd -
