@@ -86,6 +86,6 @@ cp ./*.log $out_dir/${output_flag}_${N_seed}/
 echo "Job finished"
 date
 
-rm ./step*.py
-rm ./*.log
-rm ./*.root
+# rm ./step*.py
+# rm ./*.log
+# rm ./*.root
