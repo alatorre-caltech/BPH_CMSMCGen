@@ -6,8 +6,8 @@ process_name = 'BPH_Tag-Probe_B0_JpsiKst-mumuKpi-kp_13TeV-pythia8_Hardbbbar_PTFi
 N_PU = 20
 st_seed = 300
 njobs = 10
-nev = 10000
-maxtime = '1h'
+nev = 15000
+maxtime = '2h'
 
 time_scale = {'m':1, 'h':60, 'd':60*24}
 
@@ -24,7 +24,7 @@ config.JobType.psetName   = 'placeholder_cfg.py'
 config.JobType.inputFiles = ['Configuration/GenProduction/python/{}_cfi.py'.format(process_name), 'job1023_gen_v1.sh']
 # config.JobType.outputFiles = []
 config.JobType.allowUndistributedCMSSW = True
-config.JobType.maxMemoryMB = 2500
+config.JobType.maxMemoryMB = 4000
 config.JobType.maxJobRuntimeMin = int(maxtime[:-1]) * time_scale[maxtime[-1]]
 config.JobType.scriptExe = 'crab_job.sh'
 config.JobType.scriptArgs = ['nev='+str(nev), 'st_seed='+str(st_seed), 'process_name='+process_name, 'N_PU='+str(N_PU)]

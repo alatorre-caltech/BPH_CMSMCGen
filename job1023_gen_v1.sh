@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 #Meant to run with HTCondor
 
 #This job does not compile the CMSSW with the fragments. Be mindful and compile it haead.
@@ -80,6 +81,7 @@ echo "Generation done"
 date
 
 cp ${output_flag}_MINIAODSIM.root $out_dir/${output_flag}_MINIAODSIM_${N_seed}.root
+cp ${output_flag}_MINIAODSIM.root ${output_flag}_MINIAODSIM_${N_seed}.root
 
 cp ./*.log $out_dir/${output_flag}_${N_seed}/
 
