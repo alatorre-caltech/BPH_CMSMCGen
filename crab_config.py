@@ -4,17 +4,17 @@ from CRABClient.UserUtilities import config, getUsernameFromSiteDB
 #Define the process name here only once
 process_name = 'BPH_Tag-Probe_B0_JpsiKst-mumuKpi-kp_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen_SVV'
 N_PU = 20
-st_seed = 300
-njobs = 10
-nev = 15000
-maxtime = '2h'
+st_seed = 0
+njobs = 500
+nev = 150000
+maxtime = '10h'
 
 time_scale = {'m':1, 'h':60, 'd':60*24}
 
 config = config()
 
 config.General.requestName     = process_name
-config.General.workArea    = 'tmp'
+config.General.workArea        = 'tmp'
 config.General.transferOutputs = True
 config.General.transferLogs    = True
 

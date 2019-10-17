@@ -81,7 +81,6 @@ echo "Generation done"
 date
 
 cp ${output_flag}_MINIAODSIM.root $out_dir/${output_flag}_MINIAODSIM_${N_seed}.root
-cp ${output_flag}_MINIAODSIM.root ${output_flag}_MINIAODSIM_${N_seed}.root
 
 cp ./*.log $out_dir/${output_flag}_${N_seed}/
 
