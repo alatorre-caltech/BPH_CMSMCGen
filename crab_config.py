@@ -1,13 +1,25 @@
 import os
 from CRABClient.UserUtilities import config, getUsernameFromSiteDB
 
-#Define the process name here only once
-process_name = 'BPH_Tag-Probe_B0_JpsiKst-mumuKpi-kp_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen_SVV'
 N_PU = 20
-st_seed = 0
-njobs = 500
-nev = 150000
 maxtime = '10h'
+st_seed = 0
+njobs = 1000
+
+###### Define the process name here only once ####################
+# process_name = 'BPH_Tag-Probe_B0_JpsiKst-mumuKpi-kp_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen_SVV'
+# nev = 300000
+
+process_name = 'BPH_Tag-Probe_B0_JpsiKst-mumuKpi-kp_13TeV-pythia8_SoftQCD_PTFilter5_0p0-evtgen_SVV'
+nev = 50000
+
+# process_name = 'BPH_Tag-B0_DmstHc-pD0bar-kp-Hc2mu_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen'
+# nev = 500000
+
+import datetime
+currentDT = str(datetime.datetime.now())
+str2tail = '  '.join([currentDT, process_name, 'st_seed='+str(st_seed), 'n_ev='+str(nev), 'n_jobs='+str(njobs), 'maxtime='+str(maxtime)])
+os.system('echo "{}" >> generationLog.txt'.format(str2tail))
 
 time_scale = {'m':1, 'h':60, 'd':60*24}
 
@@ -37,3 +49,4 @@ config.Data.publication          = True
 config.Data.outputDatasetTag     = process_name
 
 config.Site.storageSite = 'T2_US_Caltech'
+config.Site.blacklist = ['T2_EE_*']

@@ -1,2 +1,6 @@
 cmsMC_private/BPH_Tag-Probe_B0_JpsiKst-mumuKpi-kp_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen_SVV/191008_160949
 starting seed = 0
+2019-10-17 20:06:41.991949  BPH_Tag-B0_DmstHc-pD0bar-kp-Hc2mu_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen  st_seed=0  n_jobs=500  maxtime=10h
+
+2019-10-19 11:38:37.145750  BPH_Tag-Probe_B0_JpsiKst-mumuKpi-kp_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen_SVV  st_seed=501  n_ev=300000  n_jobs=1000  maxtime=10h
+2019-10-24 21:53:35.481885  BPH_Tag-Probe_B0_JpsiKst-mumuKpi-kp_13TeV-pythia8_SoftQCD_PTFilter5_0p0-evtgen_SVV  st_seed=0  n_ev=50000  n_jobs=1000  maxtime=10h
