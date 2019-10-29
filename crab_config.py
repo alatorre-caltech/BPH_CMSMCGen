@@ -25,7 +25,7 @@ time_scale = {'m':1, 'h':60, 'd':60*24}
 
 config = config()
 
-config.General.requestName     = process_name
+config.General.requestName     = process_name + '_PU' + str(N_PU) + '_' + os.environ['CMSSW_VERSION'][6:].replace('_','-')
 config.General.workArea        = 'tmp'
 config.General.transferOutputs = True
 config.General.transferLogs    = True

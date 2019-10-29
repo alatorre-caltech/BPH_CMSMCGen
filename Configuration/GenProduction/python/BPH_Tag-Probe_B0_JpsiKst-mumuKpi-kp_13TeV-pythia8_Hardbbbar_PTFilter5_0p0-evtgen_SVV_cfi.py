@@ -97,7 +97,7 @@ KstFilter = cms.EDFilter(
 
 JpsiFilter = cms.EDFilter(
     "PythiaDauVFilter",
-    ParticleID         = cms.untracked.int32(443),  ## K*0
+    ParticleID         = cms.untracked.int32(443),  ## J/Psi
     NumberDaughters    = cms.untracked.int32(2),
     DaughterIDs        = cms.untracked.vint32(-13, 13),
     MinPt              = cms.untracked.vdouble(1., 1.),
