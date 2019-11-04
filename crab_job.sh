@@ -49,6 +49,12 @@ N_PU=${N_PU:5}
 echo $N_PU
 
 ./job1023_gen_v1.sh ${nev:4} $st_seed $job_id $process_name out_$((st_seed+job_id)) CMSSW_10_2_3/src $N_PU
+# Rename the log files in order to end with .root
+mv out.log outlog.root
+mv step1.log step1log.root
+mv step2.log step2log.root
+mv step3.log step3log.root
+mv step4.log step4log.root
 
 #here need to create the FrameworkJobReport.xml which gets propagated to crab
 cmsRun -j FrameworkJobReport.xml step4_out_MINIAODSIM_cfg.py

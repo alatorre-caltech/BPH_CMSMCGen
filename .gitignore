@@ -1,3 +1,5 @@
 ocerri.cc
+*.pyc
 *.sub
 tmp
+crab.log
