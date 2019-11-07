@@ -3,25 +3,29 @@ import os
 from CRABClient.UserUtilities import config, getUsernameFromSiteDB
 
 N_PU = 20
-maxtime = '10h'
 st_seed = 301
 njobs = 1500
 
 ################## Define the process name here only once ######################
+# maxtime = '10h'
 # process_name = 'BPH_Tag-Probe_B0_JpsiKst-mumuKpi-kp_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen_SVV'
 # nev = 300000
 
+# maxtime = '10h'
 # process_name = 'BPH_Tag-Probe_B0_JpsiKst-mumuKpi-kp_13TeV-pythia8_SoftQCD_PTFilter5_0p0-evtgen_SVV'
 # nev = 50000
 
+# maxtime = '10h'
 # process_name = 'BPH_Tag-B0_DmstHc-pD0bar-kp-Hc2mu_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen'
 # nev = 500000
 
+# maxtime = '10h'
 # process_name = 'BPH_Tag-B0_MuNuDmst-pD0bar-kp_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen_ISGW2'
 # nev = 300000
 
+maxtime = '8h'
 process_name = 'BPH_Tag-B0_TauNuDmst-pD0bar-kp-t2mnn_pythia8_Hardbbbar_PTFilter5_0p0-evtgen_ISGW2'
-nev = 300000
+nev = 150000
 
 ################################################################################
 

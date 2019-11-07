@@ -9,9 +9,9 @@ set -e
 # process_name=BPH_NoCuts_Tag-B0_TauNuDmst-pD0bar-kp-t2mnn_pythia8_SoftQCD_PTFilter5_0p0-evtgen_HQET2_central
 # process_name=BPH_13TeV-pythia8_SoftQCD_PTFilter5_0p0
 # process_name=BPH_Tag-B0_MuNuDmst-pD0bar-kp_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen_ISGW2
-# process_name=BPH_Tag-B0_TauNuDmst-pD0bar-kp-t2mnn_pythia8_Hardbbbar_PTFilter5_0p0-evtgen_ISGW2
+process_name=BPH_Tag-B0_TauNuDmst-pD0bar-kp-t2mnn_pythia8_Hardbbbar_PTFilter5_0p0-evtgen_ISGW2
 
-# ntuplizer_config=cmssw_privateMC_Tag_B0_MuDmst-pD0bar-kp.py
+ntuplizer_config=cmssw_privateMC_Tag_B0_MuDmst-pD0bar-kp.py
 # --------------------------------------------------------------------------------
 
 # ------------------------------ BACKGROUND -----------------------------------------
@@ -21,10 +21,10 @@ set -e
 # ------------------------------ CONTROL REGION ----------------------------------
 # process_name=BPH_Tag-Mu_Probe-B0_KDmst-pD0bar-kp_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen_SVS
 # process_name=BPH_Tag-Probe_B0_JpsiKst-mumuKpi-kp_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen_SVV
-process_name=BPH_Tag-Probe_B0_JpsiKst-mumuKpi-kp_13TeV-pythia8_SoftQCD_PTFilter5_0p0-evtgen_SVV
+# process_name=BPH_Tag-Probe_B0_JpsiKst-mumuKpi-kp_13TeV-pythia8_SoftQCD_PTFilter5_0p0-evtgen_SVV
 
 # ntuplizer_config=cmssw_privateMC_Tag_Mu-Probe-B0_KDmst-pD0bar-kp.py
-ntuplizer_config=cmssw_privateMC_Tag_Mu-Probe-B0_JpsiKst-mumuKpi.py
+# ntuplizer_config=cmssw_privateMC_Tag_Mu-Probe-B0_JpsiKst-mumuKpi.py
 # --------------------------------------------------------------------------------
 
 
@@ -33,11 +33,14 @@ output_flag=test
 N_PU=20
 version=PU${N_PU}_10-2-3
 out_loc=/afs/cern.ch/user/o/ocerri/cernbox/BPhysics/data/cmsMC_private
+if [ `uname -n` = "login-1.hep.caltech.edu" ]; then
+  out_loc=/storage/user/ocerri/BPhysics/data/cmsMC_private
+fi
 N_evts=$1
 # N_evts=100000
 
 out_dir=$out_loc/${process_name}_$version
-MC_frag_file=/afs/cern.ch/user/o/ocerri/cernbox/BPhysics/MCGeneration/BPH_CMSMCGen/Configuration/GenProduction/python/${process_name}_cfi.py
+MC_frag_file=$PWD/Configuration/GenProduction/python/${process_name}_cfi.py
 
 if [ ! -d "$out_dir" ]; then
   echo "Creating the output directory"
@@ -45,13 +48,14 @@ if [ ! -d "$out_dir" ]; then
   mkdir $out_dir
 else
   echo $out_dir
-  echo "Directory already existing, removing it"
+  echo "Directory already existing, cleaning it"
+  rm -fv $out_dir/test*
+  rm -fv $out_dir/step*
   # read -p $'Do you want to delete it, recreate it and proceed? (y/n)\n' asw
   # if [ asw="y" ];then
-  rm -rfv $out_dir
-  echo "Creating the output directory"
-  echo $out_dir
-  mkdir $out_dir
+  # echo "Creating the output directory"
+  # echo $out_dir
+  # mkdir $out_dir
   # else
   #   exit
   # fi
@@ -60,9 +64,16 @@ fi
 #Save output
 exec &> ${out_dir}/test.log
 
-cd /afs/cern.ch/user/o/ocerri/work/generation_CMSSW/CMSSW_10_2_3/src/
+if [ `uname -n` = "login-1.hep.caltech.edu" ]; then
+  cd /storage/user/ocerri/generation/CMSSW_10_2_3/src
+else
+  cd /afs/cern.ch/user/o/ocerri/work/generation_CMSSW/CMSSW_10_2_3/src/
+fi
 eval `scramv1 runtime -sh`
 
+if [ ! -d "Configuration/GenProduction/python" ]; then
+  mkdir -p Configuration/GenProduction/python
+fi
 cp $MC_frag_file Configuration/GenProduction/python/${process_name}_cfi.py
 
 scram b -j12
@@ -136,7 +147,11 @@ then
 else
   echo "Step 5: MINIAOD -> CAND"
   date
-  cd /afs/cern.ch/user/o/ocerri/work/CMSSW_10_2_3/src/ntuplizer/BPH_RDntuplizer
+  if [ `uname -n` = "login-1.hep.caltech.edu" ]; then
+    cd /storage/user/ocerri/work/CMSSW_10_2_3/src/ntuplizer/BPH_RDntuplizer
+  else
+    cd /afs/cern.ch/user/o/ocerri/work/CMSSW_10_2_3/src/ntuplizer/BPH_RDntuplizer
+  fi
   eval `scramv1 runtime -sh`
   echo "--> Running step 5"
   date

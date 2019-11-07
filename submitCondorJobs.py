@@ -36,23 +36,41 @@ if __name__ == "__main__":
 #_____________________________________________________________________________________________________________
     parser.add_argument ('-P', '--process', help='Process name', default=
     # 'BPH_Tag-B0_MuNuDmst-pD0bar-kp_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen_ISGW2'
-    # 'BPH_Tag-B0_TauNuDmst-pD0bar-kp-t2mnn_pythia8_Hardbbbar_PTFilter5_0p0-evtgen_ISGW2'
+    'BPH_Tag-B0_TauNuDmst-pD0bar-kp-t2mnn_pythia8_Hardbbbar_PTFilter5_0p0-evtgen_ISGW2'
     # 'BPH_Tag-Mu_Probe-B0_KDmst-pD0bar-kp_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen_SVS'
-    'BPH_Tag-Probe_B0_JpsiKst-mumuKpi-kp_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen_SVV'
+    # 'BPH_Tag-Probe_B0_JpsiKst-mumuKpi-kp_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen_SVV'
     )
 #_____________________________________________________________________________________________________________
 
     parser.add_argument ('--version', help='Process version', default='')
-    parser.add_argument ('--CMSSW_loc', help='CMSSW src loc', default='/afs/cern.ch/user/o/ocerri/work/generation_CMSSW/CMSSW_10_2_3/src')
-    parser.add_argument ('--outdir', help='output directory ', default='/afs/cern.ch/user/o/ocerri/cernbox/BPhysics/data/cmsMC_private')
+    parser.add_argument ('--CMSSW_loc', help='CMSSW src loc', default=None)
+    parser.add_argument ('--outdir', help='output directory ', default=None)
     parser.add_argument ('--force_production', action='store_true', default=False, help='Proceed even if the directory is already existing')
 
     parser.add_argument ('--maxtime', help='Max wall run time [s=seconds, m=minutes, h=hours, d=days]', default='8h')
-    parser.add_argument ('--memory', help='min virtual memory', default='4000')
+    parser.add_argument ('--memory', help='min virtual memory', default='2000')
     parser.add_argument ('--disk', help='min disk space', default='4000')
     parser.add_argument ('--cpu', help='cpu threads', default='1')
 
     args = parser.parse_args()
+
+    if args.CMSSW_loc is None:
+        if os.uname()[1] == 'login-1.hep.caltech.edu':
+            args.CMSSW_loc = '/storage/user/ocerri/generation/CMSSW_10_2_3/src'
+        elif os.uname()[1][:6] == 'lxplus':
+            args.CMSSW_loc = '/afs/cern.ch/user/o/ocerri/work/generation_CMSSW/CMSSW_10_2_3/src'
+        else:
+            print 'No default CMSSW location is set for', os.uname()[1]
+            exit()
+
+    if args.outdir is None:
+        if os.uname()[1] == 'login-1.hep.caltech.edu':
+            args.outdir = '/storage/user/ocerri/BPhysics/data/cmsMC_private'
+        elif os.uname()[1][:6] == 'lxplus':
+            args.outdir = '/afs/cern.ch/user/o/ocerri/cernbox/BPhysics/data/cmsMC_private'
+        else:
+            print 'No default output direcotry is set for', os.uname()[1]
+            exit()
 
     nev        = args.nev
     njobs      = int(args.njobs)
@@ -133,11 +151,22 @@ if __name__ == "__main__":
         fsub.write('\n')
         fsub.write('RequestDisk = ' + args.disk)
         fsub.write('\n')
-        fsub.write('RequestMemory = ' + args.memory)
+        # fsub.write('RequestMemory = ' + args.memory) #Static allocation
+        fsub.write('request_memory = ifthenelse(MemoryUsage =!= undefined, MAX({{MemoryUsage + 1024, {0}}}), {0})'.format(args.memory)) # Dynamic allocation
         fsub.write('\n')
         fsub.write('RequestCpus = ' + args.cpu)
         fsub.write('\n')
     fsub.write('x509userproxy = $ENV(X509_USER_PROXY)')
+    fsub.write('\n')
+    fsub.write('on_exit_remove = (ExitBySignal == False) && (ExitCode == 0)')
+    fsub.write('\n')
+    fsub.write('on_exit_hold = (ExitBySignal == True) || (ExitCode != 0)')   # Send the job to Held state on failure.
+    fsub.write('\n')
+    fsub.write('periodic_release =  (NumJobStarts < 3) && ((CurrentTime - EnteredCurrentStatus) > (60*60))')   # Periodically retry the jobs for 3 times with an interval 1 hour.
+    fsub.write('\n')
+    fsub.write('max_retries    = 3')
+    fsub.write('\n')
+    fsub.write('requirements   = Machine =!= LastRemoteHost')
     fsub.write('\n')
     fsub.write('universe = vanilla')
     fsub.write('\n')
