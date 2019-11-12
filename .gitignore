@@ -3,3 +3,7 @@ ocerri.cc
 *.sub
 tmp
 crab.log
+*-*-*-*
+step*
+*.root
+*.log
