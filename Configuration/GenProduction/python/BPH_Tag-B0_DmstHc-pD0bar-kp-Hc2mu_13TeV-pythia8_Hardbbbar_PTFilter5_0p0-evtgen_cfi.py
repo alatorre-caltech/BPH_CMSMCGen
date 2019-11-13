@@ -231,6 +231,7 @@ mufilter = cms.EDFilter("PythiaFilter",
 DstFilter = cms.EDFilter(
     "PythiaDauVFilter",
     ParticleID         = cms.untracked.int32(-413),
+    ChargeConjugation  = cms.untracked.bool(False),
     NumberDaughters    = cms.untracked.int32(2),
     DaughterIDs        = cms.untracked.vint32(-421, -211),
     MinPt              = cms.untracked.vdouble(0.5, 0.5),

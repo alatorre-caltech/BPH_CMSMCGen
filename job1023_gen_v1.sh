@@ -76,7 +76,8 @@ cmsDriver.py --filein file:${output_flag}_AODSIM.root --fileout file:${output_fl
 echo "--> Running step 4"
 date
 cmsRun step4_${output_flag}_MINIAODSIM_cfg.py 2>&1 | tee step4.log
-
+exitcode=$?
+echo "CMSSW step4 exit code: $exitcode"
 echo "Generation done"
 date
 
@@ -86,7 +87,7 @@ cp ./*.log $out_dir/${output_flag}_${N_seed}/
 
 echo "Job finished"
 date
-
+exit $exitcode
 # rm ./step*.py
 # rm ./*.log
 # rm ./*.root

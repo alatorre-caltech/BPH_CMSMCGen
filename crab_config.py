@@ -15,11 +15,11 @@ njobs = 3500
 # process_name = 'BPH_Tag-Probe_B0_JpsiKst-mumuKpi-kp_13TeV-pythia8_SoftQCD_PTFilter5_0p0-evtgen_SVV'
 # nev = 50000
 
-# maxtime = '10h'
+# maxtime = '12h'
 # process_name = 'BPH_Tag-B0_DmstHc-pD0bar-kp-Hc2mu_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen'
 # nev = 400000
 
-maxtime = '10h'
+maxtime = '12h'
 process_name = 'BPH_Tag-B0_MuNuDmst-pD0bar-kp_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen_ISGW2'
 nev = 300000
 
