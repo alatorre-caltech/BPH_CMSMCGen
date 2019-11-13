@@ -124,7 +124,7 @@ if __name__ == "__main__":
     os.system('chmod +x job1023_gen_v1.sh')
     print 'Creating submission script'
 
-    fsub = open('jobs.sub', 'w')
+    fsub = open('jobs.jdl', 'w')
     fsub.write('executable    = ' + os.environ['PWD'] + '/job1023_gen_v1.sh')
     fsub.write('\n')
     exec_args = str(nev)+' '+str(st_seed)+' $(ProcId) '+args.process+' '+outdir+' '+args.CMSSW_loc+' '+str(args.PU)
@@ -135,6 +135,8 @@ if __name__ == "__main__":
     fsub.write('error         = {}/out/job_$(ProcId)_$(ClusterId).err'.format(outdir))
     fsub.write('\n')
     fsub.write('log           = {}/out/job_$(ProcId)_$(ClusterId).log'.format(outdir))
+    fsub.write('\n')
+    fsub.write('WHEN_TO_TRANSFER_OUTPUT = ON_EXIT_OR_EVICT')
     fsub.write('\n')
     fsub.write('+MaxRuntime   = '+str(maxRunTime))
     fsub.write('\n')
@@ -164,7 +166,7 @@ if __name__ == "__main__":
     fsub.write('\n')
     fsub.write('periodic_release =  (NumJobStarts < 3) && ((CurrentTime - EnteredCurrentStatus) > (60*20))')   # Periodically retry the jobs for 3 times with an interval of 20 minutes.
     fsub.write('\n')
-    fsub.write('periodic_remove =  MemoryUsage > {}'.format(int(args.memory*2.5)))
+    fsub.write('periodic_remove =  MemoryUsage > {}'.format(int(float(args.memory)*2.5)))
     # fsub.write('periodic_remove =  MemoryUsage > RequestMemory + 4092')
     fsub.write('\n')
     fsub.write('max_retries    = 3')
@@ -177,10 +179,16 @@ if __name__ == "__main__":
     fsub.write('\n')
     fsub.close()
 
+    #Create tmp directory
+    if not os.path.isdir('tmp_return'):
+        os.system('mkdir tmp_return')
+    os.system('mv jobs.jdl tmp_return/jobs.jdl')
+
     print 'Submitting jobs...'
-    output = processCmd('condor_submit jobs.sub')
+    output = processCmd('cd tmp_return; condor_submit jobs.jdl')
     print 'Jobs submitted'
-    os.rename('jobs.sub', outdir+'/cfg/jobs.sub')
+    os.rename('tmp_return/jobs.jdl', outdir+'/cfg/jobs.jdl')
     call = '"python submitCondorJobs.py ' + ' '.join(sys.argv) + '"'
     cmd = 'echo ' + call + ' >> ' + outdir+'/cfg/call.log'
     os.system(cmd)
+    os.system('cd ..')

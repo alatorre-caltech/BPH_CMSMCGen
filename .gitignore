@@ -2,6 +2,7 @@ ocerri.cc
 *.pyc
 *.sub
 tmp
+tmp_*
 crab.log
 *-*-*-*
 step*
