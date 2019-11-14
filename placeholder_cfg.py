@@ -27,7 +27,9 @@ process.output = cms.OutputModule("PoolOutputModule",
 
 
 process.CPU = cms.Service("CPU")
-
+process.options = cms.untracked.PSet(
+    numberOfThreads = cms.untracked.uint32( 2 ),
+)
 
 process.SimpleMemoryCheck = cms.Service("SimpleMemoryCheck",
     jobReportOutputOnly = cms.untracked.bool(True)

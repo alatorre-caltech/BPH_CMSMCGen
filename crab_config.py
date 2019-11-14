@@ -3,11 +3,11 @@ import os
 from CRABClient.UserUtilities import config, getUsernameFromSiteDB
 
 N_PU = 20
-st_seed = 1801
-njobs = 3500
+st_seed = 0
+njobs = 2000
 
 ################## Define the process name here only once ######################
-# maxtime = '10h'
+# maxtime = '12h'
 # process_name = 'BPH_Tag-Probe_B0_JpsiKst-mumuKpi-kp_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen_SVV'
 # nev = 300000
 
@@ -19,14 +19,17 @@ njobs = 3500
 # process_name = 'BPH_Tag-B0_DmstHc-pD0bar-kp-Hc2mu_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen'
 # nev = 400000
 
-maxtime = '12h'
-process_name = 'BPH_Tag-B0_MuNuDmst-pD0bar-kp_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen_ISGW2'
-nev = 300000
+# maxtime = '12h'
+# process_name = 'BPH_Tag-B0_MuNuDmst-pD0bar-kp_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen_ISGW2'
+# nev = 300000
 
 # maxtime = '12h'
 # process_name = 'BPH_Tag-B0_TauNuDmst-pD0bar-kp-t2mnn_pythia8_Hardbbbar_PTFilter5_0p0-evtgen_ISGW2'
 # nev = 150000
 
+maxtime = '10h'
+process_name = 'BPH_Tag-Bp_MuNuDstst_DmstPi_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen_ISGW2'
+nev = 100000
 ################################################################################
 
 import datetime
@@ -50,6 +53,7 @@ config.JobType.inputFiles = ['Configuration/GenProduction/python/{}_cfi.py'.form
 config.JobType.outputFiles = ['outlog.root', 'step1log.root', 'step2log.root', 'step3log.root', 'step4log.root']
 config.JobType.allowUndistributedCMSSW = True
 config.JobType.maxMemoryMB = 4000
+config.JobType.numCores = 2
 config.JobType.maxJobRuntimeMin = int(maxtime[:-1]) * time_scale[maxtime[-1]]
 config.JobType.scriptExe = 'crab_job.sh'
 config.JobType.scriptArgs = ['nev='+str(nev), 'st_seed='+str(st_seed), 'process_name='+process_name, 'N_PU='+str(N_PU)]

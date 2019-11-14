@@ -25,7 +25,7 @@ def compileCMSSW(CMSSW_loc):
     else: return False
 
 #_____________________________________________________________________________________________________________
-#example line: python submitCondorJobs.py --nev 30000 --njobs 500 --maxtime 12h --PU 0
+#example line: python submitCondorJobs.py --nev 100000 --njobs 100 --maxtime 8h --PU 20
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
 
@@ -37,6 +37,7 @@ if __name__ == "__main__":
     parser.add_argument ('-P', '--process', help='Process name', default=
     'BPH_Tag-B0_MuNuDmst-pD0bar-kp_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen_ISGW2'
     # 'BPH_Tag-B0_TauNuDmst-pD0bar-kp-t2mnn_pythia8_Hardbbbar_PTFilter5_0p0-evtgen_ISGW2'
+    # 'BPH_Tag-Bp_MuNuDstst_DmstPi_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen_ISGW2'
     # 'BPH_Tag-Mu_Probe-B0_KDmst-pD0bar-kp_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen_SVS'
     # 'BPH_Tag-Probe_B0_JpsiKst-mumuKpi-kp_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen_SVV'
     )
@@ -50,7 +51,7 @@ if __name__ == "__main__":
     parser.add_argument ('--maxtime', help='Max wall run time [s=seconds, m=minutes, h=hours, d=days]', default='8h')
     parser.add_argument ('--memory', help='min virtual memory', default='4000')
     parser.add_argument ('--disk', help='min disk space', default='4000')
-    parser.add_argument ('--cpu', help='cpu threads', default='1')
+    parser.add_argument ('--cpu', help='cpu threads', default='2')
 
     args = parser.parse_args()
 
@@ -166,8 +167,7 @@ if __name__ == "__main__":
     fsub.write('\n')
     fsub.write('periodic_release =  (NumJobStarts < 3) && ((CurrentTime - EnteredCurrentStatus) > (60*20))')   # Periodically retry the jobs for 3 times with an interval of 20 minutes.
     fsub.write('\n')
-    fsub.write('periodic_remove =  MemoryUsage > {}'.format(int(float(args.memory)*2.5)))
-    # fsub.write('periodic_remove =  MemoryUsage > RequestMemory + 4092')
+    fsub.write('+PeriodicRemove = ((JobStatus =?= 2) && ((MemoryUsage =!= UNDEFINED && MemoryUsage > 2.5*RequestMemory)))')
     fsub.write('\n')
     fsub.write('max_retries    = 3')
     fsub.write('\n')
