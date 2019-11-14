@@ -4,7 +4,6 @@ ocerri.cc
 tmp
 tmp_*
 crab.log
-*-*-*-*
 step*
 *.root
 *.log
