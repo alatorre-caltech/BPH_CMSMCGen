@@ -48,7 +48,7 @@ cmsRun step1_${output_flag}_GEN-SIM_cfg.py 2>&1 | tee step1.log
 echo "Step 2: GEN-SIM -> RAW"
 date
 
-if [ $N_PU -gt 0]
+if [ $N_PU -gt 0 ]
 then
   cmsDriver.py --mc --eventcontent RAWSIM --datatier GEN-SIM-RAW --conditions 102X_upgrade2018_realistic_v15 --step DIGI,L1,DIGI2RAW,HLT:@relval2018 --nThreads 2 --era Run2_2018 --filein file:${output_flag}_GEN-SIM.root --fileout file:${output_flag}_RAW.root --python_filename step2_${output_flag}_RAW_cfg.py --no_exec -n -1 --geometry DB:Extended --pileup "AVE_25_BX_25ns,{'N': ${N_PU}}" --pileup_input filelist:/afs/cern.ch/user/o/ocerri/cernbox/BPhysics/MCGeneration/BPH_CMSMCGen/PU_file_list/MinBias_TuneCP5_13TeV-pythia8__RunIIFall18GS-102X_upgrade2018_realistic_v9-v1__GEN-SIM.txt
 else

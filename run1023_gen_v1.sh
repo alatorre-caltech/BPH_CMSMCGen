@@ -103,7 +103,7 @@ cmsRun step1_${output_flag}_GEN-SIM_cfg.py &> step1.log
 echo "Step 2: GEN-SIM -> RAW"
 date
 
-if [ $N_PU -gt 0]
+if [ $N_PU -gt 0 ]
 then
   # Create PU file list
   # das_client --query="file dataset = /MinBias_TuneCP5_13TeV-pythia8/RunIIFall18GS-102X_upgrade2018_realistic_v9-v1/GEN-SIM" --limit=0 >> MinBias_TuneCP5_13TeV-pythia8_RunIIFall18GS-102X_upgrade2018_realistic_v9-v1_list.txt

@@ -49,8 +49,8 @@ if __name__ == "__main__":
     parser.add_argument ('--force_production', action='store_true', default=False, help='Proceed even if the directory is already existing')
 
     parser.add_argument ('--maxtime', help='Max wall run time [s=seconds, m=minutes, h=hours, d=days]', default='8h')
-    parser.add_argument ('--memory', help='min virtual memory', default='4000')
-    parser.add_argument ('--disk', help='min disk space', default='4000')
+    parser.add_argument ('--memory', help='min virtual memory in MB', default='3000')
+    parser.add_argument ('--disk', help='min disk space in KB', default='2000000')
     parser.add_argument ('--cpu', help='cpu threads', default='2')
 
     args = parser.parse_args()
