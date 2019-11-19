@@ -2,7 +2,7 @@
 import os
 from CRABClient.UserUtilities import config, getUsernameFromSiteDB
 
-N_PU = 20
+N_PU = 0
 st_seed = 0
 njobs = 2000
 
@@ -19,17 +19,18 @@ njobs = 2000
 # process_name = 'BPH_Tag-B0_DmstHc-pD0bar-kp-Hc2mu_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen'
 # nev = 400000
 
-# maxtime = '12h'
+maxtime = '12h'
 # process_name = 'BPH_Tag-B0_MuNuDmst-pD0bar-kp_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen_ISGW2'
-# nev = 300000
+process_name = 'BPH_Tag-B0_MuNuDmst-pD0bar-kp_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen_HQET2_central'
+nev = 300000
 
 # maxtime = '12h'
 # process_name = 'BPH_Tag-B0_TauNuDmst-pD0bar-kp-t2mnn_pythia8_Hardbbbar_PTFilter5_0p0-evtgen_ISGW2'
 # nev = 150000
 
-maxtime = '10h'
-process_name = 'BPH_Tag-Bp_MuNuDstst_DmstPi_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen_ISGW2'
-nev = 100000
+# maxtime = '10h'
+# process_name = 'BPH_Tag-Bp_MuNuDstst_DmstPi_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen_ISGW2'
+# nev = 100000
 ################################################################################
 
 import datetime

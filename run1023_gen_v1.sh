@@ -1,22 +1,18 @@
 #!/bin/bash
 set -e
 # ------------------------------ SIGNAL -----------------------------------------
-# process_name=BPH_Tag-B0_MuNuDmst-pD0bar-kp_13TeV-pythia8_SoftQCD_PTFilter5_0p0-evtgen_HQET2_central
-# process_name=BPH_Tag-B0_MuNuDmst-pD0bar-kp_13TeV-pythia8_Hardbbbar_PTHat5p0-evtgen_HQET2_central
-# process_name=BPH_Tag-B0_TauNuDmst-pD0bar-kp-t2mnn_pythia8_SoftQCD_PTFilter5_0p0-evtgen_HQET2_central
-# process_name=BPH_Tag-Bp_MuNuD10-2420_DmstPi_13TeV-pythia8_SoftQCD_PTFilter5_0p0-evtgen_HQET2_central
-# process_name=BPH_NoCuts_Tag-B0_MuNuDmst-pD0bar-kp_13TeV-pythia8_SoftQCD_PTFilter5_0p0-evtgen_HQET2_central
-# process_name=BPH_NoCuts_Tag-B0_TauNuDmst-pD0bar-kp-t2mnn_pythia8_SoftQCD_PTFilter5_0p0-evtgen_HQET2_central
-# process_name=BPH_13TeV-pythia8_SoftQCD_PTFilter5_0p0
+process_name=BPH_Tag-B0_MuNuDmst-pD0bar-kp_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen_HQET2_central
 # process_name=BPH_Tag-B0_MuNuDmst-pD0bar-kp_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen_ISGW2
 # process_name=BPH_Tag-B0_TauNuDmst-pD0bar-kp-t2mnn_pythia8_Hardbbbar_PTFilter5_0p0-evtgen_ISGW2
-process_name=BPH_Tag-Bp_MuNuDstst_DmstPi_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen_ISGW2
 
 ntuplizer_config=cmssw_privateMC_Tag_B0_MuDmst-pD0bar-kp.py
 # --------------------------------------------------------------------------------
 
 # ------------------------------ BACKGROUND -----------------------------------------
+# process_name=BPH_Tag-Bp_MuNuDstst_DmstPi_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen_ISGW2
 # process_name=BPH_Tag-B0_DmstHc-pD0bar-kp-Hc2mu_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen
+
+# ntuplizer_config=cmssw_privateMC_Tag_B0_MuDmst-pD0bar-kp.py
 # --------------------------------------------------------------------------------
 
 # ------------------------------ CONTROL REGION ----------------------------------
@@ -31,7 +27,7 @@ ntuplizer_config=cmssw_privateMC_Tag_B0_MuDmst-pD0bar-kp.py
 
 output_flag=test
 
-N_PU=20
+N_PU=0
 version=PU${N_PU}_10-2-3
 out_loc=/afs/cern.ch/user/o/ocerri/cernbox/BPhysics/data/cmsMC_private
 if [ `uname -n` = "login-1.hep.caltech.edu" ]; then
