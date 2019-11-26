@@ -137,9 +137,13 @@ if __name__ == "__main__":
     fsub.write('\n')
     fsub.write('log           = {}/out/job_$(ProcId)_$(ClusterId).log'.format(outdir))
     fsub.write('\n')
+    fsub.write('JobPrio = -1')
+    fsub.write('\n')
     fsub.write('WHEN_TO_TRANSFER_OUTPUT = ON_EXIT_OR_EVICT')
     fsub.write('\n')
     fsub.write('+MaxRuntime   = '+str(maxRunTime))
+    fsub.write('\n')
+    fsub.write('nice_user = True')
     fsub.write('\n')
     if os.uname()[1] == 'login-1.hep.caltech.edu':
         fsub.write('+RunAsOwner = True')

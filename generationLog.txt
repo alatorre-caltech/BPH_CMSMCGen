@@ -12,3 +12,5 @@ starting seed = 0
 2019-11-13 12:30:17.535470  BPH_Tag-Probe_B0_JpsiKst-mumuKpi-kp_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen_SVV  st_seed=1501  n_ev=300000  n_jobs=3500  maxtime=12h  PU=20
 2019-11-14 00:23:48.248378  BPH_Tag-Bp_MuNuDstst_DmstPi_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen_ISGW2  st_seed=0  n_ev=100000  n_jobs=2000  maxtime=10h  PU=20
 2019-11-18 18:34:43.704469  BPH_Tag-B0_MuNuDmst-pD0bar-kp_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen_HQET2_central  st_seed=0  n_ev=300000  n_jobs=2000  maxtime=12h  PU=0
+
+// PU debugged from here on

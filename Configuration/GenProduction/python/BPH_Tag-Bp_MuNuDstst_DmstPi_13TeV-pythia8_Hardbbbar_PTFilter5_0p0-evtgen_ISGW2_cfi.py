@@ -49,9 +49,14 @@ Enddecay
 #
 #
 Decay B+
-0.0045   myanti-D_10   mu+  nu_mu       PHOTOS   ISGW2;
-0.0040   myanti-D'_10   mu+  nu_mu      PHOTOS   ISGW2;
-0.0010   myanti-D_2*0   mu+  nu_mu      PHOTOS   ISGW2; # 0.0033*0.209/0.6667
+# From decay table of EvtGen
+# 0.0045   myanti-D_10   mu+  nu_mu       PHOTOS   ISGW2;
+# 0.0040   myanti-D'_10   mu+  nu_mu      PHOTOS   ISGW2;
+# 0.0010   myanti-D_2*0   mu+  nu_mu      PHOTOS   ISGW2; # 0.0033*0.209/0.6667
+# From PDG, including D** -> D* decay
+0.0030   myanti-D_10   mu+  nu_mu       PHOTOS   ISGW2;
+0.0027   myanti-D'_10   mu+  nu_mu      PHOTOS   ISGW2;
+0.0010   myanti-D_2*0   mu+  nu_mu      PHOTOS   ISGW2;
 Enddecay
 #
 End

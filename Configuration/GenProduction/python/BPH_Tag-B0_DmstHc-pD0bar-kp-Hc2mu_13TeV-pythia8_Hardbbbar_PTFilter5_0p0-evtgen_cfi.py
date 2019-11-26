@@ -27,9 +27,9 @@ Alias myMuTau- tau-
 ChargeConj myMuTau+ myMuTau-
 Decay myMuTau-
 0.170000000 mu-     anti-nu_mu nu_tau                       PHOTOS  TAULNUNU; #[Reconstructed PDG2011]
-0.003600000 mu-     anti-nu_mu nu_tau  gamma                PHSP;  #[New mode added] #[Reconstructed PDG2011]
+0.003900000 mu-     anti-nu_mu nu_tau  gamma                PHSP;  #[New mode added] #[Reconstructed PDG2011]
 Enddecay
-## Tot BR = 0.1736
+## Tot BR = 0.1739
 CDecay myMuTau+
 #
 Alias myLepD_s+ D_s+

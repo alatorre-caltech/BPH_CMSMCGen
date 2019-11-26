@@ -94,7 +94,7 @@ cd $out_dir
 
 echo "--> Running step 1"
 date
-cmsRun step1_${output_flag}_GEN-SIM_cfg.py &> step1.log
+cmsRun  -e -j step1_rt.xml step1_${output_flag}_GEN-SIM_cfg.py &> step1.log
 
 echo "Step 2: GEN-SIM -> RAW"
 date
@@ -112,7 +112,7 @@ fi
 
 echo "--> Running step 2"
 date
-cmsRun step2_${output_flag}_RAW_cfg.py &> step2.log
+cmsRun   -e -j step2_rt.xml step2_${output_flag}_RAW_cfg.py &> step2.log
 rm ${output_flag}_GEN-SIM.root
 
 

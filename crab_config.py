@@ -2,9 +2,9 @@
 import os
 from CRABClient.UserUtilities import config, getUsernameFromSiteDB
 
-N_PU = 0
+N_PU = 20
 st_seed = 0
-njobs = 2000
+njobs = 3000
 
 ################## Define the process name here only once ######################
 # maxtime = '12h'
@@ -20,9 +20,9 @@ njobs = 2000
 # nev = 400000
 
 maxtime = '12h'
-# process_name = 'BPH_Tag-B0_MuNuDmst-pD0bar-kp_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen_ISGW2'
-process_name = 'BPH_Tag-B0_MuNuDmst-pD0bar-kp_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen_HQET2_central'
-nev = 300000
+process_name = 'BPH_Tag-B0_MuNuDmst-pD0bar-kp_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen_ISGW2'
+# process_name = 'BPH_Tag-B0_MuNuDmst-pD0bar-kp_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen_HQET2_central'
+nev = 200000
 
 # maxtime = '12h'
 # process_name = 'BPH_Tag-B0_TauNuDmst-pD0bar-kp-t2mnn_pythia8_Hardbbbar_PTFilter5_0p0-evtgen_ISGW2'
@@ -59,7 +59,7 @@ config.JobType.maxJobRuntimeMin = int(maxtime[:-1]) * time_scale[maxtime[-1]]
 config.JobType.scriptExe = 'crab_job.sh'
 config.JobType.scriptArgs = ['nev='+str(nev), 'st_seed='+str(st_seed), 'process_name='+process_name, 'N_PU='+str(N_PU)]
 
-config.Data.outputPrimaryDataset = 'cmsMC_private'
+config.Data.outputPrimaryDataset = 'cmsMC_private_PU' + str(int(N_PU))
 config.Data.splitting            = 'EventBased'
 config.Data.unitsPerJob          = 10 #placeholder
 config.Data.totalUnits           = njobs * config.Data.unitsPerJob
