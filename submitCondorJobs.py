@@ -24,6 +24,18 @@ def compileCMSSW(CMSSW_loc):
         return True
     else: return False
 
+def createBatchName(a):
+    knownTags = ['B0_JpsiKst', 'B0_Mu', 'B0_Tau']
+    n = None
+    for t in knownTags:
+        if t in a.process:
+            n = 'B' + t.split('_')[1]
+    if n is None:
+        n = 'jobs_' + a.maxtime
+    else:
+        n += '_{:.0f}k'.format(float(a.nev)/1000)
+    return n
+
 #_____________________________________________________________________________________________________________
 #example line: python submitCondorJobs.py --nev 50000 --njobs 100 --maxtime 4h --PU 20 --st_seed 0
 if __name__ == "__main__":
@@ -193,7 +205,9 @@ if __name__ == "__main__":
     os.system('mv jobs.jdl tmp_return/jobs.jdl')
 
     print 'Submitting jobs...'
-    output = processCmd('cd tmp_return; condor_submit jobs.jdl')
+    cmd = 'cd tmp_return; condor_submit jobs.jdl'
+    cmd += ' -batch-name ' + createBatchName(args)
+    output = processCmd(cmd)
     print 'Jobs submitted'
     os.rename('tmp_return/jobs.jdl', outdir+'/cfg/jobs.jdl')
     call = '"python submitCondorJobs.py ' + ' '.join(sys.argv) + '"'

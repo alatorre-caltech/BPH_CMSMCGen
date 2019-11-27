@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Usage: watch -n 1800 "python condorSentinel.py &>> ~/.condorSentinel/activity.log"
+# Usage: watch -n 900 "python condorSentinel.py &>> ~/.condorSentinel/activity.log"
 import os, sys, subprocess, re, json
 import argparse
 import commands
@@ -12,14 +12,14 @@ if not os.path.isdir(logdir):
     os.system('mkdir ' + logdir)
 
 
-print '\n' + 30*'#'
+print '\n' + 60*'#'
 value = datetime.datetime.fromtimestamp(time.time())
 print value.strftime('%Y-%m-%d %H:%M:%S')
 os.system('echo ' +str(time.time()) + ' > ' + logdir + '/lastRun.log')
 
 N_min_idle_to_trigger_holding = 20
-N_max_my_jobs_kept_running = 50
-N_max_running_jobs_to_reease = 30
+N_max_my_jobs_kept_running = 30
+N_max_running_jobs_to_release = 30
 
 status, output = commands.getstatusoutput('condor_q -all')
 
@@ -33,40 +33,43 @@ N = {}
 for e in aux:
     n, status = e.split(' ')
     N[status] = int(n)
-print N
+print 'All jobs:', N
 
 N_nice = {}
 N_nice['idle'] = 0
 N_nice['running'] = 0
 N_nice['hold'] = 0
 status, output = commands.getstatusoutput('condor_q -json')
-jobs_list = json.loads(output)
-for job in jobs_list:
-    if job['Owner'] == 'ocerri' and job['User'].startswith('nice'):
-        if job['JobStatus'] == 1:
-            N_nice['idle'] += 1
-        elif job['JobStatus'] == 2:
-            N_nice['running'] += 1
-        elif job['JobStatus'] == 5:
-            N_nice['hold'] += 1
-print N_nice
-
+if output:
+    jobs_list = json.loads(output)
+    for job in jobs_list:
+        if job['Owner'] == 'ocerri' and job['User'].startswith('nice'):
+            if job['JobStatus'] == 1:
+                N_nice['idle'] += 1
+            elif job['JobStatus'] == 2:
+                N_nice['running'] += 1
+            elif job['JobStatus'] == 5:
+                N_nice['hold'] += 1
+print 'Nice jobs:', N_nice
+print 'Non-nice jobs idle:', N['idle'] - N_nice['idle']
 if N['idle'] - N_nice['idle'] < N_min_idle_to_trigger_holding:
-    if N['running'] - N_nice['running'] < N_max_running_jobs_to_reease and N_nice['hold'] > 0:
+    if N['running'] - N_nice['running'] < N_max_running_jobs_to_release and N_nice['hold'] > 0:
         print 'Releasing ocerri jobs'
         os.system('condor_release ocerri')
-    elif N['running'] - N_nice['running'] < N_max_running_jobs_to_reease and N_nice['hold'] == 0:
+    elif N['running'] - N_nice['running'] < N_max_running_jobs_to_release and N_nice['hold'] == 0:
         print 'No nice jobs on hold to release'
-    elif N['running'] - N_nice['running'] > N_max_running_jobs_to_reease:
+    elif N['running'] - N_nice['running'] > N_max_running_jobs_to_release:
         print 'Queue busy'
 
+    print 60*'-'
     exit()
 
 if N_nice['idle'] == 0 and N_nice['running'] <= N_max_my_jobs_kept_running:
     print 'No nice jobs idle and nice running jobs below threshold'
+    print 60*'-'
     exit()
 
-print 'Putting nice jobs in idle'
+print 'Putting nice jobs on hold'
 status, output = commands.getstatusoutput('condor_q -json')
 jobs_list = json.loads(output)
 
@@ -79,10 +82,12 @@ for job in jobs_list:
         if job['JobStatus'] == 1:
             cmd = 'condor_hold '
             cmd += job['GlobalJobId'].split('#')[1]
+            cmd += ' > /dev/null'
             os.system(cmd)
             N_held += 1
 print N_held, 'idle -> hold'
 if len(running_jobs) <=  N_max_my_jobs_kept_running:
+    print 60*'-'
     exit()
 
 start_times = np.array([j['JobStartDate'] for j in running_jobs])
@@ -94,8 +99,10 @@ for idx in sorted_idxs[:-N_max_my_jobs_kept_running]:
     job = running_jobs[idx]
     cmd = 'condor_hold '
     cmd += job['GlobalJobId'].split('#')[1]
+    cmd += ' > /dev/null'
     os.system(cmd)
     N_held += 1
     N_waist += time.time() - float(job['JobStartDate'])
 print N_held, 'run -> hold'
 print 'CPU time waist: {:.2f} hours'.format(N_waist/3600.)
+print 60*'-'
