@@ -10,6 +10,7 @@ nev=$2
 st_seed=$3
 process_name=$4
 N_PU=$5
+N_Threads=$6
 
 initial_dir=`pwd`
 
@@ -48,7 +49,10 @@ echo $N_PU
 N_PU=${N_PU:5}
 echo $N_PU
 
-./job1023_gen_v1.sh ${nev:4} $st_seed $job_id $process_name out_$((st_seed+job_id)) CMSSW_10_2_3/src $N_PU
+echo $N_Threads
+N_Threads=${N_Threads:10}
+
+./job1023_gen_v1.sh ${nev:4} $st_seed $job_id $process_name out_$((st_seed+job_id)) CMSSW_10_2_3/src $N_PU $N_Threads
 # Rename the log files in order to end with .root
 mv out.log outlog.root
 mv step1.log step1log.root

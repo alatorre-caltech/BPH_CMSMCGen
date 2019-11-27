@@ -25,7 +25,7 @@ def compileCMSSW(CMSSW_loc):
     else: return False
 
 #_____________________________________________________________________________________________________________
-#example line: python submitCondorJobs.py --nev 100000 --njobs 100 --maxtime 8h --PU 20
+#example line: python submitCondorJobs.py --nev 50000 --njobs 100 --maxtime 4h --PU 20 --st_seed 0
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
 
@@ -47,6 +47,8 @@ if __name__ == "__main__":
     parser.add_argument ('--CMSSW_loc', help='CMSSW src loc', default=None)
     parser.add_argument ('--outdir', help='output directory ', default=None)
     parser.add_argument ('--force_production', action='store_true', default=False, help='Proceed even if the directory is already existing')
+    parser.add_argument ('--notNice', action='store_true', default=False, help='Run nice jobs')
+    parser.add_argument ('--jobsTag', help='Tag appended at the end of the output folder', default='')
 
     parser.add_argument ('--maxtime', help='Max wall run time [s=seconds, m=minutes, h=hours, d=days]', default='8h')
     parser.add_argument ('--memory', help='min virtual memory in MB', default='3000')
@@ -82,6 +84,8 @@ if __name__ == "__main__":
         version += '_' + args.version
 
     outdir     = args.outdir+'/'+args.process+'_PU'+str(args.PU)+'_'+version+'/jobs_out'
+    if args.jobsTag:
+        outdir += '_' + args.jobsTag
 
     time_scale = {'s':1, 'm':60, 'h':60*60, 'd':60*60*24}
     maxRunTime = int(args.maxtime[:-1]) * time_scale[args.maxtime[-1]]
@@ -128,7 +132,7 @@ if __name__ == "__main__":
     fsub = open('jobs.jdl', 'w')
     fsub.write('executable    = ' + os.environ['PWD'] + '/job1023_gen_v1.sh')
     fsub.write('\n')
-    exec_args = str(nev)+' '+str(st_seed)+' $(ProcId) '+args.process+' '+outdir+' '+args.CMSSW_loc+' '+str(args.PU)
+    exec_args = str(nev)+' '+str(st_seed)+' $(ProcId) '+args.process+' '+outdir+' '+args.CMSSW_loc+' '+str(args.PU)+' '+str(args.cpu)
     fsub.write('arguments     = ' + exec_args)
     fsub.write('\n')
     fsub.write('output        = {}/out/job_$(ProcId)_$(ClusterId).out'.format(outdir))
@@ -143,8 +147,8 @@ if __name__ == "__main__":
     fsub.write('\n')
     fsub.write('+MaxRuntime   = '+str(maxRunTime))
     fsub.write('\n')
-    fsub.write('nice_user = True')
-    fsub.write('\n')
+    if not args.notNice:
+        fsub.write('nice_user = True\n')
     if os.uname()[1] == 'login-1.hep.caltech.edu':
         fsub.write('+RunAsOwner = True')
         fsub.write('\n')
@@ -161,7 +165,7 @@ if __name__ == "__main__":
         fsub.write('RequestMemory = ' + args.memory) #Static allocation
         # fsub.write('RequestMemory = ifthenelse(MemoryUsage =!= undefined, MAX({{MemoryUsage + 1024, {0}}}), {0})'.format(args.memory)) # Dynamic allocation
         fsub.write('\n')
-        fsub.write('RequestCpus = ' + args.cpu)
+        fsub.write('RequestCpus = ' + str(args.cpu))
         fsub.write('\n')
     fsub.write('x509userproxy = $ENV(X509_USER_PROXY)')
     fsub.write('\n')

@@ -2,6 +2,7 @@
 import os
 from CRABClient.UserUtilities import config, getUsernameFromSiteDB
 
+N_Threads = 2
 N_PU = 20
 st_seed = 0
 njobs = 3000
@@ -33,6 +34,7 @@ nev = 200000
 # nev = 100000
 ################################################################################
 
+
 import datetime
 currentDT = str(datetime.datetime.now())
 str2tail = '  '.join([currentDT, process_name, 'st_seed='+str(st_seed), 'n_ev='+str(nev), 'n_jobs='+str(njobs), 'maxtime='+str(maxtime), 'PU='+str(N_PU)])
@@ -54,10 +56,10 @@ config.JobType.inputFiles = ['Configuration/GenProduction/python/{}_cfi.py'.form
 config.JobType.outputFiles = ['outlog.root', 'step1log.root', 'step2log.root', 'step3log.root', 'step4log.root']
 config.JobType.allowUndistributedCMSSW = True
 config.JobType.maxMemoryMB = 4000
-config.JobType.numCores = 2
+config.JobType.numCores = N_Threads
 config.JobType.maxJobRuntimeMin = int(maxtime[:-1]) * time_scale[maxtime[-1]]
 config.JobType.scriptExe = 'crab_job.sh'
-config.JobType.scriptArgs = ['nev='+str(nev), 'st_seed='+str(st_seed), 'process_name='+process_name, 'N_PU='+str(N_PU)]
+config.JobType.scriptArgs = ['nev='+str(nev), 'st_seed='+str(st_seed), 'process_name='+process_name, 'N_PU='+str(N_PU), 'N_Threads='+str(N_Threads)]
 
 config.Data.outputPrimaryDataset = 'cmsMC_private_PU' + str(int(N_PU))
 config.Data.splitting            = 'EventBased'

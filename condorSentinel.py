@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Usage: watch -n 600 "python condorSentinel.py &>> ~/.condorSentinel/activity.log"
+# Usage: watch -n 1800 "python condorSentinel.py &>> ~/.condorSentinel/activity.log"
 import os, sys, subprocess, re, json
 import argparse
 import commands
@@ -53,12 +53,13 @@ print N_nice
 
 if N['idle'] - N_nice['idle'] < N_min_idle_to_trigger_holding:
     if N['running'] - N_nice['running'] < N_max_running_jobs_to_reease and N_nice['hold'] > 0:
-        os.system('condor_release ocerri')
         print 'Releasing ocerri jobs'
+        os.system('condor_release ocerri')
     elif N['running'] - N_nice['running'] < N_max_running_jobs_to_reease and N_nice['hold'] == 0:
         print 'No nice jobs on hold to release'
     elif N['running'] - N_nice['running'] > N_max_running_jobs_to_reease:
         print 'Queue busy'
+
     exit()
 
 if N_nice['idle'] == 0 and N_nice['running'] <= N_max_my_jobs_kept_running:
@@ -72,7 +73,7 @@ jobs_list = json.loads(output)
 running_jobs = []
 N_held = 0
 for job in jobs_list:
-    if job['Owner'] == 'ocerri' and job['User'].startswith('nice'):
+    if job['Owner'] == 'ocerri' and job['User'].startswith('nice-user.ocerri'):
         if job['JobStatus'] == 2:
             running_jobs.append(job)
         if job['JobStatus'] == 1:
