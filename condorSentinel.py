@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Usage: watch -n 900 "python condorSentinel.py &>> ~/.condorSentinel/activity.log"
+# Usage: watch -n 900 "./condorSentinel.py &>> ~/.condorSentinel/activity.log"
 import os, sys, subprocess, re, json
 import argparse
 import commands
@@ -23,11 +23,17 @@ N_max_running_jobs_to_release = 30
 
 status, output = commands.getstatusoutput('condor_q -all')
 
+aux = None
 for l in output.split('\n'):
     if l.startswith('Total for all users:'):
         aux = l.split(';')[1][1:]
         aux = aux.split(', ')
         break
+if aux is None:
+    print 'Error in interpreting the condor_q output'
+    print output
+    print 60*'-'
+    exit()
 
 N = {}
 for e in aux:

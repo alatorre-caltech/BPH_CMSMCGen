@@ -3,6 +3,7 @@ import os, sys, subprocess, re
 import argparse
 import commands
 import time
+from glob import glob
 #____________________________________________________________________________________________________________
 ### processing the external os commands
 def processCmd(cmd, quite = 0):
@@ -37,37 +38,40 @@ def createBatchName(a):
     return n
 
 #_____________________________________________________________________________________________________________
-#example line: python submitCondorJobs.py --nev 50000 --njobs 100 --maxtime 4h --PU 20 --st_seed 0
+processes = {
+'mu'      : 'BPH_Tag-B0_MuNuDmst-pD0bar-kp_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen_ISGW2',
+'tau'     : 'BPH_Tag-B0_TauNuDmst-pD0bar-kp-t2mnn_pythia8_Hardbbbar_PTFilter5_0p0-evtgen_ISGW2',
+'Dstst'   : 'BPH_Tag-Bp_MuNuDstst_DmstPi_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen_ISGW2',
+'KDst'    : 'BPH_Tag-Mu_Probe-B0_KDmst-pD0bar-kp_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen_SVS',
+'JpsiKst' : 'BPH_Tag-Probe_B0_JpsiKst-mumuKpi-kp_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen_SVV'
+}
+#_____________________________________________________________________________________________________________
+
+#_____________________________________________________________________________________________________________
+#example line: ./submitCondorJobs.py mu --nev 50000 --njobs 100 -f --PU 20
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
+    parser.add_argument ('tag', type=str, choices=processes.keys(), help='Process tag')
 
     parser.add_argument ('--nev', help='number of events per job', default=1000)
     parser.add_argument ('--njobs', help='number of jobs', default=10)
     parser.add_argument ('--st_seed', help='starting seed', default=1, type=int)
     parser.add_argument ('--PU', help='PU collisions to be generated', default=0, type=int)
-#_____________________________________________________________________________________________________________
-    parser.add_argument ('-P', '--process', help='Process name', default=
-    'BPH_Tag-B0_MuNuDmst-pD0bar-kp_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen_ISGW2'
-    # 'BPH_Tag-B0_TauNuDmst-pD0bar-kp-t2mnn_pythia8_Hardbbbar_PTFilter5_0p0-evtgen_ISGW2'
-    # 'BPH_Tag-Bp_MuNuDstst_DmstPi_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen_ISGW2'
-    # 'BPH_Tag-Mu_Probe-B0_KDmst-pD0bar-kp_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen_SVS'
-    # 'BPH_Tag-Probe_B0_JpsiKst-mumuKpi-kp_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen_SVV'
-    )
-#_____________________________________________________________________________________________________________
 
     parser.add_argument ('--version', help='Process version', default='')
     parser.add_argument ('--CMSSW_loc', help='CMSSW src loc', default=None)
     parser.add_argument ('--outdir', help='output directory ', default=None)
-    parser.add_argument ('--force_production', action='store_true', default=False, help='Proceed even if the directory is already existing')
+    parser.add_argument ('-f', '--force_production', action='store_true', default=False, help='Proceed even if the directory is already existing')
     parser.add_argument ('--notNice', action='store_true', default=False, help='Run nice jobs')
     parser.add_argument ('--jobsTag', help='Tag appended at the end of the output folder', default='')
 
-    parser.add_argument ('--maxtime', help='Max wall run time [s=seconds, m=minutes, h=hours, d=days]', default='8h')
+    parser.add_argument ('--maxtime', help='Max wall run time [s=seconds, m=minutes, h=hours, d=days]', default='4h')
     parser.add_argument ('--memory', help='min virtual memory in MB', default='3000')
     parser.add_argument ('--disk', help='min disk space in KB', default='2000000')
     parser.add_argument ('--cpu', help='cpu threads', default='2')
 
     args = parser.parse_args()
+    args.process = processes[args.tag]
 
     if args.CMSSW_loc is None:
         if os.uname()[1] == 'login-1.hep.caltech.edu':
@@ -137,6 +141,21 @@ if __name__ == "__main__":
         aux = raw_input('Continue anyway? (y/n)\n')
         if aux == 'n':
             exit()
+
+    existing_files = glob(outdir + '/out_MINIAODSIM_*.root')
+    n_max = None
+    for f in existing_files:
+        f = os.path.basename(f).replace('.root', '')
+        f = f.replace('out_MINIAODSIM_', '')
+        f = int(f)
+        if n_max is None or f > n_max:
+            n_max = f
+    if not n_max is None and args.st_seed <= n_max:
+        print 'Max seed already present:', n_max
+        print 'Starting seed set:', args.st_seed
+        aux = raw_input('Do you want to raise the starting seed to {}? (y/n)\n'.format(n_max+1))
+        if aux == 'y':
+            args.st_seed = n_max+1
 
     os.system('chmod +x job1023_gen_v1.sh')
     print 'Creating submission script'
