@@ -14,3 +14,7 @@ starting seed = 0
 2019-11-18 18:34:43.704469  BPH_Tag-B0_MuNuDmst-pD0bar-kp_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen_HQET2_central  st_seed=0  n_ev=300000  n_jobs=2000  maxtime=12h  PU=0
 
 // PU debugged from here on
+2019-12-02 11:10:05.466129  BPH_Tag-B0_TauNuDmst-pD0bar-kp-t2mnn_pythia8_Hardbbbar_PTFilter5_0p0-evtgen_ISGW2  st_seed=0  n_ev=100000  n_jobs=5000  maxtime=12h  PU=20
+2019-12-02 11:11:54.124351  BPH_Tag-Bp_MuNuDstst_DmstPi_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen_ISGW2  st_seed=0  n_ev=100000  n_jobs=10000  maxtime=12h  PU=20
+2019-12-02 11:12:25.477354  BPH_Tag-B0_DmstHc-pD0bar-kp-Hc2mu_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen  st_seed=0  n_ev=300000  n_jobs=10000  maxtime=12h  PU=20
+2019-12-02 11:19:07.074971  BPH_Tag-B0_MuNuDmst-pD0bar-kp_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen_ISGW2  st_seed=2001  n_ev=200000  n_jobs=10000  maxtime=12h  PU=20

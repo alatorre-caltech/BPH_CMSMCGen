@@ -155,7 +155,8 @@ if __name__ == "__main__":
         print 'Starting seed set:', args.st_seed
         aux = raw_input('Do you want to raise the starting seed to {}? (y/n)\n'.format(n_max+1))
         if aux == 'y':
-            args.st_seed = n_max+1
+            st_seed = n_max + 1
+            args.st_seed = n_max + 1
 
     os.system('chmod +x job1023_gen_v1.sh')
     print 'Creating submission script'
@@ -204,8 +205,9 @@ if __name__ == "__main__":
     fsub.write('\n')
     fsub.write('on_exit_hold = (ExitBySignal == True) || (ExitCode != 0)')   # Send the job to Held state on failure.
     fsub.write('\n')
-    fsub.write('periodic_release =  (NumJobStarts < 3) && ((CurrentTime - EnteredCurrentStatus) > (60*20))')   # Periodically retry the jobs for 3 times with an interval of 20 minutes.
-    fsub.write('\n')
+    if args.notNice:
+        fsub.write('periodic_release =  (NumJobStarts < 3) && ((CurrentTime - EnteredCurrentStatus) > (60*20))')   # Periodically retry the jobs for 3 times with an interval of 20 minutes.
+        fsub.write('\n')
     fsub.write('+PeriodicRemove = ((JobStatus =?= 2) && ((MemoryUsage =!= UNDEFINED && MemoryUsage > 2.5*RequestMemory)))')
     fsub.write('\n')
     fsub.write('max_retries    = 3')
@@ -229,7 +231,9 @@ if __name__ == "__main__":
     output = processCmd(cmd)
     print 'Jobs submitted'
     os.rename('tmp_return/jobs.jdl', outdir+'/cfg/jobs.jdl')
-    call = '"python submitCondorJobs.py ' + ' '.join(sys.argv) + '"'
+    call = '"' + ' '.join(sys.argv)
+    call += '; starting seed: ' + str(args.st_seed)
+    call += '"'
     cmd = 'echo ' + call + ' >> ' + outdir+'/cfg/call.log'
     os.system(cmd)
     os.system('cd ..')
