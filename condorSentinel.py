@@ -6,6 +6,7 @@ import commands
 import time
 import numpy as np
 import datetime
+import pickle
 
 logdir = os.environ['HOME'] + '/.condorSentinel'
 if not os.path.isdir(logdir):
@@ -17,9 +18,9 @@ value = datetime.datetime.fromtimestamp(time.time())
 print value.strftime('%Y-%m-%d %H:%M:%S')
 os.system('echo ' +str(time.time()) + ' > ' + logdir + '/lastRun.log')
 
-N_min_idle_to_trigger_holding = 20
-N_max_my_jobs_kept_running = 30
-N_max_running_jobs_to_release = 30
+N_min_idle_to_trigger_holding = 1
+N_max_my_jobs_kept_running = 0
+N_max_running_jobs_to_release = 100
 
 status, output = commands.getstatusoutput('condor_q -all')
 
@@ -58,13 +59,29 @@ if output:
                 N_nice['hold'] += 1
 print 'Nice jobs:', N_nice
 print 'Non-nice jobs idle:', N['idle'] - N_nice['idle']
+
+status, output = commands.getstatusoutput('condor_status -total')
+l = output.split('\n')[-1].split(' ')
+l = [x for x in l if x]
+free_cpus = int(l[4])
+print 'CPUs free:', free_cpus
 if N['idle'] - N_nice['idle'] < N_min_idle_to_trigger_holding:
     if N['running'] - N_nice['running'] < N_max_running_jobs_to_release and N_nice['hold'] > 0:
-        print 'Releasing ocerri jobs'
-        os.system('condor_release ocerri')
+        if os.path.isfile(logdir + '/firstReleaseAttempt.pickle'):
+            firstAttempt_time = pickle.load(open(logdir + '/firstReleaseAttempt.pickle' ,'rb'))
+            if time.time() - firstAttempt_time >= 30 * 60:
+                print 'Releasing ocerri jobs'
+                os.system('condor_release ocerri')
+                os.system('rm ' + logdir + '/firstReleaseAttempt.pickle')
+        else:
+            now = time.time()
+            pickle.dump(now, open(logdir + '/firstReleaseAttempt.pickle' ,'wb'))
+            print 'First attempt to release jobs'
     elif N['running'] - N_nice['running'] < N_max_running_jobs_to_release and N_nice['hold'] == 0:
+        os.system('rm -rf ' + logdir + '/firstReleaseAttempt.pickle')
         print 'No nice jobs on hold to release'
     elif N['running'] - N_nice['running'] > N_max_running_jobs_to_release:
+        os.system('rm -rf ' + logdir + '/firstReleaseAttempt.pickle')
         print 'Queue busy'
 
     print 60*'-'
@@ -101,7 +118,16 @@ sorted_idxs = np.argsort(start_times)
 
 N_held = 0
 N_waist = 0
-for idx in sorted_idxs[:-N_max_my_jobs_kept_running]:
+slot_to_be_freed = max(8, N['idle'] - N_nice['idle'])
+if slot_to_be_freed > 192:
+    if N_max_my_jobs_kept_running > 0:
+        idx_list = sorted_idxs[:-N_max_my_jobs_kept_running]
+    else:
+        idx_list = sorted_idxs
+else:
+    idx_list = sorted_idxs[:slot_to_be_freed]
+print 'Killing', len(idx_list), 'jobs'
+for idx in idx_list:
     job = running_jobs[idx]
     cmd = 'condor_hold '
     cmd += job['GlobalJobId'].split('#')[1]

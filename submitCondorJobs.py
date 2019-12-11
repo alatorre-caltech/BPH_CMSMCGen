@@ -212,7 +212,7 @@ if __name__ == "__main__":
     fsub.write('\n')
     fsub.write('max_retries    = 3')
     fsub.write('\n')
-    fsub.write('requirements   = Machine =!= LastRemoteHost')
+    fsub.write('requirements   = Machine =!= LastRemoteHost && TARGET.Machine != "blade-1.tier2"')
     fsub.write('\n')
     fsub.write('universe = vanilla')
     fsub.write('\n')

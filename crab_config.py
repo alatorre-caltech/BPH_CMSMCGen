@@ -5,7 +5,7 @@ import datetime
 
 N_Threads = 2
 N_PU = 20
-st_seed = 2001
+st_seed = 5001
 njobs = 10000
 
 ################## Define the process name here only once ######################
@@ -25,14 +25,14 @@ njobs = 10000
 # process_name = 'BPH_Tag-Bp_MuNuDstst_DmstPi_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen_ISGW2'
 # nev = 100000
 
-maxtime = '12h'
-process_name = 'BPH_Tag-B0_MuNuDmst-pD0bar-kp_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen_ISGW2'
+# maxtime = '14h'
+# process_name = 'BPH_Tag-B0_MuNuDmst-pD0bar-kp_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen_ISGW2'
 # process_name = 'BPH_Tag-B0_MuNuDmst-pD0bar-kp_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen_HQET2_central'
-nev = 200000
+# nev = 200000
 
-# maxtime = '12h'
-# process_name = 'BPH_Tag-B0_TauNuDmst-pD0bar-kp-t2mnn_pythia8_Hardbbbar_PTFilter5_0p0-evtgen_ISGW2'
-# nev = 100000
+maxtime = '15h'
+process_name = 'BPH_Tag-B0_TauNuDmst-pD0bar-kp-t2mnn_pythia8_Hardbbbar_PTFilter5_0p0-evtgen_ISGW2'
+nev = 100000
 ################################################################################
 
 time_scale = {'m':1, 'h':60, 'd':60*24}
@@ -50,7 +50,7 @@ config.JobType.pluginName = 'PrivateMC'
 config.JobType.psetName   = 'placeholder_cfg.py'
 #These files will be placed in the starting directory
 config.JobType.inputFiles = ['Configuration/GenProduction/python/{}_cfi.py'.format(process_name), 'job1023_gen_v1.sh']
-config.JobType.outputFiles = ['outlog.root', 'step1log.root', 'step2log.root', 'step3log.root', 'step4log.root']
+# config.JobType.outputFiles = ['outlog.root', 'step1log.root', 'step2log.root', 'step3log.root', 'step4log.root']
 config.JobType.allowUndistributedCMSSW = True
 config.JobType.maxMemoryMB = 4000
 config.JobType.numCores = N_Threads
