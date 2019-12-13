@@ -5,7 +5,6 @@ import datetime
 
 N_Threads = 2
 N_PU = 20
-st_seed = 5001
 njobs = 10000
 
 ################## Define the process name here only once ######################
@@ -25,14 +24,16 @@ njobs = 10000
 # process_name = 'BPH_Tag-Bp_MuNuDstst_DmstPi_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen_ISGW2'
 # nev = 100000
 
-# maxtime = '14h'
+# st_seed = 42001
+# maxtime = '15h'
 # process_name = 'BPH_Tag-B0_MuNuDmst-pD0bar-kp_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen_ISGW2'
 # process_name = 'BPH_Tag-B0_MuNuDmst-pD0bar-kp_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen_HQET2_central'
-# nev = 200000
+# nev = 150000
 
-maxtime = '15h'
-process_name = 'BPH_Tag-B0_TauNuDmst-pD0bar-kp-t2mnn_pythia8_Hardbbbar_PTFilter5_0p0-evtgen_ISGW2'
-nev = 100000
+# st_seed = 25001
+# maxtime = '15h'
+# process_name = 'BPH_Tag-B0_TauNuDmst-pD0bar-kp-t2mnn_pythia8_Hardbbbar_PTFilter5_0p0-evtgen_ISGW2'
+# nev = 100000
 ################################################################################
 
 time_scale = {'m':1, 'h':60, 'd':60*24}

@@ -7,6 +7,7 @@ import time
 import numpy as np
 import datetime
 import pickle
+from glob import glob
 
 logdir = os.environ['HOME'] + '/.condorSentinel'
 if not os.path.isdir(logdir):
@@ -18,9 +19,23 @@ value = datetime.datetime.fromtimestamp(time.time())
 print value.strftime('%Y-%m-%d %H:%M:%S')
 os.system('echo ' +str(time.time()) + ' > ' + logdir + '/lastRun.log')
 
+totCpu = 0
+freeCpu = 0
+for n in glob('/storage/control/userqueue/*'):
+    name = os.path.basename(n)
+    cmd = 'condor_status '+name+' -const \'SlotID=?=1 && SlotType=?="Partitionable"\' -af Machine Cpus DetectedCpus DetectedMemory Memory'
+    status, output = commands.getstatusoutput(cmd)
+    output = output.split(' ')
+    totCpu += int(output[2])
+    freeCpu += int(output[1])
+print 'Total CPU:', totCpu
+print 'Free CPU:', freeCpu
+
 N_min_idle_to_trigger_holding = 1
 N_max_my_jobs_kept_running = 0
-N_max_running_jobs_to_release = 100
+N_max_running_jobs_to_release = 200
+Min_slots_to_be_freed = 2
+wait_time_to_release = 14 # minutes
 
 status, output = commands.getstatusoutput('condor_q -all')
 
@@ -64,12 +79,12 @@ status, output = commands.getstatusoutput('condor_status -total')
 l = output.split('\n')[-1].split(' ')
 l = [x for x in l if x]
 free_cpus = int(l[4])
-print 'CPUs free:', free_cpus
+# print 'CPUs free:', free_cpus
 if N['idle'] - N_nice['idle'] < N_min_idle_to_trigger_holding:
     if N['running'] - N_nice['running'] < N_max_running_jobs_to_release and N_nice['hold'] > 0:
         if os.path.isfile(logdir + '/firstReleaseAttempt.pickle'):
             firstAttempt_time = pickle.load(open(logdir + '/firstReleaseAttempt.pickle' ,'rb'))
-            if time.time() - firstAttempt_time >= 30 * 60:
+            if time.time() - firstAttempt_time >= wait_time_to_release * 60:
                 print 'Releasing ocerri jobs'
                 os.system('condor_release ocerri')
                 os.system('rm ' + logdir + '/firstReleaseAttempt.pickle')
@@ -88,7 +103,7 @@ if N['idle'] - N_nice['idle'] < N_min_idle_to_trigger_holding:
     exit()
 
 if N_nice['idle'] == 0 and N_nice['running'] <= N_max_my_jobs_kept_running:
-    print 'No nice jobs idle and nice running jobs below threshold'
+    print 'Queue busy, nothing to be done on nice jobs'
     print 60*'-'
     exit()
 
@@ -103,29 +118,45 @@ for job in jobs_list:
         if job['JobStatus'] == 2:
             running_jobs.append(job)
         if job['JobStatus'] == 1:
-            cmd = 'condor_hold '
-            cmd += job['GlobalJobId'].split('#')[1]
-            cmd += ' > /dev/null'
-            os.system(cmd)
-            N_held += 1
+            continue
+            # cmd = 'condor_hold '
+            # cmd += job['GlobalJobId'].split('#')[1]
+            # cmd += ' > /dev/null'
+            # os.system(cmd)
+            # N_held += 1
 print N_held, 'idle -> hold'
 if len(running_jobs) <=  N_max_my_jobs_kept_running:
     print 60*'-'
     exit()
 
-start_times = np.array([j['JobStartDate'] for j in running_jobs])
-sorted_idxs = np.argsort(start_times)
+def BladeN(job):
+    s = job['RemoteHost'][:-6]
+    idx = s.find('blade-')
+    return int(s[idx+6:])
+
+# start_times = np.array([int(j['JobStartDate']) for j in running_jobs])
+# sorted_idxs = np.argsort(-start_times)
+# blade_number = np.array([BladeN(running_jobs[j]) for j in sorted_idxs])
+# sorted_idx_blade = np.argsort(blade_number)
+# sorted_idxs = sorted_idxs[sorted_idx_blade]
+
+blade_number = np.array([BladeN(j) for j in running_jobs])
+sorted_idxs = np.argsort(blade_number)
+
+# with open('/storage/user/ocerri/orderTest.txt', 'w') as ftest:
+#     for i in sorted_idxs:
+#         job = running_jobs[i]
+#         s = job['GlobalJobId'].split('#')[1] + '\t' + str(BladeN(job)) + '\t'
+#         s += str(int(job['JobStartDate']))
+#         ftest.write(s + '\n')
+# exit()
 
 N_held = 0
 N_waist = 0
-slot_to_be_freed = max(8, N['idle'] - N_nice['idle'])
-if slot_to_be_freed > 192:
-    if N_max_my_jobs_kept_running > 0:
-        idx_list = sorted_idxs[:-N_max_my_jobs_kept_running]
-    else:
-        idx_list = sorted_idxs
-else:
-    idx_list = sorted_idxs[:slot_to_be_freed]
+slot_to_be_freed = max(Min_slots_to_be_freed, N['idle'] - N_nice['idle'])
+slot_to_be_freed = min(slot_to_be_freed, len(running_jobs) - N_max_my_jobs_kept_running)
+idx_list = sorted_idxs[:slot_to_be_freed]
+
 print 'Killing', len(idx_list), 'jobs'
 for idx in idx_list:
     job = running_jobs[idx]
@@ -134,7 +165,7 @@ for idx in idx_list:
     cmd += ' > /dev/null'
     os.system(cmd)
     N_held += 1
-    N_waist += time.time() - float(job['JobStartDate'])
+    N_waist += int(time.time()) - int(job['JobStartDate'])
 print N_held, 'run -> hold'
 print 'CPU time waist: {:.2f} hours'.format(N_waist/3600.)
 print 60*'-'
