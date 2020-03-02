@@ -9,6 +9,11 @@ import datetime
 import pickle
 from glob import glob
 
+def BladeN(job):
+    s = job['RemoteHost'][:-6]
+    idx = s.find('blade-')
+    return int(s[idx+6:])
+
 logdir = os.environ['HOME'] + '/.condorSentinel'
 if not os.path.isdir(logdir):
     os.system('mkdir ' + logdir)
@@ -116,7 +121,8 @@ N_held = 0
 for job in jobs_list:
     if job['Owner'] == 'ocerri' and job['User'].startswith('nice-user.ocerri'):
         if job['JobStatus'] == 2:
-            running_jobs.append(job)
+            if BladeN(job) <= 8:
+                running_jobs.append(job)
         if job['JobStatus'] == 1:
             continue
             # cmd = 'condor_hold '
@@ -128,11 +134,6 @@ print N_held, 'idle -> hold'
 if len(running_jobs) <=  N_max_my_jobs_kept_running:
     print 60*'-'
     exit()
-
-def BladeN(job):
-    s = job['RemoteHost'][:-6]
-    idx = s.find('blade-')
-    return int(s[idx+6:])
 
 # start_times = np.array([int(j['JobStartDate']) for j in running_jobs])
 # sorted_idxs = np.argsort(-start_times)

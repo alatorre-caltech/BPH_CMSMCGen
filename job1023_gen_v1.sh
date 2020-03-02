@@ -52,7 +52,7 @@ echo `date +%s.%N` >> ${output_flag}.log
 cmsDriver.py Configuration/GenProduction/python/${process_name}_cfi.py --fileout file:${output_flag}_GEN-SIM.root --mc --eventcontent RAWSIM --datatier GEN-SIM --conditions 102X_upgrade2018_realistic_v15 --beamspot Realistic25ns13TeVEarly2018Collision --step GEN,SIM --nThreads $N_Threads --geometry DB:Extended --era Run2_2018 --python_filename step1_${output_flag}_GEN-SIM_cfg.py --no_exec -n $N_evts
 
 echo "process.RandomNumberGeneratorService.generator.initialSeed = $N_seed" >> step1_${output_flag}_GEN-SIM_cfg.py
-echo "process.MessageLogger.cerr.FwkReport.reportEvery = 50" >> step1_${output_flag}_GEN-SIM_cfg.py
+echo "process.MessageLogger.cerr.FwkReport.reportEvery = 100" >> step1_${output_flag}_GEN-SIM_cfg.py
 
 echo "--> Running step 1"
 date

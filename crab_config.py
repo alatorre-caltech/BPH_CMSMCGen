@@ -4,7 +4,7 @@ from CRABClient.UserUtilities import config, getUsernameFromSiteDB
 import datetime
 
 N_Threads = 2
-N_PU = 20
+N_PU = 35
 njobs = 10000
 
 ################## Define the process name here only once ######################
@@ -16,24 +16,26 @@ njobs = 10000
 # process_name = 'BPH_Tag-Probe_B0_JpsiKst-mumuKpi-kp_13TeV-pythia8_SoftQCD_PTFilter5_0p0-evtgen_SVV'
 # nev = 50000
 
+# st_seed = 20001
 # maxtime = '12h'
 # process_name = 'BPH_Tag-B0_DmstHc-pD0bar-kp-Hc2mu_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen'
 # nev = 300000
 
+# st_seed = 20001
 # maxtime = '12h'
 # process_name = 'BPH_Tag-Bp_MuNuDstst_DmstPi_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen_ISGW2'
 # nev = 100000
 
-# st_seed = 62001
+# st_seed = 72001
 # maxtime = '15h'
-# process_name = 'BPH_Tag-B0_MuNuDmst-pD0bar-kp_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen_ISGW2'
-# # process_name = 'BPH_Tag-B0_MuNuDmst-pD0bar-kp_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen_HQET2_central'
+# # process_name = 'BPH_Tag-B0_MuNuDmst-pD0bar-kp_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen_ISGW2'
+# process_name = 'BPH_Tag-B0_MuNuDmst_13TeV-pythia8_Hardbbbar_HQET2_central'
 # nev = 150000
 
-# st_seed = 45001
-# maxtime = '15h'
-# process_name = 'BPH_Tag-B0_TauNuDmst-pD0bar-kp-t2mnn_pythia8_Hardbbbar_PTFilter5_0p0-evtgen_ISGW2'
-# nev = 100000
+st_seed = 0
+maxtime = '15h'
+process_name = 'BPH_Tag-B0_TauNuDmst-pD0bar-kp-t2mnn_pythia8_Hardbbbar_PTFilter5_0p0-evtgen_ISGW2'
+nev = 100000
 ################################################################################
 
 time_scale = {'m':1, 'h':60, 'd':60*24}
@@ -45,7 +47,8 @@ shortDate = currentDT[2:].split(' ')[0].replace('-','')
 config.General.requestName     = process_name + '_PU' + '_'.join([str(N_PU), os.environ['CMSSW_VERSION'][6:].replace('_','-'), shortDate])
 config.General.workArea        = 'tmp'
 config.General.transferOutputs = True
-config.General.transferLogs    = True
+# config.General.transferLogs    = True
+config.General.transferLogs    = False
 
 config.JobType.pluginName = 'PrivateMC'
 config.JobType.psetName   = 'placeholder_cfg.py'

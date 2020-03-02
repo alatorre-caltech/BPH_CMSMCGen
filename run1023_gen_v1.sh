@@ -1,11 +1,11 @@
 #!/bin/bash
 set -e
 # ------------------------------ SIGNAL -----------------------------------------
-process_name=BPH_Tag-B0_MuNuDmst-pD0bar-kp_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen_HQET2_central
+# process_name=BPH_Tag-B0_MuNuDmst-pD0bar-kp_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen_HQET2_central
 # process_name=BPH_Tag-B0_MuNuDmst-pD0bar-kp_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen_ISGW2
 # process_name=BPH_Tag-B0_TauNuDmst-pD0bar-kp-t2mnn_pythia8_Hardbbbar_PTFilter5_0p0-evtgen_ISGW2
 
-ntuplizer_config=cmssw_privateMC_Tag_B0_MuDmst-pD0bar-kp.py
+# ntuplizer_config=cmssw_privateMC_Tag_B0_MuDmst-pD0bar-kp.py
 # --------------------------------------------------------------------------------
 
 # ------------------------------ BACKGROUND -----------------------------------------
@@ -18,10 +18,11 @@ ntuplizer_config=cmssw_privateMC_Tag_B0_MuDmst-pD0bar-kp.py
 # ------------------------------ CONTROL REGION ----------------------------------
 # process_name=BPH_Tag-Mu_Probe-B0_KDmst-pD0bar-kp_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen_SVS
 # process_name=BPH_Tag-Probe_B0_JpsiKst-mumuKpi-kp_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen_SVV
+process_name=BPH_Tag-Probe_B0_JpsiKst-mumuKpi-kp_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgenFSR_SVV
 # process_name=BPH_Tag-Probe_B0_JpsiKst-mumuKpi-kp_13TeV-pythia8_SoftQCD_PTFilter5_0p0-evtgen_SVV
 
 # ntuplizer_config=cmssw_privateMC_Tag_Mu-Probe-B0_KDmst-pD0bar-kp.py
-# ntuplizer_config=cmssw_privateMC_Tag_Mu-Probe-B0_JpsiKst-mumuKpi.py
+ntuplizer_config=cmssw_privateMC_Tag_Mu-Probe-B0_JpsiKst-mumuKpi.py
 # --------------------------------------------------------------------------------
 
 
