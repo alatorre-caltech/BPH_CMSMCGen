@@ -28,14 +28,14 @@ ntuplizer_config=cmssw_privateMC_Tag_B0_MuDmst-pD0bar-kp.py
 
 output_flag=test
 
-N_PU=0
+N_PU=c0
 version=PU${N_PU}_10-2-3
 out_loc=/afs/cern.ch/user/o/ocerri/cernbox/BPhysics/data/cmsMC_private
 if [ `uname -n` = "login-1.hep.caltech.edu" ]; then
   out_loc=/storage/user/ocerri/BPhysics/data/cmsMC_private
 fi
-N_evts=$1
-# N_evts=100000
+# N_evts=$1
+N_evts=25000
 
 out_dir=$out_loc/${process_name}_$version
 MC_frag_file=$PWD/Configuration/GenProduction/python/${process_name}_cfi.py
@@ -49,6 +49,7 @@ else
   echo "Directory already existing, cleaning it"
   rm -fv $out_dir/test*
   rm -fv $out_dir/step*
+
   # read -p $'Do you want to delete it, recreate it and proceed? (y/n)\n' asw
   # if [ asw="y" ];then
   # echo "Creating the output directory"
@@ -90,31 +91,50 @@ echo "process.MessageLogger.cerr.FwkReport.reportEvery = 100" >> step1_${output_
 mv ./step1_${output_flag}_GEN-SIM_cfg.py $out_dir/
 mkdir -p $out_dir/Configuration/GenProduction/python
 cp Configuration/GenProduction/python/${process_name}_cfi.py $out_dir/Configuration/GenProduction/python/${process_name}_cfi.py
-# mv Configuration $out_dir/
+
 cd $out_dir
 
 echo "--> Running step 1"
 date
-cmsRun  -e -j step1_rt.xml step1_${output_flag}_GEN-SIM_cfg.py &> step1.log
+cmsRun -e -j step1_rt.xml step1_${output_flag}_GEN-SIM_cfg.py &> step1.log
 
 echo "Step 2: GEN-SIM -> RAW"
 date
 
-if [ $N_PU -gt 0 ]
+if [ "$N_PU" == "0" ]
 then
-  # Create PU file list
-  # das_client --query="file dataset = /MinBias_TuneCP5_13TeV-pythia8/RunIIFall18GS-102X_upgrade2018_realistic_v9-v1/GEN-SIM" --limit=0 >> MinBias_TuneCP5_13TeV-pythia8_RunIIFall18GS-102X_upgrade2018_realistic_v9-v1_list.txt
-
-  cmsDriver.py --mc --eventcontent RAWSIM --datatier GEN-SIM-RAW --conditions 102X_upgrade2018_realistic_v15 --step DIGI,L1,DIGI2RAW,HLT:@relval2018 --nThreads 2 --era Run2_2018 --filein file:${output_flag}_GEN-SIM.root --fileout file:${output_flag}_RAW.root --python_filename step2_${output_flag}_RAW_cfg.py --no_exec -n -1 --geometry DB:Extended --pileup "AVE_25_BX_25ns,{'N': ${N_PU}}" --pileup_input "dbs:/MinBias_TuneCP5_13TeV-pythia8/RunIIFall18GS-102X_upgrade2018_realistic_v9-v1/GEN-SIM"
-  # --pileup_input /store/mc/RunIIFall18GS/MinBias_TuneCP5_13TeV-pythia8/GEN-SIM/102X_upgrade2018_realistic_v9-v1/90013/18A5353D-9492-E811-A9DC-24BE05C488E1.root
-else
+  echo "No pileup option"
   cmsDriver.py --mc --eventcontent PREMIXRAW --datatier GEN-SIM-RAW --conditions 102X_upgrade2018_realistic_v15 --step DIGI,L1,DIGI2RAW,HLT:@relval2018 --nThreads 2 --era Run2_2018 --filein file:${output_flag}_GEN-SIM.root --fileout file:${output_flag}_RAW.root --python_filename step2_${output_flag}_RAW_cfg.py --no_exec -n -1
+elif [[ "$N_PU" =~ ^[0-9]+$ ]]
+then
+  echo "Poisson pileup with average $N_PU"
+  cmsDriver.py --mc --eventcontent RAWSIM --datatier GEN-SIM-RAW --conditions 102X_upgrade2018_realistic_v15 --step DIGI,L1,DIGI2RAW,HLT:@relval2018 --nThreads 2 --era Run2_2018 --filein file:${output_flag}_GEN-SIM.root --fileout file:${output_flag}_RAW.root --python_filename step2_${output_flag}_RAW_cfg.py --no_exec -n -1 --geometry DB:Extended --pileup "AVE_25_BX_25ns,{'N': ${N_PU}}" --pileup_input "dbs:/MinBias_TuneCP5_13TeV-pythia8/RunIIFall18GS-102X_upgrade2018_realistic_v9-v1/GEN-SIM"
+elif [ "$N_PU" == "customTest" ]
+then
+  echo "Custom pileup: $N_PU"
+  cmsDriver.py --mc --eventcontent RAWSIM --datatier GEN-SIM-RAW --conditions 102X_upgrade2018_realistic_v15 --step DIGI,L1,DIGI2RAW,HLT:@relval2018 --nThreads 2 --era Run2_2018 --filein file:${output_flag}_GEN-SIM.root --fileout file:${output_flag}_RAW.root --python_filename step2_${output_flag}_RAW_cfg.py --no_exec -n -1 --geometry DB:Extended --pileup "AVE_25_BX_25ns,{'N': 30}" --pileup_input "dbs:/MinBias_TuneCP5_13TeV-pythia8/RunIIFall18GS-102X_upgrade2018_realistic_v9-v1/GEN-SIM"
+
+  sed -i "87iprocess.mix.input.nbPileupEvents = cms.PSet(probFunctionVariable=cms.vint32(0, 1, 2, 3, 4, 5, 6, 7, 8), probValue=cms.vdouble(0.16666666666666666, 0.0, 0.0, 0.3333333333333333, 0.0, 0.0, 0.0, 0.0, 0.5), histoFileName=cms.untracked.string('histoPileupProbFunction.root'))" step2_${output_flag}_RAW_cfg.py
+  # echo $str >> step2_${output_flag}_RAW_cfg.py
+  sed -i "86d" step2_${output_flag}_RAW_cfg.py
+elif [ "$N_PU" == "c0" ]
+then
+  echo "Custom pileup: $N_PU"
+  cmsDriver.py --mc --eventcontent RAWSIM --datatier GEN-SIM-RAW --conditions 102X_upgrade2018_realistic_v15 --step DIGI,L1,DIGI2RAW,HLT:@relval2018 --nThreads 2 --era Run2_2018 --filein file:${output_flag}_GEN-SIM.root --fileout file:${output_flag}_RAW.root --python_filename step2_${output_flag}_RAW_cfg.py --no_exec -n -1 --geometry DB:Extended --pileup "AVE_25_BX_25ns,{'N': 30}" --pileup_input "dbs:/MinBias_TuneCP5_13TeV-pythia8/RunIIFall18GS-102X_upgrade2018_realistic_v9-v1/GEN-SIM"
+
+  sed -i "87iprocess.mix.input.nbPileupEvents = cms.PSet(probFunctionVariable=cms.vint32(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79), probValue=cms.vdouble(0.00000, 0.00000, 0.00001, 0.00005, 0.00016, 0.00139, 0.00197, 0.00297, 0.00449, 0.00652, 0.00895, 0.01165, 0.01446, 0.01733, 0.02025, 0.02325, 0.02634, 0.02945, 0.03242, 0.03505, 0.03717, 0.03865, 0.03948, 0.03974, 0.03956, 0.03906, 0.03836, 0.03749, 0.03646, 0.03525, 0.03382, 0.03216, 0.03030, 0.02826, 0.02613, 0.02397, 0.02184, 0.01981, 0.01791, 0.01616, 0.01456, 0.01310, 0.01178, 0.01057, 0.00947, 0.00846, 0.00754, 0.00669, 0.00592, 0.00523, 0.00460, 0.00403, 0.00353, 0.00309, 0.00271, 0.00238, 0.00209, 0.00185, 0.00166, 0.00149, 0.00136, 0.00126, 0.00118, 0.00112, 0.00107, 0.00103, 0.00101, 0.00099, 0.00097, 0.00096, 0.00001, 0.00001, 0.00001, 0.00000, 0.00000, 0.00000, 0.00000, 0.00000, 0.00000, 0.00000), histoFileName=cms.untracked.string('histoPileupProbFunction.root'))" step2_${output_flag}_RAW_cfg.py
+  # echo $str >> step2_${output_flag}_RAW_cfg.py
+  sed -i "86d" step2_${output_flag}_RAW_cfg.py
+  sed -i "86iprocess.mix.input.type = cms.string('probFunction')" step2_${output_flag}_RAW_cfg.py
+else
+  echo "No recognized pileup information"
+  exit
 fi
 
 echo "--> Running step 2"
 date
-cmsRun   -e -j step2_rt.xml step2_${output_flag}_RAW_cfg.py &> step2.log
-rm ${output_flag}_GEN-SIM.root
+cmsRun -e -j step2_rt.xml step2_${output_flag}_RAW_cfg.py &> step2.log
+# rm ${output_flag}_GEN-SIM.root
 
 
 echo "Step 3: RAW -> AOD"

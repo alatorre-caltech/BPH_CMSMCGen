@@ -53,7 +53,7 @@ config.General.transferLogs    = False
 config.JobType.pluginName = 'PrivateMC'
 config.JobType.psetName   = 'placeholder_cfg.py'
 #These files will be placed in the starting directory
-config.JobType.inputFiles = ['Configuration/GenProduction/python/{}_cfi.py'.format(process_name), 'job1023_gen_v1.sh']
+config.JobType.inputFiles = ['Configuration/GenProduction/python/{}_cfi.py'.format(process_name), 'job1023_gen_v2.sh']
 # config.JobType.outputFiles = ['outlog.root', 'step1log.root', 'step2log.root', 'step3log.root', 'step4log.root']
 config.JobType.allowUndistributedCMSSW = True
 config.JobType.maxMemoryMB = 4000

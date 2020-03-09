@@ -57,7 +57,7 @@ if __name__ == "__main__":
     parser.add_argument ('--nev', help='number of events per job', default=1000)
     parser.add_argument ('--njobs', help='number of jobs', default=10)
     parser.add_argument ('--st_seed', help='starting seed', default=1, type=int)
-    parser.add_argument ('--PU', help='PU collisions to be generated', default=0, type=int)
+    parser.add_argument ('--PU', help='PU collisions to be generated', default=0, type=str)
 
     parser.add_argument ('--version', help='Process version', default='')
     parser.add_argument ('--CMSSW_loc', help='CMSSW src loc', default=None)
@@ -163,7 +163,7 @@ if __name__ == "__main__":
     print 'Creating submission script'
 
     fsub = open('jobs.jdl', 'w')
-    fsub.write('executable    = ' + os.environ['PWD'] + '/job1023_gen_v1.sh')
+    fsub.write('executable    = ' + os.environ['PWD'] + '/job1023_gen_v2.sh')
     fsub.write('\n')
     exec_args = str(nev)+' '+str(st_seed)+' $(ProcId) '+args.process+' '+outdir+' '+args.CMSSW_loc+' '+str(args.PU)+' '+str(args.cpu)
     fsub.write('arguments     = ' + exec_args)
