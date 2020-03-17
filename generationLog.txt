@@ -34,3 +34,7 @@ starting seed = 0
 2020-02-25 08:41:50.795070  BPH_Tag-B0_MuNuDmst_13TeV-pythia8_Hardbbbar_HQET2_central  st_seed=72001  n_ev=150000  n_jobs=10000  maxtime=15h  PU=0
 2020-02-25 09:47:56.005503  BPH_Tag-Probe_B0_JpsiKst_13TeV-pythia8_Hardbbbar_evtgenFSR_SVV  st_seed=0  n_ev=200000  n_jobs=10000  maxtime=12h  PU=20
 2020-02-25 15:25:41.935569  BPH_Tag-B0_TauNuDmst-pD0bar-kp-t2mnn_pythia8_Hardbbbar_PTFilter5_0p0-evtgen_ISGW2  st_seed=0  n_ev=100000  n_jobs=10000  maxtime=15h  PU=35
+2020-03-14 20:58:55.792845  BP_Probe_B0_MuNuDmst_Tag-B_MuNuDst_Hardbbbar_evtgen_ISGW2  st_seed=1000  n_ev=150000  n_jobs=5000  maxtime=12h  PU=c0
+2020-03-14 20:59:29.963752  BP_Probe_B0_TauNuDmst_Tag-B_MuNuDst_Hardbbbar_evtgen_ISGW2  st_seed=1000  n_ev=150000  n_jobs=5000  maxtime=12h  PU=c0
+2020-03-15 23:06:53.565749  BP_Probe_B0_TauNuDmst_Tag-B_MuNuDst_Hardbbbar_evtgen_ISGW2  st_seed=6000  n_ev=200000  n_jobs=10000  maxtime=12h  PU=c0
+2020-03-15 23:15:07.537698  BP_Probe_B0_MuNuDmst_Tag-B_MuNuDst_Hardbbbar_evtgen_ISGW2  st_seed=6000  n_ev=200000  n_jobs=10000  maxtime=12h  PU=c0
