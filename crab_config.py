@@ -4,7 +4,6 @@ from CRABClient.UserUtilities import config, getUsernameFromSiteDB
 import datetime
 
 N_Threads = 2
-# N_PU = 'c0'
 njobs = 10000
 
 ################## Define the process name here only once ######################
@@ -39,6 +38,7 @@ njobs = 10000
 # process_name = 'BPH_Tag-Bp_MuNuDstst_DmstPi_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen_ISGW2'
 # nev = 100000
 
+# N_PU = 'c0'
 #----------------- Tag -----------------
 # st_seed = 100000
 # maxtime = '12h'
@@ -56,7 +56,7 @@ njobs = 10000
 # nev = 300000
 
 # st_seed = 50000
-# maxtime = '16h'
+# maxtime = '12h'
 # process_name = 'BP_Tag_Bp_MuNuDstst_Hardbbbar_evtgen_ISGW2'
 # nev = 200000
 
@@ -73,15 +73,15 @@ N_PU = 'c1'
 # process_name = 'BP_Probe_B0_TauNuDmst_Tag-B_MuNuDst_Hardbbbar_evtgen_ISGW2'
 # nev = 200000
 #
+st_seed = 0
+maxtime = '12h'
+process_name = 'BP_Probe_Bp_MuNuDstst_Tag-B_MuNuDst_Hardbbbar_evtgen_ISGW2'
+nev = 200000
+#
 # st_seed = 0
 # maxtime = '16h'
-# process_name = 'BP_Probe_Bp_MuNuDstst_Tag-B_MuNuDst_Hardbbbar_evtgen_ISGW2'
+# process_name = 'BP_Probe_B0_DmstHc_Tag-B_MuNuDst_Hardbbbar_evtgen_ISGW2'
 # nev = 200000
-#
-st_seed = 0
-maxtime = '16h'
-process_name = 'BP_Probe_B0_DmstHc_Tag-B_MuNuDst_Hardbbbar_evtgen_ISGW2'
-nev = 200000
 ################################################################################
 
 time_scale = {'m':1, 'h':60, 'd':60*24}

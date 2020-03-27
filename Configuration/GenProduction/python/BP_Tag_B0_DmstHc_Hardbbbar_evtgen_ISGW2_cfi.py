@@ -236,8 +236,9 @@ DstFilter = cms.EDFilter(
 
 antiD0Filter = cms.EDFilter(
     "PythiaDauVFilter",
-    ParticleID         = cms.untracked.int32(-421),
     ChargeConjugation  = cms.untracked.bool(False),
+    ParticleID         = cms.untracked.int32(-421),
+    MotherID           = cms.untracked.int32(-413),
     NumberDaughters    = cms.untracked.int32(2),
     DaughterIDs        = cms.untracked.vint32(321, -211),
     MinPt              = cms.untracked.vdouble(0.5, 0.5),

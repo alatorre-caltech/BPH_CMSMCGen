@@ -15,10 +15,10 @@ set -e
 # ------------------------------ BACKGROUND -----------------------------------------
 # process_name=BPH_Tag-Bp_MuNuDstst_DmstPi_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen_ISGW2
 # process_name=BPH_Tag-B0_DmstHc-pD0bar-kp-Hc2mu_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen
+process_name=BP_Tag_Bp_MuNuDstst_Hardbbbar_evtgen_ISGW2
 # process_name=BP_Tag_B0_DmstHc_Hardbbbar_evtgen_ISGW2
-# process_name=BP_Tag_Bp_MuNuDstst_Hardbbbar_evtgen_ISGW2
 # process_name=BP_Probe_Bp_MuNuDstst_Tag-B_MuNuDst_Hardbbbar_evtgen_ISGW2
-process_name=BP_Probe_B0_DmstHc_Tag-B_MuNuDst_Hardbbbar_evtgen_ISGW2
+# process_name=BP_Probe_B0_DmstHc_Tag-B_MuNuDst_Hardbbbar_evtgen_ISGW2
 
 ntuplizer_config=cmssw_privateMC_Tag_B0_MuDmst-pD0bar-kp.py
 # --------------------------------------------------------------------------------
@@ -36,7 +36,7 @@ ntuplizer_config=cmssw_privateMC_Tag_B0_MuDmst-pD0bar-kp.py
 
 output_flag=test
 
-N_PU=c1
+N_PU=c0
 version=PU${N_PU}_10-2-3
 out_loc=/afs/cern.ch/user/o/ocerri/cernbox/BPhysics/data/cmsMC_private
 if [ `uname -n` = "login-1.hep.caltech.edu" ]; then

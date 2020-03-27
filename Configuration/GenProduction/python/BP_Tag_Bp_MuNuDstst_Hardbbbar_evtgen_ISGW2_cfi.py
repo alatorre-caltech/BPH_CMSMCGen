@@ -87,5 +87,28 @@ mufilter = cms.EDFilter("PythiaFilter",
     MotherID = cms.untracked.int32(521)
 )
 
+DstFilter = cms.EDFilter(
+    "PythiaDauVFilter",
+    ParticleID         = cms.untracked.int32(-413),
+    ChargeConjugation  = cms.untracked.bool(False),
+    NumberDaughters    = cms.untracked.int32(2),
+    DaughterIDs        = cms.untracked.vint32(-421, -211),
+    MinPt              = cms.untracked.vdouble(0.5, 0.3),
+    MinEta             = cms.untracked.vdouble(-2.5, -2.5),
+    MaxEta             = cms.untracked.vdouble( 2.5, 2.5)
+)
 
-ProductionFilterSequence = cms.Sequence(generator + mufilter)
+antiD0Filter = cms.EDFilter(
+    "PythiaDauVFilter",
+    ChargeConjugation  = cms.untracked.bool(False),
+    ParticleID         = cms.untracked.int32(-421),
+    MotherID           = cms.untracked.int32(-413),
+    NumberDaughters    = cms.untracked.int32(2),
+    DaughterIDs        = cms.untracked.vint32(321, -211),
+    MinPt              = cms.untracked.vdouble(0.5, 0.5),
+    MinEta             = cms.untracked.vdouble(-2.5, -2.5),
+    MaxEta             = cms.untracked.vdouble( 2.5, 2.5)
+)
+
+
+ProductionFilterSequence = cms.Sequence(generator + mufilter + DstFilter + antiD0Filter)
