@@ -40,10 +40,10 @@ njobs = 10000
 
 # N_PU = 'c0'
 #----------------- Tag -----------------
-# st_seed = 100000
+# st_seed = 120001
 # maxtime = '12h'
 # process_name = 'BP_Tag_B0_MuNuDmst_Hardbbbar_evtgen_ISGW2'
-# nev = 300000
+# nev = 200000
 
 # st_seed = 100000
 # maxtime = '12h'
@@ -60,6 +60,11 @@ njobs = 10000
 # process_name = 'BP_Tag_Bp_MuNuDstst_Hardbbbar_evtgen_ISGW2'
 # nev = 200000
 
+# st_seed = 0
+# maxtime = '12h'
+# process_name = 'BP_Tag_B0_DmstPi0MuNu_Hardbbbar_evtgen_GR'
+# nev = 200000
+
 N_PU = 'c1'
 #----------------- Probe -----------------
 
@@ -73,15 +78,20 @@ N_PU = 'c1'
 # process_name = 'BP_Probe_B0_TauNuDmst_Tag-B_MuNuDst_Hardbbbar_evtgen_ISGW2'
 # nev = 200000
 #
-st_seed = 0
-maxtime = '12h'
-process_name = 'BP_Probe_Bp_MuNuDstst_Tag-B_MuNuDst_Hardbbbar_evtgen_ISGW2'
-nev = 200000
+# st_seed = 0
+# maxtime = '12h'
+# process_name = 'BP_Probe_Bp_MuNuDstst_Tag-B_MuNuDst_Hardbbbar_evtgen_ISGW2'
+# nev = 200000
 #
 # st_seed = 0
 # maxtime = '16h'
 # process_name = 'BP_Probe_B0_DmstHc_Tag-B_MuNuDst_Hardbbbar_evtgen_ISGW2'
 # nev = 200000
+
+st_seed = 0
+maxtime = '12h'
+process_name = 'BP_Probe_B0_DmstPi_Tag-B_MuNuDst_Hardbbbar_evtgen'
+nev = 200000
 ################################################################################
 
 time_scale = {'m':1, 'h':60, 'd':60*24}
