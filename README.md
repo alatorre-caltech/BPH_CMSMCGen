@@ -17,3 +17,7 @@ dasgoclient --query="site dataset=/MinBias_TuneCP5_13TeV-pythia8/RunIIFall18GS-1
 
 "AvgEventTime" part for time/event (sec).
 "Timing-tstoragefile-write-totalMegabytes" divided by "TotalEvents" for size/event (mB). In McM corresponding fragment is kB.
+
+### Removing corrupted files
+Check the full twiki: https://twiki.cern.ch/twiki/bin/view/CMSPublic/Crab3DataHandling#Changing_a_dataset_or_file_statu.
+``python $DBS3_CLIENT_ROOT/examples/DBS3SetFileStatus.py --url=https://cmsweb.cern.ch/dbs/prod/phys03/DBSWriter --status=invalid --recursive=False  --files=<LFN>``
