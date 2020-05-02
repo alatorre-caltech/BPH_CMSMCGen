@@ -38,17 +38,17 @@ njobs = 10000
 # process_name = 'BPH_Tag-Bp_MuNuDstst_DmstPi_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen_ISGW2'
 # nev = 100000
 
-# N_PU = 'c0'
+N_PU = 'c0'
 #----------------- Tag -----------------
-# st_seed = 130001
+# st_seed = 140001
 # maxtime = '12h'
 # process_name = 'BP_Tag_B0_MuNuDmst_Hardbbbar_evtgen_ISGW2'
-# nev = 200000
+# nev = 150000
 
-# st_seed = 110001
-# maxtime = '12h'
-# process_name = 'BP_Tag_B0_TauNuDmst_Hardbbbar_evtgen_ISGW2'
-# nev = 200000
+st_seed = 80000
+maxtime = '12h'
+process_name = 'BP_Tag_B0_TauNuDmst_Hardbbbar_evtgen_ISGW2'
+nev = 200000
 
 # st_seed = 60000
 # maxtime = '12h'
@@ -63,6 +63,26 @@ njobs = 10000
 # st_seed = 0
 # maxtime = '12h'
 # process_name = 'BP_Tag_B0_DmstPi0MuNu_Hardbbbar_evtgen_GR'
+# nev = 200000
+
+# st_seed = 10000
+# maxtime = '12h'
+# process_name = 'BP_Tag_Bp_MuNuDstst_PipPi0_Hardbbbar_evtgen_ISGW2'
+# nev = 200000
+
+# st_seed = 50000
+# maxtime = '12h'
+# process_name = 'BP_Tag_B0_MuNuDstst_PipPim_Hardbbbar_evtgen_ISGW2'
+# nev = 200000
+
+# st_seed = 550000
+# maxtime = '12h'
+# process_name = 'BP_Tag_B0_MuNuDstst_Pi0Pi0_Hardbbbar_evtgen_ISGW2'
+# nev = 200000
+
+# st_seed = 0
+# maxtime = '12h'
+# process_name = 'BP_Tag_B0_MuNuDstst_Pi0_Hardbbbar_evtgen_ISGW2'
 # nev = 200000
 
 # N_PU = 'c1'
