@@ -40,15 +40,15 @@ njobs = 10000
 
 N_PU = 'c0'
 #----------------- Tag -----------------
-# st_seed = 140001
-# maxtime = '12h'
+# st_seed = 160001
+# maxtime = '16h'
 # process_name = 'BP_Tag_B0_MuNuDmst_Hardbbbar_evtgen_ISGW2'
-# nev = 150000
+# nev = 200000
 
-st_seed = 80000
-maxtime = '12h'
-process_name = 'BP_Tag_B0_TauNuDmst_Hardbbbar_evtgen_ISGW2'
-nev = 200000
+# st_seed = 80000
+# maxtime = '12h'
+# process_name = 'BP_Tag_B0_TauNuDmst_Hardbbbar_evtgen_ISGW2'
+# nev = 200000
 
 # st_seed = 60000
 # maxtime = '12h'
@@ -84,6 +84,21 @@ nev = 200000
 # maxtime = '12h'
 # process_name = 'BP_Tag_B0_MuNuDstst_Pi0_Hardbbbar_evtgen_ISGW2'
 # nev = 200000
+
+# st_seed = 0
+# maxtime = '12h'
+# process_name = 'BP_Tag_B0_DstmDsp_Hardbbbar_evtgen_ISGW2'
+# nev = 300000
+
+# st_seed = 100000
+# maxtime = '12h'
+# process_name = 'BP_Tag_B0_DstmD0_Hardbbbar_evtgen_ISGW2'
+# nev = 300000
+
+st_seed = 500000
+maxtime = '12h'
+process_name = 'BP_Tag_B0_DstmDp_Hardbbbar_evtgen_ISGW2'
+nev = 500000
 
 # N_PU = 'c1'
 #----------------- Probe -----------------

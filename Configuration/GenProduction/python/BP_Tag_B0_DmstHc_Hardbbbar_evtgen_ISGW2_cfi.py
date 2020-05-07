@@ -220,8 +220,7 @@ mufilter = cms.EDFilter("PythiaFilter",
     MaxEta = cms.untracked.double(1.6),
     MinEta = cms.untracked.double(-1.6),
     MinPt = cms.untracked.double(6.7),
-    ParticleID = cms.untracked.int32(13),
-    MotherID = cms.untracked.int32(511)
+    ParticleID = cms.untracked.int32(13)
 )
 
 DstFilter = cms.EDFilter(
