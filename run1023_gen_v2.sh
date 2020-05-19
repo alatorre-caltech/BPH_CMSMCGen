@@ -21,12 +21,15 @@ set -e
 # process_name=BP_Probe_B0_DmstHc_Tag-B_MuNuDst_Hardbbbar_evtgen_ISGW2
 # process_name=BP_Tag_B0_DmstPi0MuNu_Hardbbbar_evtgen_GR
 # process_name=BP_Tag_Bp_MuNuDstst_PipPi0_Hardbbbar_evtgen_ISGW2
-# process_name=BP_Tag_B0_MuNuDstst_PipPim_Hardbbbar_evtgen_ISGW2
+process_name=BP_Tag_B0_MuNuDstst_PipPim_Hardbbbar_evtgen_ISGW2
 # process_name=BP_Tag_B0_MuNuDstst_Pi0_Hardbbbar_evtgen_ISGW2
 # process_name=BP_Tag_B0_MuNuDstst_Pi0Pi0_Hardbbbar_evtgen_ISGW2
 # process_name=BP_Tag_B0_DstmDsp_Hardbbbar_evtgen_ISGW2
 # process_name=BP_Tag_B0_DstmD0_Hardbbbar_evtgen_ISGW2
-process_name=BP_Tag_B0_DstmDp_Hardbbbar_evtgen_ISGW2
+# process_name=BP_Tag_B0_DstmDp_Hardbbbar_evtgen_ISGW2
+# process_name=BP_Tag_Bm_DstmHc_Hardbbbar_evtgen_ISGW2
+# process_name=BP_Tag_Bp_DstmHc_Hardbbbar_evtgen_ISGW2
+# process_name=BP_Tag_antiB0_DstmHc_Hardbbbar_evtgen_ISGW2
 
 ntuplizer_config=cmssw_privateMC_Tag_B0_MuDmst-pD0bar-kp.py
 # --------------------------------------------------------------------------------

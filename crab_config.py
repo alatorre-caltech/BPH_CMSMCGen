@@ -1,6 +1,6 @@
 # Run with: crab submit -c crab_config.py
 import os
-from CRABClient.UserUtilities import config, getUsernameFromSiteDB
+from CRABClient.UserUtilities import config
 import datetime
 
 N_Threads = 2
@@ -40,10 +40,10 @@ njobs = 10000
 
 N_PU = 'c0'
 #----------------- Tag -----------------
-st_seed = 170001
-maxtime = '16h'
-process_name = 'BP_Tag_B0_MuNuDmst_Hardbbbar_evtgen_ISGW2'
-nev = 200000
+# st_seed = 170001
+# maxtime = '16h'
+# process_name = 'BP_Tag_B0_MuNuDmst_Hardbbbar_evtgen_ISGW2'
+# nev = 200000
 
 # st_seed = 80000
 # maxtime = '12h'
@@ -65,10 +65,10 @@ nev = 200000
 # process_name = 'BP_Tag_B0_DmstPi0MuNu_Hardbbbar_evtgen_GR'
 # nev = 200000
 
-# st_seed = 10000
-# maxtime = '12h'
-# process_name = 'BP_Tag_Bp_MuNuDstst_PipPi0_Hardbbbar_evtgen_ISGW2'
-# nev = 200000
+st_seed = 10000
+maxtime = '12h'
+process_name = 'BP_Tag_Bp_MuNuDstst_PipPi0_Hardbbbar_evtgen_ISGW2'
+nev = 200000
 
 # st_seed = 50000
 # maxtime = '12h'
@@ -98,6 +98,21 @@ nev = 200000
 # st_seed = 500000
 # maxtime = '12h'
 # process_name = 'BP_Tag_B0_DstmDp_Hardbbbar_evtgen_ISGW2'
+# nev = 500000
+
+# st_seed = 0
+# maxtime = '12h'
+# process_name = 'BP_Tag_Bm_DstmHc_Hardbbbar_evtgen_ISGW2'
+# nev = 500000
+
+# st_seed = 20000
+# maxtime = '12h'
+# process_name = 'BP_Tag_Bp_DstmHc_Hardbbbar_evtgen_ISGW2'
+# nev = 500000
+
+# st_seed = 40000
+# maxtime = '12h'
+# process_name = 'BP_Tag_antiB0_DstmHc_Hardbbbar_evtgen_ISGW2'
 # nev = 500000
 
 # N_PU = 'c1'

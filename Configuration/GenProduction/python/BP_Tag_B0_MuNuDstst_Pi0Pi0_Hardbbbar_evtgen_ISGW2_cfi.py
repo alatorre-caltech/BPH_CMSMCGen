@@ -32,15 +32,15 @@ Enddecay
 #
 ############# Force excited state decay #############
 #
-Alias myD'_1- D'_1-
-Decay myD'_1-
+Alias myD*(2S)- D*(2S)-
+Decay myD*(2S)-
 1.00    MyD*- pi0 pi0                     PHSP;
 Enddecay
 #
 #
 #
 Decay B0
-1.00   myD'_1-   mu+  nu_mu      PHOTOS   ISGW2;
+1.00   myD*(2S)-   mu+  nu_mu      PHOTOS   ISGW2;
 Enddecay
 #
 End
