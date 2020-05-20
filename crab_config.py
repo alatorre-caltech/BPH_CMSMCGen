@@ -65,20 +65,20 @@ N_PU = 'c0'
 # process_name = 'BP_Tag_B0_DmstPi0MuNu_Hardbbbar_evtgen_GR'
 # nev = 200000
 
-st_seed = 10000
-maxtime = '12h'
-process_name = 'BP_Tag_Bp_MuNuDstst_PipPi0_Hardbbbar_evtgen_ISGW2'
-nev = 200000
+# st_seed = 10000
+# maxtime = '12h'
+# process_name = 'BP_Tag_Bp_MuNuDstst_PipPi0_Hardbbbar_evtgen_ISGW2'
+# nev = 200000
 
 # st_seed = 50000
 # maxtime = '12h'
 # process_name = 'BP_Tag_B0_MuNuDstst_PipPim_Hardbbbar_evtgen_ISGW2'
 # nev = 200000
 
-# st_seed = 550000
-# maxtime = '12h'
-# process_name = 'BP_Tag_B0_MuNuDstst_Pi0Pi0_Hardbbbar_evtgen_ISGW2'
-# nev = 200000
+st_seed = 550000
+maxtime = '12h'
+process_name = 'BP_Tag_B0_MuNuDstst_Pi0Pi0_Hardbbbar_evtgen_ISGW2'
+nev = 200000
 
 # st_seed = 0
 # maxtime = '12h'
