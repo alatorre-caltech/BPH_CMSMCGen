@@ -64,6 +64,7 @@ N_evts=$1
 
 out_dir=$out_loc/${process_name}_$version
 MC_frag_file=$PWD/Configuration/GenProduction/python/${process_name}_cfi.py
+EvtGen_dec_file=$PWD/GeneratorInterface/EvtGenInterface/data/evt_voc1.pdl
 
 if [ ! -d "$out_dir" ]; then
   echo "Creating the output directory"
@@ -100,6 +101,9 @@ if [ ! -d "Configuration/GenProduction/python" ]; then
 fi
 cp $MC_frag_file Configuration/GenProduction/python/${process_name}_cfi.py
 
+mkdir customDecayFiles
+cp $EvtGen_dec_file customDecayFiles/
+
 scram b -j12
 
 echo "Starting job after compilation"
@@ -122,7 +126,7 @@ cd $out_dir
 echo "--> Running step 1"
 date
 cmsRun -e -j step1_rt.xml step1_${output_flag}_GEN-SIM_cfg.py &> step1.log
-
+exit
 echo "Step 2: GEN-SIM -> RAW"
 date
 

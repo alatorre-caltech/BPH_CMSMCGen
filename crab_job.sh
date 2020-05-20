@@ -24,6 +24,10 @@ eval `scramv1 runtime -sh`
 
 mkdir -p Configuration/GenProduction/python
 cp $initial_dir/*cfi.py Configuration/GenProduction/python/
+
+mkdir customDecayFiles
+wget https://raw.githubusercontent.com/ocerri/BPH_CMSMCGen/master/GeneratorInterface/EvtGenInterface/data/evt_voc1.pdl
+mv evt_voc1.pdl customDecayFiles/
 scram b
 
 #go back to starting directory
