@@ -73,3 +73,7 @@ starting seed = 0
 2020-05-18 20:49:33.023214  BP_Tag_Bp_MuNuDstst_PipPi0_Hardbbbar_evtgen_ISGW2  st_seed=10000  n_ev=200000  n_jobs=10000  maxtime=12h  PU=c0
 2020-05-18 20:50:05.852062  BP_Tag_B0_MuNuDstst_PipPim_Hardbbbar_evtgen_ISGW2  st_seed=50000  n_ev=200000  n_jobs=10000  maxtime=12h  PU=c0
 2020-05-18 20:50:26.785718  BP_Tag_B0_MuNuDstst_Pi0Pi0_Hardbbbar_evtgen_ISGW2  st_seed=550000  n_ev=200000  n_jobs=10000  maxtime=12h  PU=c0
+2020-05-20 11:50:43.390874  BP_Tag_B0_MuNuDstst_PipPim_Hardbbbar_evtgen_ISGW2  st_seed=50000  n_ev=200000  n_jobs=10000  maxtime=12h  PU=c0
+2020-05-22 00:33:09.941648  BP_Tag_Bm_DstmHc_Hardbbbar_evtgen_ISGW2  st_seed=0  n_ev=500000  n_jobs=10000  maxtime=12h  PU=c0
+2020-05-22 00:33:39.851380  BP_Tag_Bp_DstmHc_Hardbbbar_evtgen_ISGW2  st_seed=20000  n_ev=500000  n_jobs=10000  maxtime=12h  PU=c0
+2020-05-22 00:33:55.704115  BP_Tag_antiB0_DstmHc_Hardbbbar_evtgen_ISGW2  st_seed=40000  n_ev=500000  n_jobs=10000  maxtime=12h  PU=c0

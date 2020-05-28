@@ -16,6 +16,12 @@ njobs = 10000
 # process_name = 'BPH_Tag-Probe_B0_JpsiKst-mumuKpi-kp_13TeV-pythia8_SoftQCD_PTFilter5_0p0-evtgen_SVV'
 # nev = 50000
 
+# N_PU = 'c1'
+# st_seed = 0
+# maxtime = '12h'
+# process_name = 'BP_Tag-Probe_B0_JpsiKst_Hardbbbar_evtgen_HELAMP'
+# nev = 300000
+
 #----------------- Old Tag -----------------
 # st_seed = 72001
 # maxtime = '15h'
@@ -75,10 +81,10 @@ N_PU = 'c0'
 # process_name = 'BP_Tag_B0_MuNuDstst_PipPim_Hardbbbar_evtgen_ISGW2'
 # nev = 200000
 
-st_seed = 550000
-maxtime = '12h'
-process_name = 'BP_Tag_B0_MuNuDstst_Pi0Pi0_Hardbbbar_evtgen_ISGW2'
-nev = 200000
+# st_seed = 550000
+# maxtime = '12h'
+# process_name = 'BP_Tag_B0_MuNuDstst_Pi0Pi0_Hardbbbar_evtgen_ISGW2'
+# nev = 200000
 
 # st_seed = 0
 # maxtime = '12h'
@@ -110,14 +116,13 @@ nev = 200000
 # process_name = 'BP_Tag_Bp_DstmHc_Hardbbbar_evtgen_ISGW2'
 # nev = 500000
 
-# st_seed = 40000
-# maxtime = '12h'
-# process_name = 'BP_Tag_antiB0_DstmHc_Hardbbbar_evtgen_ISGW2'
-# nev = 500000
+st_seed = 40000
+maxtime = '12h'
+process_name = 'BP_Tag_antiB0_DstmHc_Hardbbbar_evtgen_ISGW2'
+nev = 500000
 
 # N_PU = 'c1'
 #----------------- Probe -----------------
-
 # st_seed = 0
 # maxtime = '12h'
 # process_name = 'BP_Probe_B0_MuNuDmst_Tag-B_MuNuDst_Hardbbbar_evtgen_ISGW2'

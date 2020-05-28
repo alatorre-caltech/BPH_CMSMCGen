@@ -21,7 +21,7 @@ set -e
 # process_name=BP_Probe_B0_DmstHc_Tag-B_MuNuDst_Hardbbbar_evtgen_ISGW2
 # process_name=BP_Tag_B0_DmstPi0MuNu_Hardbbbar_evtgen_GR
 # process_name=BP_Tag_Bp_MuNuDstst_PipPi0_Hardbbbar_evtgen_ISGW2
-process_name=BP_Tag_B0_MuNuDstst_PipPim_Hardbbbar_evtgen_ISGW2
+# process_name=BP_Tag_B0_MuNuDstst_PipPim_Hardbbbar_evtgen_ISGW2
 # process_name=BP_Tag_B0_MuNuDstst_Pi0_Hardbbbar_evtgen_ISGW2
 # process_name=BP_Tag_B0_MuNuDstst_Pi0Pi0_Hardbbbar_evtgen_ISGW2
 # process_name=BP_Tag_B0_DstmDsp_Hardbbbar_evtgen_ISGW2
@@ -29,7 +29,7 @@ process_name=BP_Tag_B0_MuNuDstst_PipPim_Hardbbbar_evtgen_ISGW2
 # process_name=BP_Tag_B0_DstmDp_Hardbbbar_evtgen_ISGW2
 # process_name=BP_Tag_Bm_DstmHc_Hardbbbar_evtgen_ISGW2
 # process_name=BP_Tag_Bp_DstmHc_Hardbbbar_evtgen_ISGW2
-# process_name=BP_Tag_antiB0_DstmHc_Hardbbbar_evtgen_ISGW2
+process_name=BP_Tag_antiB0_DstmHc_Hardbbbar_evtgen_ISGW2
 
 ntuplizer_config=cmssw_privateMC_Tag_B0_MuDmst-pD0bar-kp.py
 # --------------------------------------------------------------------------------
@@ -39,6 +39,7 @@ ntuplizer_config=cmssw_privateMC_Tag_B0_MuDmst-pD0bar-kp.py
 # process_name=BPH_Tag-Probe_B0_JpsiKst-mumuKpi-kp_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen_SVV
 # process_name=BPH_Tag-Probe_B0_JpsiKst-mumuKpi-kp_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgenFSR_SVV
 # process_name=BPH_Tag-Probe_B0_JpsiKst-mumuKpi-kp_13TeV-pythia8_SoftQCD_PTFilter5_0p0-evtgen_SVV
+# process_name=BP_Tag-Probe_B0_JpsiKst_Hardbbbar_evtgen_HELAMP
 
 # ntuplizer_config=cmssw_privateMC_Tag_Mu-Probe-B0_KDmst-pD0bar-kp.py
 # ntuplizer_config=cmssw_privateMC_Tag_Mu-Probe-B0_JpsiKst-mumuKpi.py
@@ -96,12 +97,10 @@ else
 fi
 eval `scramv1 runtime -sh`
 
-if [ ! -d "Configuration/GenProduction/python" ]; then
-  mkdir -p Configuration/GenProduction/python
-fi
+mkdir -p Configuration/GenProduction/python
 cp $MC_frag_file Configuration/GenProduction/python/${process_name}_cfi.py
 
-mkdir customDecayFiles
+mkdir -p customDecayFiles
 cp $EvtGen_dec_file customDecayFiles/
 
 scram b -j12

@@ -7,3 +7,4 @@ crab.log
 step*
 *.root
 *.log
+.ipynb_checkpoints
