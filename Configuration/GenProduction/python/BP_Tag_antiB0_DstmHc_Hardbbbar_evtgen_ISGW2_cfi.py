@@ -76,8 +76,8 @@ Enddecay
 ##########################################
 #
 Decay anti-B0
-0.00320     MyD*-         myLepD+         anti-K0                      PHSP; # [Reconstructed PDG2020]
-0.00482     MyD*-         myLepD*+        anti-K0                      PHSP; # [Reconstructed PDG2020]   #  0.0081 * 0.5946
+0.00320     MyD*-         myLepD+         anti-K0                      PHSP; # [Reconstructed PDG2020], gamma 172
+0.00482     MyD*-         myLepD*+        anti-K0                      PHSP; # [Reconstructed PDG2020]   #  0.0081 * 0.5946, gamma 173
 ######## 0.00370     MyD*-         myLepD*+        K*0                       PHSP; # Not reported in PDG, neglected
 Enddecay
 # Sum of weighted Br = 0.00802
