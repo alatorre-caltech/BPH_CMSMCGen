@@ -51,7 +51,7 @@ N_PU = 'c0'
 # process_name = 'BP_Tag_B0_MuNuDmst_Hardbbbar_evtgen_ISGW2'
 # nev = 200000
 
-# st_seed = 80000
+# st_seed = 50000
 # maxtime = '12h'
 # process_name = 'BP_Tag_B0_TauNuDmst_Hardbbbar_evtgen_ISGW2'
 # nev = 200000
@@ -61,10 +61,15 @@ N_PU = 'c0'
 # process_name = 'BP_Tag_B0_DmstHc_Hardbbbar_evtgen_ISGW2'
 # nev = 300000
 
-st_seed = 70000
-maxtime = '12h'
-process_name = 'BP_Tag_Bp_MuNuDstst_Hardbbbar_evtgen_ISGW2'
-nev = 200000
+# st_seed = 80000
+# maxtime = '12h'
+# process_name = 'BP_Tag_Bp_MuNuDstst_Hardbbbar_evtgen_ISGW2'
+# nev = 250000
+
+# st_seed = 180000
+# maxtime = '12h'
+# process_name = 'BP_Tag_Bp_TauNuDstst_Pip_Hardbbbar_evtgen_ISGW2'
+# nev = 300000
 
 # st_seed = 0
 # maxtime = '12h'
@@ -76,10 +81,20 @@ nev = 200000
 # process_name = 'BP_Tag_Bp_MuNuDstst_PipPi0_Hardbbbar_evtgen_ISGW2'
 # nev = 200000
 
+# st_seed = 10000
+# maxtime = '12h'
+# process_name = 'BP_Tag_Bp_MuNuDstPipPi0_Hardbbbar_evtgen_PHSP'
+# nev = 300000
+
 # st_seed = 50000
 # maxtime = '12h'
 # process_name = 'BP_Tag_B0_MuNuDstst_PipPim_Hardbbbar_evtgen_ISGW2'
 # nev = 200000
+
+# st_seed = 5000
+# maxtime = '12h'
+# process_name = 'BP_Tag_B0_MuNuDstPipPim_Hardbbbar_evtgen_PHSP'
+# nev = 300000
 
 # st_seed = 550000
 # maxtime = '12h'
@@ -90,6 +105,21 @@ nev = 200000
 # maxtime = '12h'
 # process_name = 'BP_Tag_B0_MuNuDstst_Pi0_Hardbbbar_evtgen_ISGW2'
 # nev = 200000
+
+# st_seed = 150000
+# maxtime = '12h'
+# process_name = 'BP_Tag_B0_TauNuDstst_Pi0_Hardbbbar_evtgen_ISGW2'
+# nev = 300000
+
+# st_seed = 3000
+# maxtime = '12h'
+# process_name = 'BP_Tag_B0_MuNuDstPiPiPi_Hardbbbar_evtgen_PHSP'
+# nev = 200000
+
+st_seed = 320000
+maxtime = '12h'
+process_name = 'BP_Tag_Bp_MuNuDstPiPiPi_Hardbbbar_evtgen_PHSP'
+nev = 200000
 
 # st_seed = 0
 # maxtime = '12h'

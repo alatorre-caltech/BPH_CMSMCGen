@@ -1,11 +1,17 @@
 #!/bin/bash
 set -e
+# ------------------------------ Unbiased -----------------------------------------
+# process_name=Unbiased_B0_MuNuDmst_Hardbbbar_evtgen_ISGW2
+# process_name=Unbiased_B0_TauNuDmst_Hardbbbar_evtgen_ISGW2
+# --------------------------------------------------------------------------------
+
 # ------------------------------ SIGNAL -----------------------------------------
 # process_name=BPH_Tag-B0_MuNuDmst-pD0bar-kp_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen_HQET2_central
 # process_name=BPH_Tag-B0_MuNuDmst-pD0bar-kp_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen_ISGW2
 # process_name=BP_Tag_B0_MuNuDmst_Hardbbbar_evtgen_ISGW2
 # process_name=BPH_Tag-B0_TauNuDmst-pD0bar-kp-t2mnn_pythia8_Hardbbbar_PTFilter5_0p0-evtgen_ISGW2
 # process_name=BP_Tag_B0_TauNuDmst_Hardbbbar_evtgen_ISGW2
+
 # process_name=BP_Probe_B0_MuNuDmst_Tag-B_MuNuDst_Hardbbbar_evtgen_ISGW2
 # process_name=BP_Probe_B0_TauNuDmst_Tag-B_MuNuDst_Hardbbbar_evtgen_ISGW2
 
@@ -16,22 +22,29 @@ set -e
 # process_name=BPH_Tag-Bp_MuNuDstst_DmstPi_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen_ISGW2
 # process_name=BPH_Tag-B0_DmstHc-pD0bar-kp-Hc2mu_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen
 # process_name=BP_Tag_Bp_MuNuDstst_Hardbbbar_evtgen_ISGW2
-# process_name=BP_Tag_B0_DmstHc_Hardbbbar_evtgen_ISGW2
-# process_name=BP_Probe_Bp_MuNuDstst_Tag-B_MuNuDst_Hardbbbar_evtgen_ISGW2
-# process_name=BP_Probe_B0_DmstHc_Tag-B_MuNuDst_Hardbbbar_evtgen_ISGW2
+# process_name=BP_Tag_Bp_TauNuDstst_Pip_Hardbbbar_evtgen_ISGW2
 # process_name=BP_Tag_B0_DmstPi0MuNu_Hardbbbar_evtgen_GR
 # process_name=BP_Tag_Bp_MuNuDstst_PipPi0_Hardbbbar_evtgen_ISGW2
 # process_name=BP_Tag_B0_MuNuDstst_PipPim_Hardbbbar_evtgen_ISGW2
 # process_name=BP_Tag_B0_MuNuDstst_Pi0_Hardbbbar_evtgen_ISGW2
+# process_name=BP_Tag_B0_TauNuDstst_Pi0_Hardbbbar_evtgen_ISGW2
 # process_name=BP_Tag_B0_MuNuDstst_Pi0Pi0_Hardbbbar_evtgen_ISGW2
+# process_name=BP_Tag_B0_MuNuDstPipPim_Hardbbbar_evtgen_PHSP
+# process_name=BP_Tag_Bp_MuNuDstPipPi0_Hardbbbar_evtgen_PHSP
+# process_name=BP_Tag_B0_MuNuDstPiPiPi_Hardbbbar_evtgen_PHSP
+process_name=BP_Tag_Bp_MuNuDstPiPiPi_Hardbbbar_evtgen_PHSP
+# process_name=BP_Tag_B0_DmstHc_Hardbbbar_evtgen_ISGW2 #Deprecated
 # process_name=BP_Tag_B0_DstmDsp_Hardbbbar_evtgen_ISGW2
 # process_name=BP_Tag_B0_DstmD0_Hardbbbar_evtgen_ISGW2
 # process_name=BP_Tag_B0_DstmDp_Hardbbbar_evtgen_ISGW2
 # process_name=BP_Tag_Bm_DstmHc_Hardbbbar_evtgen_ISGW2
 # process_name=BP_Tag_Bp_DstmHc_Hardbbbar_evtgen_ISGW2
-process_name=BP_Tag_antiB0_DstmHc_Hardbbbar_evtgen_ISGW2
+# process_name=BP_Tag_antiB0_DstmHc_Hardbbbar_evtgen_ISGW2
 
-ntuplizer_config=cmssw_privateMC_Tag_B0_MuDmst-pD0bar-kp.py
+# process_name=BP_Probe_Bp_MuNuDstst_Tag-B_MuNuDst_Hardbbbar_evtgen_ISGW2
+# process_name=BP_Probe_B0_DmstHc_Tag-B_MuNuDst_Hardbbbar_evtgen_ISGW2
+
+# ntuplizer_config=cmssw_privateMC_Tag_B0_MuDmst-pD0bar-kp.py
 # --------------------------------------------------------------------------------
 
 # ------------------------------ CONTROL REGION ----------------------------------
@@ -51,10 +64,12 @@ ntuplizer_config=cmssw_privateMC_Tag_B0_MuDmst-pD0bar-kp.py
 # ntuplizer_config=cmssw_privateMC_TagAndProbe_B0_Dmstpi.py
 # --------------------------------------------------------------------------------
 
+# ---------------------------- Test ---------------------------------------------
+# process_name=PPD-RunIIFall18wmLHEGS-00010
 
 output_flag=test
 
-N_PU=c0
+N_PU=GENonly
 version=PU${N_PU}_10-2-3
 out_loc=/afs/cern.ch/user/o/ocerri/cernbox/BPhysics/data/cmsMC_private
 if [ `uname -n` = "login-1.hep.caltech.edu" ]; then
@@ -109,7 +124,16 @@ echo "Starting job after compilation"
 echo
 echo "Step 1: GEN-SIM"
 date
-cmsDriver.py Configuration/GenProduction/python/${process_name}_cfi.py --fileout file:${output_flag}_GEN-SIM.root --mc --eventcontent RAWSIM --datatier GEN-SIM --conditions 102X_upgrade2018_realistic_v15 --beamspot Realistic25ns13TeVEarly2018Collision --step GEN,SIM --nThreads 2 --geometry DB:Extended --era Run2_2018 --python_filename step1_${output_flag}_GEN-SIM_cfg.py --no_exec -n $N_evts
+
+evtContent="RAWSIM"
+steps="GEN,SIM"
+if [ "$N_PU" == "GENonly" ]
+then
+  evtContent="GENRAW"
+  steps="GEN"
+fi
+
+cmsDriver.py Configuration/GenProduction/python/${process_name}_cfi.py --fileout file:${output_flag}_GEN-SIM.root --mc --eventcontent $evtContent --datatier GEN-SIM --conditions 102X_upgrade2018_realistic_v15 --beamspot Realistic25ns13TeVEarly2018Collision --step $steps --nThreads 2 --geometry DB:Extended --era Run2_2018 --python_filename step1_${output_flag}_GEN-SIM_cfg.py --no_exec -n $N_evts
 # --customise Configuration/DataProcessing/Utils.addMonitoring
 
 echo "process.RandomNumberGeneratorService.generator.initialSeed = 1" >> step1_${output_flag}_GEN-SIM_cfg.py
@@ -125,7 +149,15 @@ cd $out_dir
 echo "--> Running step 1"
 date
 cmsRun -e -j step1_rt.xml step1_${output_flag}_GEN-SIM_cfg.py &> step1.log
-exit
+exitcode=$?
+
+if [ "$N_PU" == "GENonly" ]
+then
+  echo "Job finished"
+  date
+  exit $exitcode
+fi
+
 echo "Step 2: GEN-SIM -> RAW"
 date
 

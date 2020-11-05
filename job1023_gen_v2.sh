@@ -49,7 +49,16 @@ echo "Step 1: GEN-SIM"
 date
 echo "Step 1: GEN-SIM" >> ${output_flag}.log
 echo `date +%s.%N` >> ${output_flag}.log
-cmsDriver.py Configuration/GenProduction/python/${process_name}_cfi.py --fileout file:${output_flag}_GEN-SIM.root --mc --eventcontent RAWSIM --datatier GEN-SIM --conditions 102X_upgrade2018_realistic_v15 --beamspot Realistic25ns13TeVEarly2018Collision --step GEN,SIM --nThreads $N_Threads --geometry DB:Extended --era Run2_2018 --python_filename step1_${output_flag}_GEN-SIM_cfg.py --no_exec -n $N_evts
+
+evtContent="RAWSIM"
+steps="GEN,SIM"
+if [ "$N_PU" == "GENonly" ]
+then
+  evtContent="GENRAW"
+  steps="GEN"
+fi
+
+cmsDriver.py Configuration/GenProduction/python/${process_name}_cfi.py --fileout file:${output_flag}_GEN-SIM.root --mc --eventcontent $evtContent --datatier GEN-SIM --conditions 102X_upgrade2018_realistic_v15 --beamspot Realistic25ns13TeVEarly2018Collision --step $steps --nThreads $N_Threads --geometry DB:Extended --era Run2_2018 --python_filename step1_${output_flag}_GEN-SIM_cfg.py --no_exec -n $N_evts
 
 echo "process.RandomNumberGeneratorService.generator.initialSeed = $N_seed" >> step1_${output_flag}_GEN-SIM_cfg.py
 echo "process.MessageLogger.cerr.FwkReport.reportEvery = 100" >> step1_${output_flag}_GEN-SIM_cfg.py
@@ -59,6 +68,20 @@ date
 echo "--> Running step 1" >> ${output_flag}.log
 echo `date +%s.%N` >> ${output_flag}.log
 cmsRun step1_${output_flag}_GEN-SIM_cfg.py 2>&1 | tee step1.log
+exitcode=$?
+
+if [ "$N_PU" == "GENonly" ]
+then
+  cp ${output_flag}_GEN-SIM.root $out_dir/${output_flag}_GEN-SIM_${N_seed}.root
+
+  cp ./*.log $out_dir/${output_flag}_${N_seed}/
+
+  echo "Job finished"
+  date
+  echo "Job finished" >> ${output_flag}.log
+  echo `date +%s.%N` >> ${output_flag}.log
+  exit $exitcode
+fi
 
 
 echo "Step 2: GEN-SIM -> RAW"
