@@ -9,6 +9,8 @@ set -e
 # process_name=BPH_Tag-B0_MuNuDmst-pD0bar-kp_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen_HQET2_central
 # process_name=BPH_Tag-B0_MuNuDmst-pD0bar-kp_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen_ISGW2
 # process_name=BP_Tag_B0_MuNuDmst_Hardbbbar_evtgen_ISGW2
+# process_name=BP_Tag_B0_MuNuDmst_SoftQCDall_evtgen_ISGW2
+
 # process_name=BPH_Tag-B0_TauNuDmst-pD0bar-kp-t2mnn_pythia8_Hardbbbar_PTFilter5_0p0-evtgen_ISGW2
 # process_name=BP_Tag_B0_TauNuDmst_Hardbbbar_evtgen_ISGW2
 
@@ -32,7 +34,7 @@ set -e
 # process_name=BP_Tag_B0_MuNuDstPipPim_Hardbbbar_evtgen_PHSP
 # process_name=BP_Tag_Bp_MuNuDstPipPi0_Hardbbbar_evtgen_PHSP
 # process_name=BP_Tag_B0_MuNuDstPiPiPi_Hardbbbar_evtgen_PHSP
-process_name=BP_Tag_Bp_MuNuDstPiPiPi_Hardbbbar_evtgen_PHSP
+# process_name=BP_Tag_Bp_MuNuDstPiPiPi_Hardbbbar_evtgen_PHSP
 # process_name=BP_Tag_B0_DmstHc_Hardbbbar_evtgen_ISGW2 #Deprecated
 # process_name=BP_Tag_B0_DstmDsp_Hardbbbar_evtgen_ISGW2
 # process_name=BP_Tag_B0_DstmD0_Hardbbbar_evtgen_ISGW2
@@ -53,6 +55,7 @@ process_name=BP_Tag_Bp_MuNuDstPiPiPi_Hardbbbar_evtgen_PHSP
 # process_name=BPH_Tag-Probe_B0_JpsiKst-mumuKpi-kp_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgenFSR_SVV
 # process_name=BPH_Tag-Probe_B0_JpsiKst-mumuKpi-kp_13TeV-pythia8_SoftQCD_PTFilter5_0p0-evtgen_SVV
 # process_name=BP_Tag-Probe_B0_JpsiKst_Hardbbbar_evtgen_HELAMP
+process_name=BP_Tag-Probe_Bp_JpsiK_Hardbbbar_evtgen_HELAMP
 
 # ntuplizer_config=cmssw_privateMC_Tag_Mu-Probe-B0_KDmst-pD0bar-kp.py
 # ntuplizer_config=cmssw_privateMC_Tag_Mu-Probe-B0_JpsiKst-mumuKpi.py

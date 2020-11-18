@@ -22,6 +22,12 @@ njobs = 10000
 # process_name = 'BP_Tag-Probe_B0_JpsiKst_Hardbbbar_evtgen_HELAMP'
 # nev = 200000
 
+# N_PU = 'c0'
+# st_seed = 1
+# maxtime = '18h'
+# process_name = 'BP_Tag-Probe_Bp_JpsiK_Hardbbbar_evtgen_HELAMP'
+# nev = 200000
+
 #----------------- Old Tag -----------------
 # st_seed = 72001
 # maxtime = '15h'
@@ -46,10 +52,10 @@ njobs = 10000
 
 N_PU = 'c0'
 #----------------- Tag -----------------
-# st_seed = 170001
-# maxtime = '16h'
-# process_name = 'BP_Tag_B0_MuNuDmst_Hardbbbar_evtgen_ISGW2'
-# nev = 200000
+st_seed = 220001
+maxtime = '16h'
+process_name = 'BP_Tag_B0_MuNuDmst_Hardbbbar_evtgen_ISGW2'
+nev = 200000
 
 # st_seed = 50000
 # maxtime = '12h'
@@ -87,9 +93,9 @@ N_PU = 'c0'
 # nev = 300000
 
 # st_seed = 50000
-# maxtime = '12h'
+# maxtime = '16h'
 # process_name = 'BP_Tag_B0_MuNuDstst_PipPim_Hardbbbar_evtgen_ISGW2'
-# nev = 200000
+# nev = 300000
 
 # st_seed = 5000
 # maxtime = '12h'
@@ -116,10 +122,10 @@ N_PU = 'c0'
 # process_name = 'BP_Tag_B0_MuNuDstPiPiPi_Hardbbbar_evtgen_PHSP'
 # nev = 200000
 
-st_seed = 320000
-maxtime = '12h'
-process_name = 'BP_Tag_Bp_MuNuDstPiPiPi_Hardbbbar_evtgen_PHSP'
-nev = 200000
+# st_seed = 320000
+# maxtime = '12h'
+# process_name = 'BP_Tag_Bp_MuNuDstPiPiPi_Hardbbbar_evtgen_PHSP'
+# nev = 200000
 
 # st_seed = 0
 # maxtime = '12h'

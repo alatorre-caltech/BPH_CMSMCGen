@@ -12,7 +12,10 @@ from glob import glob
 def BladeN(job):
     s = job['RemoteHost'][:-6]
     idx = s.find('blade-')
-    return int(s[idx+6:])
+    if idx >= 0:
+        return int(s[idx+6:])
+    else:
+        return 99
 
 logdir = os.environ['HOME'] + '/.condorSentinel'
 if not os.path.isdir(logdir):
@@ -45,7 +48,13 @@ wait_time_to_release = 14 # minutes
 status, output = commands.getstatusoutput('condor_q -all')
 
 aux = None
+nNiceOthers = {'idle':0, 'running':0}
 for l in output.split('\n'):
+    if l.startswith('nice-user') and not l.startswith('nice-user.ocerri'):
+        data = [x for x in l.split(' ') if x]
+        print data
+        nNiceOthers['running'] += int(data[6])
+        nNiceOthers['idle'] += int(data[7])
     if l.startswith('Total for all users:'):
         aux = l.split(';')[1][1:]
         aux = aux.split(', ')
@@ -59,8 +68,8 @@ if aux is None:
 N = {}
 for e in aux:
     n, status = e.split(' ')
-    N[status] = int(n)
-print 'All jobs:', N
+    N[status] = int(n) - nNiceOthers.get(status, 0)
+print 'All jobs (w/0 nice from other users):', N
 
 N_nice = {}
 N_nice['idle'] = 0

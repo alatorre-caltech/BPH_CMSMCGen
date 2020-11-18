@@ -84,12 +84,12 @@ Enddecay
 #
 Decay B-
 0.00147     MyD*-         myLepD0         anti-K0                   PHSP; # [Reconstructed PDG2020] # 0.0038 * 6.8/17.6, gamma 194
-######## 0.00500     MyD*-         myLepD0         K*+                       PHSP; # Not reported in PDG, neglected
+######## 0.00500     MyD*-         myLepD0         K*0                       PHSP; # Not reported in PDG, neglected
 0.00355     MyD*-         myLepD*0        anti-K0                   PHSP; # [Reconstructed PDG2020] # 0.0092 * 6.8/17.6, gamma 195
-######## 0.00500     MyD*-         myLepD*0        K*+                       PHSP; # Not reported in PDG, neglected
+######## 0.00500     MyD*-         myLepD*0        K*0                       PHSP; # Not reported in PDG, neglected
 0.00063     MyD*-         myLepD+         K-                        PHSP; # [Reconstructed PDG2020]
 0.00079     MyD*-         myLepD*+        K-                        PHSP; # [Reconstructed PDG2020]   #  0.00132 * 0.5946
-######## 0.00370     MyD*-         myLepD*+        K*0                       PHSP; # Not reported in PDG, neglected
+######## 0.00370     MyD*-         myLepD*+        K*-                       PHSP; # Not reported in PDG, neglected
 Enddecay
 # Sum of weighted Br = 0.00644
 End
