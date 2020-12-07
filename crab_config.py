@@ -5,6 +5,7 @@ import datetime
 
 N_Threads = 2
 njobs = 10000
+N_PU = 'c0'
 
 ################## Define the process name here only once ######################
 #----------------- JpsiKst -----------------
@@ -16,17 +17,15 @@ njobs = 10000
 # process_name = 'BPH_Tag-Probe_B0_JpsiKst-mumuKpi-kp_13TeV-pythia8_SoftQCD_PTFilter5_0p0-evtgen_SVV'
 # nev = 50000
 
-# N_PU = 'c0'
-# st_seed = 10001
+# st_seed = 20001
 # maxtime = '24h'
 # process_name = 'BP_Tag-Probe_B0_JpsiKst_Hardbbbar_evtgen_HELAMP'
 # nev = 200000
 
-# N_PU = 'c0'
-# st_seed = 1
-# maxtime = '18h'
+# st_seed = 10001
+# maxtime = '20h'
 # process_name = 'BP_Tag-Probe_Bp_JpsiK_Hardbbbar_evtgen_HELAMP'
-# nev = 200000
+# nev = 150000
 
 #----------------- Old Tag -----------------
 # st_seed = 72001
@@ -50,12 +49,16 @@ njobs = 10000
 # process_name = 'BPH_Tag-Bp_MuNuDstst_DmstPi_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen_ISGW2'
 # nev = 100000
 
-N_PU = 'c0'
 #----------------- Tag -----------------
-st_seed = 220001
-maxtime = '16h'
-process_name = 'BP_Tag_B0_MuNuDmst_Hardbbbar_evtgen_ISGW2'
-nev = 200000
+# st_seed = 1
+# maxtime = '16h'
+# process_name = 'BP_Tag_B0_MuNuDmst_SoftQCDall_evtgen_ISGW2'
+# nev = 400000
+
+# st_seed = 230001
+# maxtime = '16h'
+# process_name = 'BP_Tag_B0_MuNuDmst_Hardbbbar_evtgen_ISGW2'
+# nev = 200000
 
 # st_seed = 50000
 # maxtime = '12h'
@@ -82,7 +85,7 @@ nev = 200000
 # process_name = 'BP_Tag_B0_DmstPi0MuNu_Hardbbbar_evtgen_GR'
 # nev = 200000
 
-# st_seed = 10000
+# st_seed = 30000
 # maxtime = '12h'
 # process_name = 'BP_Tag_Bp_MuNuDstst_PipPi0_Hardbbbar_evtgen_ISGW2'
 # nev = 200000
@@ -92,17 +95,17 @@ nev = 200000
 # process_name = 'BP_Tag_Bp_MuNuDstPipPi0_Hardbbbar_evtgen_PHSP'
 # nev = 300000
 
-# st_seed = 50000
+# st_seed = 80000
 # maxtime = '16h'
 # process_name = 'BP_Tag_B0_MuNuDstst_PipPim_Hardbbbar_evtgen_ISGW2'
 # nev = 300000
 
-# st_seed = 5000
+# st_seed = 50000
 # maxtime = '12h'
 # process_name = 'BP_Tag_B0_MuNuDstPipPim_Hardbbbar_evtgen_PHSP'
 # nev = 300000
 
-# st_seed = 550000
+# st_seed = 560000
 # maxtime = '12h'
 # process_name = 'BP_Tag_B0_MuNuDstst_Pi0Pi0_Hardbbbar_evtgen_ISGW2'
 # nev = 200000
@@ -132,15 +135,15 @@ nev = 200000
 # process_name = 'BP_Tag_B0_DstmDsp_Hardbbbar_evtgen_ISGW2'
 # nev = 300000
 
-# st_seed = 100000
+# st_seed = 110000
 # maxtime = '12h'
 # process_name = 'BP_Tag_B0_DstmD0_Hardbbbar_evtgen_ISGW2'
 # nev = 300000
 
-# st_seed = 500000
-# maxtime = '12h'
-# process_name = 'BP_Tag_B0_DstmDp_Hardbbbar_evtgen_ISGW2'
-# nev = 500000
+st_seed = 510000
+maxtime = '12h'
+process_name = 'BP_Tag_B0_DstmDp_Hardbbbar_evtgen_ISGW2'
+nev = 500000
 
 # st_seed = 0
 # maxtime = '12h'
@@ -152,7 +155,7 @@ nev = 200000
 # process_name = 'BP_Tag_Bp_DstmHc_Hardbbbar_evtgen_ISGW2'
 # nev = 500000
 
-# st_seed = 40000
+# st_seed = 50000
 # maxtime = '12h'
 # process_name = 'BP_Tag_antiB0_DstmHc_Hardbbbar_evtgen_ISGW2'
 # nev = 300000
