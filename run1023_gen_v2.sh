@@ -9,6 +9,7 @@ set -e
 # process_name=BPH_Tag-B0_MuNuDmst-pD0bar-kp_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen_HQET2_central
 # process_name=BPH_Tag-B0_MuNuDmst-pD0bar-kp_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen_ISGW2
 # process_name=BP_Tag_B0_MuNuDmst_Hardbbbar_evtgen_ISGW2
+# process_name=BP_Tag_antiB0_MuNuDmst_Hardbbbar_evtgen_ISGW2
 # process_name=BP_Tag_B0_MuNuDmst_SoftQCDall_evtgen_ISGW2
 
 # process_name=BPH_Tag-B0_TauNuDmst-pD0bar-kp-t2mnn_pythia8_Hardbbbar_PTFilter5_0p0-evtgen_ISGW2
@@ -43,6 +44,8 @@ set -e
 # process_name=BP_Tag_Bp_DstmHc_Hardbbbar_evtgen_ISGW2
 # process_name=BP_Tag_antiB0_DstmHc_Hardbbbar_evtgen_ISGW2
 
+process_name=BP_Tag_B0_KpDmst_Hardbbbar_evtgen_SVS
+
 # process_name=BP_Probe_Bp_MuNuDstst_Tag-B_MuNuDst_Hardbbbar_evtgen_ISGW2
 # process_name=BP_Probe_B0_DmstHc_Tag-B_MuNuDst_Hardbbbar_evtgen_ISGW2
 
@@ -55,7 +58,8 @@ set -e
 # process_name=BPH_Tag-Probe_B0_JpsiKst-mumuKpi-kp_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgenFSR_SVV
 # process_name=BPH_Tag-Probe_B0_JpsiKst-mumuKpi-kp_13TeV-pythia8_SoftQCD_PTFilter5_0p0-evtgen_SVV
 # process_name=BP_Tag-Probe_B0_JpsiKst_Hardbbbar_evtgen_HELAMP
-process_name=BP_Tag-Probe_Bp_JpsiK_Hardbbbar_evtgen_HELAMP
+# process_name=BP_Tag-Probe_B0_JpsiKst_SoftQCD_evtgen_HELAMP
+# process_name=BP_Tag-Probe_Bp_JpsiK_Hardbbbar_evtgen_HELAMP
 
 # ntuplizer_config=cmssw_privateMC_Tag_Mu-Probe-B0_KDmst-pD0bar-kp.py
 # ntuplizer_config=cmssw_privateMC_Tag_Mu-Probe-B0_JpsiKst-mumuKpi.py
@@ -72,7 +76,9 @@ process_name=BP_Tag-Probe_Bp_JpsiK_Hardbbbar_evtgen_HELAMP
 
 output_flag=test
 
-N_PU=GENonly
+# N_PU=c0
+N_PU=GENOnly
+
 version=PU${N_PU}_10-2-3
 out_loc=/afs/cern.ch/user/o/ocerri/cernbox/BPhysics/data/cmsMC_private
 if [ `uname -n` = "login-1.hep.caltech.edu" ]; then
