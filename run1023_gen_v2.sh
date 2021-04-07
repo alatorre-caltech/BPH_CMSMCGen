@@ -1,5 +1,14 @@
 #!/bin/bash
 set -e
+
+# ------------------------------ SIGNAL -----------------------------------------
+# process_name=BParking_Tag_B_MuNuDst_SoftQCDnonD_TuneCP5_ISGW2
+process_name=BParking_Tag_B_MuNuDst_HardQCDhardbbbar_TuneCP5_ISGW2
+
+#################################################################################
+##########    OLD ############################
+#################################################################################
+
 # ------------------------------ Unbiased -----------------------------------------
 # process_name=Unbiased_B0_MuNuDmst_Hardbbbar_evtgen_ISGW2
 # process_name=Unbiased_B0_TauNuDmst_Hardbbbar_evtgen_ISGW2
@@ -44,7 +53,7 @@ set -e
 # process_name=BP_Tag_Bp_DstmHc_Hardbbbar_evtgen_ISGW2
 # process_name=BP_Tag_antiB0_DstmHc_Hardbbbar_evtgen_ISGW2
 
-process_name=BP_Tag_B0_KpDmst_Hardbbbar_evtgen_SVS
+# process_name=BP_Tag_B0_KpDmst_Hardbbbar_evtgen_SVS
 
 # process_name=BP_Probe_Bp_MuNuDstst_Tag-B_MuNuDst_Hardbbbar_evtgen_ISGW2
 # process_name=BP_Probe_B0_DmstHc_Tag-B_MuNuDst_Hardbbbar_evtgen_ISGW2
@@ -142,8 +151,7 @@ then
   steps="GEN"
 fi
 
-cmsDriver.py Configuration/GenProduction/python/${process_name}_cfi.py --fileout file:${output_flag}_GEN-SIM.root --mc --eventcontent $evtContent --datatier GEN-SIM --conditions 102X_upgrade2018_realistic_v15 --beamspot Realistic25ns13TeVEarly2018Collision --step $steps --nThreads 2 --geometry DB:Extended --era Run2_2018 --python_filename step1_${output_flag}_GEN-SIM_cfg.py --no_exec -n $N_evts
-# --customise Configuration/DataProcessing/Utils.addMonitoring
+cmsDriver.py Configuration/GenProduction/python/${process_name}_cfi.py --fileout file:${output_flag}_GEN-SIM.root --mc --eventcontent $evtContent --datatier GEN-SIM --conditions 102X_upgrade2018_realistic_v15 --beamspot Realistic25ns13TeVEarly2018Collision --step $steps --nThreads 1 --geometry DB:Extended --era Run2_2018 --python_filename step1_${output_flag}_GEN-SIM_cfg.py --no_exec -n $N_evts --customise Configuration/DataProcessing/Utils.addMonitoring
 
 echo "process.RandomNumberGeneratorService.generator.initialSeed = 1" >> step1_${output_flag}_GEN-SIM_cfg.py
 echo "process.MessageLogger.cerr.FwkReport.reportEvery = 100" >> step1_${output_flag}_GEN-SIM_cfg.py
