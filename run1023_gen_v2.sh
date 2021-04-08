@@ -2,8 +2,9 @@
 set -e
 
 # ------------------------------ SIGNAL -----------------------------------------
-# process_name=BParking_Tag_B_MuNuDst_SoftQCDnonD_TuneCP5_ISGW2
-process_name=BParking_Tag_B_MuNuDst_HardQCDhardbbbar_TuneCP5_ISGW2
+process_name=BParking_Tag_B_MuNuDst_SoftQCDnonD_scale5_TuneCP5_ISGW2
+# process_name=BParking_Tag_B_MuNuDst_SoftQCDnonD_scale1_TuneCP5_ISGW2
+# process_name=BParking_Tag_B_MuNuDst_HardQCDhardbbbar_TuneCP5_ISGW2
 
 #################################################################################
 ##########    OLD ############################
