@@ -3,9 +3,9 @@ import os
 from CRABClient.UserUtilities import config
 import datetime
 
-N_Threads = 2
+N_Threads = 1
 njobs = 10000
-N_PU = 'c0'
+N_PU = 'c2'
 
 ################## Define the process name here only once ######################
 #----------------- JpsiKst -----------------
