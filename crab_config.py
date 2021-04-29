@@ -7,7 +7,70 @@ N_Threads = 1
 njobs = 10000
 N_PU = 'c2'
 
-################## Define the process name here only once ######################
+#----------------- Anchillary samples -----------------
+st_seed = 1
+maxtime = '14h'
+process_name = 'BParking_Bd_JpsiKst_SoftQCDnonD_scale5_TuneCP5_HELAMP'
+nev = 50000
+
+
+time_scale = {'m':1, 'h':60, 'd':60*24}
+
+config = config()
+
+currentDT = str(datetime.datetime.now())
+shortDate = currentDT[2:].split(' ')[0].replace('-','')
+shortDate += '-' + currentDT.split(' ')[1].replace(':', '')[:4]
+
+config.General.requestName     = process_name + '_PU' + '_'.join([str(N_PU), os.environ['CMSSW_VERSION'][6:].replace('_','-'), shortDate])
+config.General.workArea        = 'tmp'
+config.General.transferOutputs = True
+# config.General.transferLogs    = True
+config.General.transferLogs    = False
+
+config.JobType.pluginName = 'PrivateMC'
+config.JobType.psetName   = 'placeholder_cfg.py'
+#These files will be placed in the starting directory
+config.JobType.inputFiles = ['Configuration/GenProduction/python/{}_cfi.py'.format(process_name), 'job1023_gen_v2.sh']
+# config.JobType.outputFiles = ['outlog.root', 'step1log.root', 'step2log.root', 'step3log.root', 'step4log.root']
+config.JobType.allowUndistributedCMSSW = True
+config.JobType.maxMemoryMB = 2500
+config.JobType.numCores = N_Threads
+config.JobType.maxJobRuntimeMin = int(maxtime[:-1]) * time_scale[maxtime[-1]]
+config.JobType.scriptExe = 'crab_job.sh'
+config.JobType.scriptArgs = ['nev='+str(nev), 'st_seed='+str(st_seed), 'process_name='+process_name, 'N_PU='+str(N_PU), 'N_Threads='+str(N_Threads)]
+
+config.Data.outputPrimaryDataset = 'cmsMC_private_PU' + str(N_PU) + '_' + os.environ['CMSSW_VERSION'][6:].replace('_','-')
+config.Data.splitting            = 'EventBased'
+config.Data.unitsPerJob          = 10 #placeholder
+config.Data.totalUnits           = njobs * config.Data.unitsPerJob
+config.Data.publication          = True
+config.Data.outputDatasetTag     = process_name + '_' + shortDate
+
+config.Site.storageSite = 'T2_US_Caltech'
+# config.Site.blacklist = ['T2_EE_*']
+if N_PU > 0:
+    if not os.path.isfile('sitesWithPileupDataset.txt'):
+        raise
+    list = []
+    with open('sitesWithPileupDataset.txt') as file:
+        for ln in file.readlines():
+            ln = ln[:-1]
+            if ln[:2]=='T0' or ln[:2]=='T1': continue
+            list.append(ln)
+    config.Site.whitelist = list
+
+str2tail = '  '.join([currentDT[:-7], process_name, 'st_seed='+str(st_seed), 'n_ev='+str(nev), 'n_jobs='+str(njobs), 'maxtime='+str(maxtime), 'PU='+str(N_PU)])
+os.system('echo "{}" >> generationLog.txt'.format(str2tail))
+
+
+
+
+
+
+
+
+################## OLD ######################
 #----------------- JpsiKst -----------------
 # maxtime = '12h'
 # process_name = 'BPH_Tag-Probe_B0_JpsiKst-mumuKpi-kp_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen_SVV'
@@ -55,10 +118,10 @@ N_PU = 'c2'
 # nev = 100000
 
 #----------------- Tag -----------------
-st_seed = 100001
-maxtime = '20h'
-process_name = 'BP_Tag_B0_MuNuDmst_SoftQCDall_evtgen_ISGW2'
-nev = 3000000
+# st_seed = 100001
+# maxtime = '20h'
+# process_name = 'BP_Tag_B0_MuNuDmst_SoftQCDall_evtgen_ISGW2'
+# nev = 3000000
 
 # st_seed = 1
 # maxtime = '16h'
@@ -197,50 +260,3 @@ nev = 3000000
 # process_name = 'BP_Probe_B0_DmstPi_Tag-B_MuNuDst_Hardbbbar_evtgen'
 # nev = 200000
 ################################################################################
-
-time_scale = {'m':1, 'h':60, 'd':60*24}
-
-config = config()
-
-currentDT = str(datetime.datetime.now())
-shortDate = currentDT[2:].split(' ')[0].replace('-','')
-config.General.requestName     = process_name + '_PU' + '_'.join([str(N_PU), os.environ['CMSSW_VERSION'][6:].replace('_','-'), shortDate])
-config.General.workArea        = 'tmp'
-config.General.transferOutputs = True
-# config.General.transferLogs    = True
-config.General.transferLogs    = False
-
-config.JobType.pluginName = 'PrivateMC'
-config.JobType.psetName   = 'placeholder_cfg.py'
-#These files will be placed in the starting directory
-config.JobType.inputFiles = ['Configuration/GenProduction/python/{}_cfi.py'.format(process_name), 'job1023_gen_v2.sh']
-# config.JobType.outputFiles = ['outlog.root', 'step1log.root', 'step2log.root', 'step3log.root', 'step4log.root']
-config.JobType.allowUndistributedCMSSW = True
-config.JobType.maxMemoryMB = 4000
-config.JobType.numCores = N_Threads
-config.JobType.maxJobRuntimeMin = int(maxtime[:-1]) * time_scale[maxtime[-1]]
-config.JobType.scriptExe = 'crab_job.sh'
-config.JobType.scriptArgs = ['nev='+str(nev), 'st_seed='+str(st_seed), 'process_name='+process_name, 'N_PU='+str(N_PU), 'N_Threads='+str(N_Threads)]
-
-config.Data.outputPrimaryDataset = 'cmsMC_private_PU' + str(N_PU) + '_' + os.environ['CMSSW_VERSION'][6:].replace('_','-')
-config.Data.splitting            = 'EventBased'
-config.Data.unitsPerJob          = 10 #placeholder
-config.Data.totalUnits           = njobs * config.Data.unitsPerJob
-config.Data.publication          = True
-config.Data.outputDatasetTag     = process_name + '_' + shortDate
-
-config.Site.storageSite = 'T2_US_Caltech'
-# config.Site.blacklist = ['T2_EE_*']
-if N_PU > 0:
-    if not os.path.isfile('sitesWithPileupDataset.txt'):
-        raise
-    list = []
-    with open('sitesWithPileupDataset.txt') as file:
-        for ln in file.readlines():
-            ln = ln[:-1]
-            if ln[:2]=='T0' or ln[:2]=='T1': continue
-            list.append(ln)
-    config.Site.whitelist = list
-
-str2tail = '  '.join([currentDT, process_name, 'st_seed='+str(st_seed), 'n_ev='+str(nev), 'n_jobs='+str(njobs), 'maxtime='+str(maxtime), 'PU='+str(N_PU)])
-os.system('echo "{}" >> generationLog.txt'.format(str2tail))

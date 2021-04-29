@@ -15,7 +15,7 @@ generator = cms.EDFilter("Pythia8GeneratorFilter",
                 'Myanti-B0',
                 'MyB0',
             ),
-            operates_on_particles = cms.vint32(),
+            operates_on_particles = cms.vint32(511),
             convertPythiaCodes = cms.untracked.bool(False),
             user_decay_embedded= cms.vstring(
 """

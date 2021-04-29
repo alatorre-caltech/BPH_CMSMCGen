@@ -60,8 +60,9 @@ fi
 
 cmsDriver.py Configuration/GenProduction/python/${process_name}_cfi.py --fileout file:${output_flag}_GEN-SIM.root --mc --eventcontent $evtContent --datatier GEN-SIM --conditions 102X_upgrade2018_realistic_v15 --beamspot Realistic25ns13TeVEarly2018Collision --step $steps --nThreads $N_Threads --geometry DB:Extended --era Run2_2018 --python_filename step1_${output_flag}_GEN-SIM_cfg.py --no_exec -n $N_evts
 
-echo "process.RandomNumberGeneratorService.generator.initialSeed = $N_seed" >> step1_${output_flag}_GEN-SIM_cfg.py
+echo "process.RandomNumberGeneratorService.generator.initialSeed = cms.untracked.uint32($N_seed)" >> step1_${output_flag}_GEN-SIM_cfg.py
 echo "process.MessageLogger.cerr.FwkReport.reportEvery = 100" >> step1_${output_flag}_GEN-SIM_cfg.py
+echo "process.source.firstRun = cms.untracked.uint32($N_seed)" >> step1_${output_flag}_GEN-SIM_cfg.py
 
 echo "--> Running step 1"
 date
