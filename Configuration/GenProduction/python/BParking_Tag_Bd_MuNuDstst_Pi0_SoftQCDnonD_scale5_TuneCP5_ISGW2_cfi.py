@@ -23,12 +23,21 @@ Alias      MyD0        D0
 Alias      Myanti-D0   anti-D0
 Alias      MyD*-       D*-
 Alias      MyD*+       D*+
+Alias      MyD_1-      D_1-
+Alias      MyD_1+      D_1+
+Alias      MyD'_1-     D'_1-
+Alias      MyD'_1+     D'_1+
+Alias      MyD_2*-     D_2*-
+Alias      MyD_2*+     D_2*+
 Alias      MyB0        B0
 Alias      Myanti-B0   anti-B0
 
-ChargeConj MyD0   Myanti-D0
-ChargeConj MyB0   Myanti-B0
-ChargeConj MyD*-  MyD*+
+ChargeConj MyD0     Myanti-D0
+ChargeConj MyD*-    MyD*+
+ChargeConj MyD_1-   MyD_1+
+ChargeConj MyD'_1-  MyD'_1+
+ChargeConj MyD_2*-  MyD_2*+
+ChargeConj MyB0     Myanti-B0
 
 Decay MyD0
 1.000       K-  pi+           PHSP;
@@ -40,8 +49,26 @@ Decay MyD*-
 Enddecay
 CDecay MyD*+
 
+Decay MyD_1-
+1.000    MyD*- pi0                        VVS_PWAVE  0.0 0.0 0.0 0.0 1.0 0.0;
+Enddecay
+CDecay MyD_1+
+
+Decay MyD'_1-
+1.000    MyD*- pi0                        VVS_PWAVE  1.0 0.0 0.0 0.0 0.0 0.0;
+Enddecay
+CDecay MyD'_1+
+
+Decay MyD_2*-
+1.000    MyD*- pi0                        TVS_PWAVE  0.0 0.0 1.0 0.0 0.0 0.0;
+Enddecay
+CDecay MyD_2*+
+
+# Resonances relative contribution from B+ -> D* pi munu. Divide the numbers below by 2 (isospin) to get the excted branching fraction.
 Decay MyB0
-1.000       MyD*- mu+ nu_mu   PHOTOS  ISGW2;
+0.00303   MyD_1-    mu+    nu_mu  PHOTOS  ISGW2;
+0.00270   MyD'_1-   mu+    nu_mu  PHOTOS  ISGW2;
+0.00101   MyD_2*-   mu+    nu_mu  PHOTOS  ISGW2;
 Enddecay
 CDecay Myanti-B0
 
@@ -71,16 +98,13 @@ End
 
 
 ###### Filters ##########
-tagfilter = cms.EDFilter(
-    "PythiaDauVFilter",
-    ParticleID         = cms.untracked.int32(511),  ## B0
-#     ChargeConjugation  = cms.untracked.bool(False), # Default is true
-    ChargeConjugation  = cms.untracked.bool(True),
-    NumberDaughters    = cms.untracked.int32(3),
-    DaughterIDs        = cms.untracked.vint32(-413, -13, 14),
-    MinPt              = cms.untracked.vdouble(-1., 6.7, -1.),
-    MinEta             = cms.untracked.vdouble(-9999999., -1.6, -9999999.),
-    MaxEta             = cms.untracked.vdouble( 9999999.,  1.6, 9999999.)
+
+tagfilter = cms.EDFilter("PythiaFilter",
+    MaxEta = cms.untracked.double(1.6),
+    MinEta = cms.untracked.double(-1.6),
+    MinPt = cms.untracked.double(6.7),
+    ParticleID = cms.untracked.int32(13), ## mu
+    MotherID = cms.untracked.int32(511) ## B0
 )
 
 

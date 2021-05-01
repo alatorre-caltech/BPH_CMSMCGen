@@ -15,7 +15,7 @@ generator = cms.EDFilter("Pythia8GeneratorFilter",
                 'MyB_s0',
                 'Myanti-B_s0'
             ),
-            operates_on_particles = cms.vint32(),
+            operates_on_particles = cms.vint32(531),
             convertPythiaCodes = cms.untracked.bool(False),
             user_decay_embedded= cms.vstring(
 """
@@ -93,7 +93,7 @@ tagfilter = cms.EDFilter("PythiaFilter",
     MaxEta = cms.untracked.double(1.6),
     MinEta = cms.untracked.double(-1.6),
     MinPt = cms.untracked.double(6.7),
-    ParticleID = cms.untracked.int32(13), ## mu
+    ParticleID = cms.untracked.int32(-13), ## mu
     MotherID = cms.untracked.int32(531) ## B_s0
 )
 

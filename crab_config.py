@@ -8,7 +8,7 @@ njobs = 10000
 N_PU = 'c2'
 
 #----------------- Anchillary samples -----------------
-st_seed = 1
+st_seed = 10001
 maxtime = '14h'
 process_name = 'BParking_Bd_JpsiKst_SoftQCDnonD_scale5_TuneCP5_HELAMP'
 nev = 50000
@@ -34,7 +34,7 @@ config.JobType.psetName   = 'placeholder_cfg.py'
 config.JobType.inputFiles = ['Configuration/GenProduction/python/{}_cfi.py'.format(process_name), 'job1023_gen_v2.sh']
 # config.JobType.outputFiles = ['outlog.root', 'step1log.root', 'step2log.root', 'step3log.root', 'step4log.root']
 config.JobType.allowUndistributedCMSSW = True
-config.JobType.maxMemoryMB = 2500
+config.JobType.maxMemoryMB = 5000
 config.JobType.numCores = N_Threads
 config.JobType.maxJobRuntimeMin = int(maxtime[:-1]) * time_scale[maxtime[-1]]
 config.JobType.scriptExe = 'crab_job.sh'

@@ -12,23 +12,37 @@ generator = cms.EDFilter("Pythia8GeneratorFilter",
             decay_table = cms.string('GeneratorInterface/EvtGenInterface/data/DECAY_2014_NOLONGLIFE.DEC'),
             particle_property_file = cms.FileInPath('GeneratorInterface/EvtGenInterface/data/evt_2014.pdl'),
             list_forced_decays = cms.vstring(
-                'Myanti-B0',
-                'MyB0',
+                'MyB_s0',
+                'Myanti-B_s0'
             ),
-            operates_on_particles = cms.vint32(511),
+            operates_on_particles = cms.vint32(531),
             convertPythiaCodes = cms.untracked.bool(False),
             user_decay_embedded= cms.vstring(
 """
+Alias      MyTau+      tau+
+Alias      MyTau-      tau-
 Alias      MyD0        D0
 Alias      Myanti-D0   anti-D0
 Alias      MyD*-       D*-
 Alias      MyD*+       D*+
-Alias      MyB0        B0
-Alias      Myanti-B0   anti-B0
+Alias      MyD'_s1-     D'_s1-
+Alias      MyD'_s1+     D'_s1+
+Alias      MyD_s2*-    D_s2*-
+Alias      MyD_s2*+    D_s2*+
+Alias      MyB_s0      B_s0
+Alias      Myanti-B_s0 anti-B_s0
 
-ChargeConj MyD0   Myanti-D0
-ChargeConj MyB0   Myanti-B0
-ChargeConj MyD*-  MyD*+
+ChargeConj MyTau+   MyTau-
+ChargeConj MyD0     Myanti-D0
+ChargeConj MyD*-    MyD*+
+ChargeConj MyD'_s1-  MyD'_s1+
+ChargeConj MyD_s2*- MyD_s2*+
+ChargeConj MyB_s0   Myanti-B_s0
+
+Decay MyTau+
+1.000      mu+  nu_mu   anti-nu_tau         TAULNUNU;
+Enddecay
+CDecay MyTau-
 
 Decay MyD0
 1.000       K-  pi+           PHSP;
@@ -40,10 +54,21 @@ Decay MyD*-
 Enddecay
 CDecay MyD*+
 
-Decay MyB0
-1.000       MyD*- mu+ nu_mu   PHOTOS  ISGW2;
+Decay MyD'_s1-
+1.000       MyD*- anti-K0        VVS_PWAVE  0.0 0.0 0.0 0.0 1.0 0.0;
 Enddecay
-CDecay Myanti-B0
+CDecay MyD'_s1+
+
+Decay MyD_s2*-
+1.000       MyD*- anti-K0        TVS_PWAVE  0.0 0.0 1.0 0.0 0.0 0.0;
+Enddecay
+CDecay MyD_s2*-
+
+Decay MyB_s0
+0.0027   MyD'_s1-   MyTau+    nu_tau  PHOTOS  ISGW2;
+0.0005   MyD_s2*-   MyTau+    nu_tau  PHOTOS  ISGW2;
+Enddecay
+CDecay Myanti-B_s0
 
 End
 """
@@ -71,17 +96,18 @@ End
 
 
 ###### Filters ##########
-tagfilter = cms.EDFilter(
+
+tau_mufilter = cms.EDFilter(
     "PythiaDauVFilter",
-    ParticleID         = cms.untracked.int32(511),  ## B0
-#     ChargeConjugation  = cms.untracked.bool(False), # Default is true
+    ParticleID         = cms.untracked.int32(-15),  ## Tau
+    MotherID           = cms.untracked.int32(531),  ## B_s0
     ChargeConjugation  = cms.untracked.bool(True),
     NumberDaughters    = cms.untracked.int32(3),
-    DaughterIDs        = cms.untracked.vint32(-413, -13, 14),
+    DaughterIDs        = cms.untracked.vint32(-16, -13, 14),
     MinPt              = cms.untracked.vdouble(-1., 6.7, -1.),
     MinEta             = cms.untracked.vdouble(-9999999., -1.6, -9999999.),
     MaxEta             = cms.untracked.vdouble( 9999999.,  1.6, 9999999.)
 )
 
 
-ProductionFilterSequence = cms.Sequence(generator + tagfilter)
+ProductionFilterSequence = cms.Sequence(generator + tau_mufilter)

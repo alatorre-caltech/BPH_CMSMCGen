@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-# ------------------------------ SIGNAL -----------------------------------------
+# ------------------------------ SIGNAL ----------------------------------------
 # process_name=BParking_Tag_Bd_MuNuDst_SoftQCDnonD_scale5_TuneCP5_ISGW2
 # process_name=BParking_Tag_Bd_MuNuDst_SoftQCDnonD_scale1_TuneCP5_ISGW2
 # process_name=BParking_Tag_Bd_MuNuDst_HardQCDhardbbbar_TuneCP5_ISGW2
@@ -9,13 +9,19 @@ set -e
 # process_name=BParking_Tag_Bd_TauNuDst_SoftQCDnonD_scale5_TuneCP5_ISGW2
 
 
-# ------------------------------ BACKGROUND -----------------------------------------
+# ------------------------------ BACKGROUND ------------------------------------
+
+## B(s) -> D** mu nu
+# process_name=BParking_Tag_Bu_MuNuDstst_Pip_SoftQCDnonD_scale5_TuneCP5_ISGW2
+# process_name=BParking_Tag_Bd_MuNuDstst_Pi0_SoftQCDnonD_scale5_TuneCP5_ISGW2
+
 # process_name=BParking_Tag_Bs_MuNuDsstst_SoftQCDnonD_scale5_TuneCP5_ISGW2
+process_name=BParking_Tag_Bs_TauNuDsstst_SoftQCDnonD_scale5_TuneCP5_ISGW2
 
 
 
-# ------------------------------ ANCILLARY -----------------------------------------
-process_name=BParking_Bd_JpsiKst_SoftQCDnonD_scale5_TuneCP5_HELAMP
+# ------------------------------ ANCILLARY -------------------------------------
+# process_name=BParking_Bd_JpsiKst_SoftQCDnonD_scale5_TuneCP5_HELAMP
 
 
 
