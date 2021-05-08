@@ -57,8 +57,8 @@ Enddecay
 CDecay MyD_s2*-
 
 Decay MyB_s0
-0.0027   MyD'_s1-   mu+    nu_mu  PHOTOS  ISGW2;
-0.0005   MyD_s2*-   mu+    nu_mu  PHOTOS  ISGW2;
+0.00270   MyD'_s1-   mu+    nu_mu  PHOTOS  ISGW2;
+0.00025   MyD_s2*-   mu+    nu_mu  PHOTOS  ISGW2;
 Enddecay
 CDecay Myanti-B_s0
 
