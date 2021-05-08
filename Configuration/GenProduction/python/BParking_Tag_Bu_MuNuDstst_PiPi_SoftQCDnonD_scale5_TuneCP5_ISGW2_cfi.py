@@ -19,25 +19,19 @@ generator = cms.EDFilter("Pythia8GeneratorFilter",
             convertPythiaCodes = cms.untracked.bool(False),
             user_decay_embedded= cms.vstring(
 """
-Alias      MyD0          D0
-Alias      Myanti-D0     anti-D0
-Alias      MyD*-         D*-
-Alias      MyD*+         D*+
-Alias      MyD_10        D_10
-Alias      Myanti-D_10   anti-D_10
-Alias      MyD'_10       D'_10
-Alias      Myanti-D'_10  anti-D'_10
-Alias      MyD_2*0       D_2*0
-Alias      Myanti-D_2*0  anti-D_2*0
-Alias      MyB+          B+
-Alias      MyB-          B-
+Alias      MyD0           D0
+Alias      Myanti-D0      anti-D0
+Alias      MyD*-          D*-
+Alias      MyD*+          D*+
+Alias      MyD*(2S)0      D*(2S)0
+Alias      Myanti-D*(2S)0 anti-D*(2S)0
+Alias      MyB+           B+
+Alias      MyB-           B-
 
-ChargeConj MyD0     Myanti-D0
-ChargeConj MyD*-    MyD*+
-ChargeConj MyD_10   Myanti-D_10
-ChargeConj MyD'_10  Myanti-D'_10
-ChargeConj MyD_2*0  Myanti-D_2*0
-ChargeConj MyB+     MyB-
+ChargeConj MyD0       Myanti-D0
+ChargeConj MyD*-      MyD*+
+ChargeConj MyD*(2S)0  Myanti-D*(2S)0
+ChargeConj MyB+       MyB-
 
 Decay MyD0
 1.000       K-  pi+           PHSP;
@@ -49,26 +43,13 @@ Decay MyD*-
 Enddecay
 CDecay MyD*+
 
-Decay MyD_10
-1.000    MyD*+ pi-                        VVS_PWAVE  0.0 0.0 0.0 0.0 1.0 0.0;
+Decay Myanti-D*(2S)0
+1.00    MyD*- pi+ pi0                      PHSP;
 Enddecay
-CDecay Myanti-D_10
+CDecay MyD*(2S)0
 
-Decay MyD'_10
-1.000    MyD*+ pi-                        VVS_PWAVE  1.0 0.0 0.0 0.0 0.0 0.0;
-Enddecay
-CDecay Myanti-D'_10
-
-Decay MyD_2*0
-1.000    MyD*+ pi-                        TVS_PWAVE  0.0 0.0 1.0 0.0 0.0 0.0;
-Enddecay
-CDecay Myanti-D_2*0
-
-# Resonances relative contribution from B+ -> D* pi munu. Divide the numbers below by 2 (isospin) to get the excted branching fraction.
 Decay MyB+
-0.00303   Myanti-D_10    mu+    nu_mu  PHOTOS  ISGW2;
-0.00270   Myanti-D'_10   mu+    nu_mu  PHOTOS  ISGW2;
-0.00101   Myanti-D_2*0   mu+    nu_mu  PHOTOS  ISGW2;
+1.00   Myanti-D*(2S)0   mu+  nu_mu      PHOTOS   ISGW2;
 Enddecay
 CDecay MyB-
 
