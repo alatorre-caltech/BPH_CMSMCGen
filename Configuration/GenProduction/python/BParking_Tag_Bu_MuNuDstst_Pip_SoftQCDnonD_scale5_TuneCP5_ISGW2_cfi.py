@@ -69,6 +69,7 @@ Decay MyB+
 0.00303   Myanti-D_10    mu+    nu_mu  PHOTOS  ISGW2;
 0.00270   Myanti-D'_10   mu+    nu_mu  PHOTOS  ISGW2;
 0.00101   Myanti-D_2*0   mu+    nu_mu  PHOTOS  ISGW2;
+0.00045   MyD*-  pi+     mu+    nu_mu  PHOTOS  GOITY_ROBERTS;
 Enddecay
 CDecay MyB-
 
