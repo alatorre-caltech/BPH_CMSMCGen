@@ -74,9 +74,10 @@ CDecay MyD_2*+
 
 # Resonances relative contribution from B+ -> D* pi munu. Divide the numbers below by 2 (isospin) to get the excted branching fraction.
 Decay MyB0
-0.00303   MyD_1-    MyTau+    nu_mu  PHOTOS  ISGW2;
-0.00270   MyD'_1-   MyTau+    nu_mu  PHOTOS  ISGW2;
-0.00101   MyD_2*-   MyTau+    nu_mu  PHOTOS  ISGW2;
+0.00303   MyD_1-     MyTau+    nu_mu  PHOTOS  ISGW2;
+0.00270   MyD'_1-    MyTau+    nu_mu  PHOTOS  ISGW2;
+0.00101   MyD_2*-    MyTau+    nu_mu  PHOTOS  ISGW2;
+0.00045   MyD*- pi0  MyTau+    nu_mu  PHOTOS  GOITY_ROBERTS;
 Enddecay
 CDecay Myanti-B0
 

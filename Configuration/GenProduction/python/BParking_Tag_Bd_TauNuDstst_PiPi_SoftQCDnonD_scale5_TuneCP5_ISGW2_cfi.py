@@ -12,35 +12,29 @@ generator = cms.EDFilter("Pythia8GeneratorFilter",
             decay_table = cms.string('GeneratorInterface/EvtGenInterface/data/DECAY_2014_NOLONGLIFE.DEC'),
             particle_property_file = cms.FileInPath('customDecayFiles/evt_voc1.pdl'),
             list_forced_decays = cms.vstring(
-                'MyB+',
-                'MyB-',
+                'Myanti-B0',
+                'MyB0',
             ),
-            operates_on_particles = cms.vint32(521),
+            operates_on_particles = cms.vint32(511),
             convertPythiaCodes = cms.untracked.bool(False),
             user_decay_embedded= cms.vstring(
 """
 Alias      MyTau+      tau+
 Alias      MyTau-      tau-
-Alias      MyD0          D0
-Alias      Myanti-D0     anti-D0
-Alias      MyD*-         D*-
-Alias      MyD*+         D*+
-Alias      MyD_10        D_10
-Alias      Myanti-D_10   anti-D_10
-Alias      MyD'_10       D'_10
-Alias      Myanti-D'_10  anti-D'_10
-Alias      MyD_2*0       D_2*0
-Alias      Myanti-D_2*0  anti-D_2*0
-Alias      MyB+          B+
-Alias      MyB-          B-
+Alias      MyD0        D0
+Alias      Myanti-D0   anti-D0
+Alias      MyD*-       D*-
+Alias      MyD*+       D*+
+Alias      MyD*(2S)-   D*(2S)-
+Alias      MyD*(2S)+   D*(2S)+
+Alias      MyB0        B0
+Alias      Myanti-B0   anti-B0
 
-ChargeConj MyTau+   MyTau-
-ChargeConj MyD0     Myanti-D0
-ChargeConj MyD*-    MyD*+
-ChargeConj MyD_10   Myanti-D_10
-ChargeConj MyD'_10  Myanti-D'_10
-ChargeConj MyD_2*0  Myanti-D_2*0
-ChargeConj MyB+     MyB-
+ChargeConj MyTau+     MyTau-
+ChargeConj MyD0       Myanti-D0
+ChargeConj MyD*-      MyD*+
+ChargeConj MyD*(2S)-  MyD*(2S)+
+ChargeConj MyB0       Myanti-B0
 
 Decay MyTau+
 1.000      mu+  nu_mu   anti-nu_tau         TAULNUNU;
@@ -57,29 +51,17 @@ Decay MyD*-
 Enddecay
 CDecay MyD*+
 
-Decay MyD_10
-1.000    MyD*+ pi-                        VVS_PWAVE  0.0 0.0 0.0 0.0 1.0 0.0;
+Decay MyD*(2S)-
+0.80    MyD*- pi+ pi-                     PHSP;
+0.20    MyD*- pi0 pi0                     PHSP;
 Enddecay
-CDecay Myanti-D_10
+CDecay MyD*(2S)+
 
-Decay MyD'_10
-1.000    MyD*+ pi-                        VVS_PWAVE  1.0 0.0 0.0 0.0 0.0 0.0;
-Enddecay
-CDecay Myanti-D'_10
 
-Decay MyD_2*0
-1.000    MyD*+ pi-                        TVS_PWAVE  0.0 0.0 1.0 0.0 0.0 0.0;
+Decay MyB0
+1.00   MyD*(2S)-   MyTau+  nu_mu      PHOTOS   ISGW2;
 Enddecay
-CDecay Myanti-D_2*0
-
-# Resonances relative contribution from B+ -> D* pi munu. Divide the numbers below by 2 (isospin) to get the excted branching fraction.
-Decay MyB+
-0.00303   Myanti-D_10    MyTau+    nu_mu  PHOTOS  ISGW2;
-0.00270   Myanti-D'_10   MyTau+    nu_mu  PHOTOS  ISGW2;
-0.00101   Myanti-D_2*0   MyTau+    nu_mu  PHOTOS  ISGW2;
-0.00045   MyD*-  pi+     MyTau+    nu_mu  PHOTOS  GOITY_ROBERTS;
-Enddecay
-CDecay MyB-
+CDecay Myanti-B0
 
 End
 """
@@ -111,7 +93,7 @@ End
 tau_mufilter = cms.EDFilter(
     "PythiaDauVFilter",
     ParticleID         = cms.untracked.int32(-15),  ## Tau
-    MotherID           = cms.untracked.int32(521),  ## B+
+    MotherID           = cms.untracked.int32(511),  ## B0
     ChargeConjugation  = cms.untracked.bool(True),
     NumberDaughters    = cms.untracked.int32(3),
     DaughterIDs        = cms.untracked.vint32(-16, -13, 14),

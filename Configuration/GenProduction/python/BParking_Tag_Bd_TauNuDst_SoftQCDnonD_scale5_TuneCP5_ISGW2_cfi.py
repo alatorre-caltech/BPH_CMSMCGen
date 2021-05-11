@@ -30,8 +30,8 @@ Alias      Myanti-B0   anti-B0
 
 ChargeConj MyTau+   MyTau-
 ChargeConj MyD0   Myanti-D0
-ChargeConj MyB0   Myanti-B0
 ChargeConj MyD*-  MyD*+
+ChargeConj MyB0   Myanti-B0
 
 Decay MyTau+
 1.000      mu+  nu_mu   anti-nu_tau         TAULNUNU;
