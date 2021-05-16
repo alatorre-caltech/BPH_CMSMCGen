@@ -67,7 +67,7 @@ CDecay MyD'_s1+
 Decay MyD_s2*-
 1.000       MyD*- anti-K0        TVS_PWAVE  0.0 0.0 1.0 0.0 0.0 0.0;
 Enddecay
-CDecay MyD_s2*-
+CDecay MyD_s2*+
 
 Decay MyB_s0
 0.00270   MyD'_s1-   MyTau+    nu_tau  PHOTOS  ISGW2;

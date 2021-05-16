@@ -59,7 +59,7 @@ CDecay MyD'_s1+
 Decay MyD_s2*-
 1.000       MyD*- anti-K0        TVS_PWAVE  0.0 0.0 1.0 0.0 0.0 0.0;
 Enddecay
-CDecay MyD_s2*-
+CDecay MyD_s2*+
 
 Decay MyB_s0
 0.00270   MyD'_s1-   mu+    nu_mu  PHOTOS  ISGW2;
@@ -98,7 +98,7 @@ tagfilter = cms.EDFilter("PythiaFilter",
     MaxEta = cms.untracked.double(1.6),
     MinEta = cms.untracked.double(-1.6),
     MinPt = cms.untracked.double(6.7),
-    ParticleID = cms.untracked.int32(-13), ## mu
+    ParticleID = cms.untracked.int32(13), ## mu
     MotherID = cms.untracked.int32(531) ## B_s0
 )
 
