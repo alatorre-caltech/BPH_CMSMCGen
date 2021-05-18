@@ -31,6 +31,8 @@ Alias      MyD'_1-     D'_1-
 Alias      MyD'_1+     D'_1+
 Alias      MyD_2*-     D_2*-
 Alias      MyD_2*+     D_2*+
+Alias      MyD*(2S)-   D*(2S)-
+Alias      MyD*(2S)+   D*(2S)+
 Alias      MyB0        B0
 Alias      Myanti-B0   anti-B0
 
@@ -40,6 +42,9 @@ Particle   MyD'_1-   2.4300000e+00  3.8427080e-01
 Particle   MyD'_1+   2.4300000e+00  3.8427080e-01
 Particle   MyD_2*-   2.4654000e+00  4.6709998e-02
 Particle   MyD_2*+   2.4654000e+00  4.6709998e-02
+# Used as non resonant
+Particle   MyD*(2S)-   2.500000e+00  3.0000000e+00
+Particle   MyD*(2S)+   2.500000e+00  3.0000000e+00
 
 ChargeConj MyTau+   MyTau-
 ChargeConj MyD0     Myanti-D0
@@ -47,6 +52,7 @@ ChargeConj MyD*-    MyD*+
 ChargeConj MyD_1-   MyD_1+
 ChargeConj MyD'_1-  MyD'_1+
 ChargeConj MyD_2*-  MyD_2*+
+ChargeConj MyD*(2S)-  MyD*(2S)+
 ChargeConj MyB0     Myanti-B0
 
 Decay MyTau+
@@ -79,12 +85,17 @@ Decay MyD_2*-
 Enddecay
 CDecay MyD_2*+
 
+Decay MyD*(2S)-
+1.000    MyD*- pi0                     PHSP;
+Enddecay
+CDecay MyD*(2S)+
+
 # Resonances relative contribution from B+ -> D* pi munu. Divide the numbers below by 2 (isospin) to get the excted branching fraction.
 Decay MyB0
-0.00303   MyD_1-     MyTau+    nu_mu  PHOTOS  ISGW2;
-0.00270   MyD'_1-    MyTau+    nu_mu  PHOTOS  ISGW2;
-0.00101   MyD_2*-    MyTau+    nu_mu  PHOTOS  ISGW2;
-0.00045   MyD*- pi0  MyTau+    nu_mu  PHOTOS  GOITY_ROBERTS;
+0.00303   MyD_1-     MyTau+    nu_tau  PHOTOS  ISGW2;
+0.00270   MyD'_1-    MyTau+    nu_tau  PHOTOS  ISGW2;
+0.00101   MyD_2*-    MyTau+    nu_tau  PHOTOS  ISGW2;
+0.00045   MyD*(2S)-  MyTau+    nu_tau  PHOTOS  ISGW2; # used as non resonant
 Enddecay
 CDecay Myanti-B0
 

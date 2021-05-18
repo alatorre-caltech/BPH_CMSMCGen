@@ -60,7 +60,7 @@ Enddecay
 CDecay MyD*(2S)0
 
 Decay MyB+
-1.00   Myanti-D*(2S)0   MyTau+  nu_mu      PHOTOS   ISGW2;
+1.00   Myanti-D*(2S)0   MyTau+  nu_tau      PHOTOS   ISGW2;
 Enddecay
 CDecay MyB-
 
