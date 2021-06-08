@@ -18,12 +18,19 @@ set -e
 # process_name=BParking_Tag_Bu_MuNuDstst_PiPi_SoftQCDnonD_scale5_TuneCP5_ISGW2
 
 # process_name=BParking_Tag_Bu_TauNuDstst_Pip_SoftQCDnonD_scale5_TuneCP5_ISGW2
-process_name=BParking_Tag_Bd_TauNuDstst_Pi0_SoftQCDnonD_scale5_TuneCP5_ISGW2
+# process_name=BParking_Tag_Bd_TauNuDstst_Pi0_SoftQCDnonD_scale5_TuneCP5_ISGW2
 # process_name=BParking_Tag_Bd_TauNuDstst_PiPi_SoftQCDnonD_scale5_TuneCP5_ISGW2
 # process_name=BParking_Tag_Bu_TauNuDstst_PiPi_SoftQCDnonD_scale5_TuneCP5_ISGW2
 
 # process_name=BParking_Tag_Bs_MuNuDsstst_SoftQCDnonD_scale5_TuneCP5_ISGW2
 # process_name=BParking_Tag_Bs_TauNuDsstst_SoftQCDnonD_scale5_TuneCP5_ISGW2
+
+## B(s) -> D* Hc(mu + X) Y
+# process_name=BParking_Tag_Bd_DstDuX_SoftQCDnonD_scale5_TuneCP5
+# process_name=BParking_Tag_Bd_DstDdX_SoftQCDnonD_scale5_TuneCP5
+process_name=BParking_Tag_Bd_DstDsX_SoftQCDnonD_scale5_TuneCP5
+
+
 
 
 
@@ -120,7 +127,7 @@ N_PU=GENOnly
 version=PU${N_PU}_10-2-3
 out_loc=/afs/cern.ch/user/o/ocerri/cernbox/BPhysics/data/cmsMC_private
 if [ `uname -n` = "login-1.hep.caltech.edu" ]; then
-  out_loc=/storage/user/ocerri/BPhysics/data/cmsMC_private
+  out_loc=/storage/af/user/ocerri/BPhysics/data/cmsMC_private
 fi
 N_evts=$1
 # N_evts=5000
@@ -153,7 +160,7 @@ fi
 exec &> ${out_dir}/test.log
 
 if [ `uname -n` = "login-1.hep.caltech.edu" ]; then
-  cd /storage/user/ocerri/generation/test/CMSSW_10_2_3/src
+  cd /storage/af/user/ocerri/generation/test/CMSSW_10_2_3/src
 else
   cd /afs/cern.ch/user/o/ocerri/work/generation_CMSSW/CMSSW_10_2_3/src/
 fi
@@ -292,7 +299,7 @@ else
   date
   if [ `uname -n` = "login-1.hep.caltech.edu" ]
   then
-    cd /storage/user/ocerri/work/CMSSW_10_2_3/src/ntuplizer/BPH_RDntuplizer
+    cd /storage/af/user/ocerri/work/CMSSW_10_2_3/src/ntuplizer/BPH_RDntuplizer
   else
     cd /afs/cern.ch/user/o/ocerri/work/CMSSW_10_2_3/src/ntuplizer/BPH_RDntuplizer
   fi
