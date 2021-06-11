@@ -58,9 +58,9 @@ Enddecay
 CDecay MyLepTau-
 
 Decay MyLepD_s+
-0.01900 phi     mu+     nu_mu                           PHOTOS  ISGW2; #[Reconstructed PDG2011]
-0.02400 eta     mu+     nu_mu                           PHOTOS  ISGW2; #[Reconstructed PDG2011]
-0.01100 eta'    mu+     nu_mu                           PHOTOS  ISGW2; #[Reconstructed PDG2011]
+0.02390 phi     mu+     nu_mu                           PHOTOS  ISGW2; #[Reconstructed PDG2011]
+0.02320 eta     mu+     nu_mu                           PHOTOS  ISGW2; #[Reconstructed PDG2011]
+0.00800 eta'    mu+     nu_mu                           PHOTOS  ISGW2; #[Reconstructed PDG2011]
 0.00340 anti-K0 mu+     nu_mu                           PHOTOS  ISGW2; #[Reconstructed PDG2011]
 0.00215 anti-K*0 mu+     nu_mu                          PHOTOS  ISGW2; #[Reconstructed PDG2011]
 0.00931 MyLepTau+    nu_tau                             PHOTOS  SLN;   # PDG, includes tau -> mu nunu
@@ -124,7 +124,7 @@ tagfilter = cms.EDFilter("PythiaFilter",
     MinEta = cms.untracked.double(-1.6),
     MinPt = cms.untracked.double(6.7),
     ParticleID = cms.untracked.int32(13), ## mu
-    MotherID = cms.untracked.int32(431) ## D_s+
+    # MotherID = cms.untracked.int32(431) ## D_s+
 )
 
 D0filter = cms.EDFilter(

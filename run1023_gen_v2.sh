@@ -30,6 +30,7 @@ set -e
 # process_name=BParking_Tag_Bd_DstDdX_SoftQCDnonD_scale5_TuneCP5
 # process_name=BParking_Tag_Bd_DstDsX_SoftQCDnonD_scale5_TuneCP5
 # process_name=BParking_Tag_Bu_DstDuX_SoftQCDnonD_scale5_TuneCP5
+process_name=BParking_Tag_Bu_DstDdX_SoftQCDnonD_scale5_TuneCP5
 # process_name=BParking_Tag_Bs_DstDsX_SoftQCDnonD_scale5_TuneCP5
 
 

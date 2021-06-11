@@ -12,8 +12,8 @@ generator = cms.EDFilter("Pythia8GeneratorFilter",
             decay_table = cms.string('GeneratorInterface/EvtGenInterface/data/DECAY_2014_NOLONGLIFE.DEC'),
             particle_property_file = cms.FileInPath('GeneratorInterface/EvtGenInterface/data/evt_2014.pdl'),
             list_forced_decays = cms.vstring(
-                'Myanti-B0',
-                'MyB0',
+                'MyB+',
+                'MyB-',
             ),
             operates_on_particles = cms.vint32(511),
             convertPythiaCodes = cms.untracked.bool(False),
@@ -29,15 +29,15 @@ Alias      MyD0        D0
 Alias      Myanti-D0   anti-D0
 Alias      MyD*-       D*-
 Alias      MyD*+       D*+
-Alias      MyB0        B0
-Alias      Myanti-B0   anti-B0
+Alias      MyB+            B+
+Alias      MyB-            B-
 
 ChargeConj MyLepTau+    MyLepTau-
 ChargeConj MyLepD+   MyLepD-
 ChargeConj MyLepD*+  MyLepD*-
 ChargeConj MyD0      Myanti-D0
 ChargeConj MyD*-     MyD*+
-ChargeConj MyB0      Myanti-B0
+ChargeConj MyB+     MyB-
 
 Decay MyD0
 1.000       K-  pi+           PHSP;
@@ -80,26 +80,21 @@ Enddecay
 CDecay MyLepD*-
 
 
-Decay MyB0
+Decay MyB+
 
-0.0032   MyD*-      MyLepD+   K0                        PHSP;
-0.0032   MyLepD-    MyD*+     K0                        PHSP;
-0.0016   MyD*-      MyLepD+   K*0                       PHSP;
-0.0016   MyLepD-    MyD*+     K*0                       PHSP;
+0.00060   MyD*-    MyLepD+   K+                        PHSP;
+0.00030   MyD*-    MyLepD+   K*+                       PHSP;
+0.00063   MyLepD-  MyD*+     K+                        PHSP;
+0.00031   MyLepD-  MyD*+     K*+                       PHSP;
 
-0.00267  MyD*-      MyLepD*+  K0                        PHSP;
-0.00133  MyD*-      MyLepD*+  K*0                       PHSP;
-0.00026  MyD*-      MyLepD*+                            SVV_HELAMP 0.56 0.0 0.96 0.0 0.47 0.0;
+0.00044  MyD*-    MyLepD*+  K+                        PHSP;
+0.00022  MyD*-    MyLepD*+  K*+                       PHSP;
 
-0.00267  MyLepD*-   MyD*+     K0                        PHSP;
-0.00133  MyLepD*-   MyD*+     K*0                       PHSP;
-0.00026  MyLepD*-   MyD*+                               SVV_HELAMP 0.56 0.0 0.96 0.0 0.47 0.0;
-
-0.00061  MyD*-      MyLepD+                             SVS;
-0.00061  MyD*+      MyLepD-                             SVS;
+0.00044  MyLepD*- MyD*+     K+                        PHSP;
+0.00022  MyLepD*- MyD*+     K*+                       PHSP;
 
 Enddecay
-CDecay Myanti-B0
+CDecay MyB-
 
 End
 """
