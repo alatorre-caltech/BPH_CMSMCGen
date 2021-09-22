@@ -117,12 +117,19 @@ End
 
 ###### Filters ##########
 
+bmesonFilter = cms.EDFilter("PythiaFilter",
+    MaxEta = cms.untracked.double(999999),
+    MinEta = cms.untracked.double(-999999),
+    MinPt = cms.untracked.double(0),
+    ParticleID = cms.untracked.int32(511) # B0
+)
+
 tagfilter = cms.EDFilter("PythiaFilter",
     MaxEta = cms.untracked.double(1.6),
     MinEta = cms.untracked.double(-1.6),
     MinPt = cms.untracked.double(6.7),
     ParticleID = cms.untracked.int32(13), ## mu
-    # MotherID = cms.untracked.int32(431) ## D_s+
+    # MotherID = cms.untracked.int32(431) ## D_s+, can't because semetimes will come from tau
 )
 
 D0filter = cms.EDFilter(
@@ -138,4 +145,4 @@ D0filter = cms.EDFilter(
 )
 
 
-ProductionFilterSequence = cms.Sequence(generator + tagfilter + D0filter)
+ProductionFilterSequence = cms.Sequence(generator + bmesonFilter + tagfilter + D0filter)

@@ -128,6 +128,13 @@ End
 
 ###### Filters ##########
 
+bmesonFilter = cms.EDFilter("PythiaFilter",
+    MaxEta = cms.untracked.double(999999),
+    MinEta = cms.untracked.double(-999999),
+    MinPt = cms.untracked.double(0),
+    ParticleID = cms.untracked.int32(511) # B0
+)
+
 tagfilter = cms.EDFilter("PythiaFilter",
     MaxEta = cms.untracked.double(1.6),
     MinEta = cms.untracked.double(-1.6),
@@ -149,4 +156,4 @@ D0filter = cms.EDFilter(
 )
 
 
-ProductionFilterSequence = cms.Sequence(generator + tagfilter + D0filter)
+ProductionFilterSequence = cms.Sequence(generator + bmesonFilter + tagfilter + D0filter)
