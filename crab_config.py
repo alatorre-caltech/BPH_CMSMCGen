@@ -7,11 +7,27 @@ N_Threads = 1
 njobs = 10000
 N_PU = 'c2'
 
+#----------------- Background samples -----------------
+st_seed = 1
+maxtime = '18h'
+process_name = 'BParking_Tag_Bd_MuNuDstst_PiPi_SoftQCDnonD_scale5_TuneCP5_ISGW2'
+nev = 150000
+
+# st_seed = 1
+# maxtime = '18h'
+# process_name = 'BParking_Tag_Bu_MuNuDstst_PiPi_SoftQCDnonD_scale5_TuneCP5_ISGW2'
+# nev = 150000
+
+# st_seed = 10001
+# maxtime = '18h'
+# process_name = 'BParking_Tag_Bu_DstDdX_SoftQCDnonD_scale5_TuneCP5'
+# nev = 300000
+
 #----------------- Anchillary samples -----------------
-st_seed = 10001
-maxtime = '14h'
-process_name = 'BParking_Bd_JpsiKst_SoftQCDnonD_scale5_TuneCP5_HELAMP'
-nev = 50000
+# st_seed = 10001
+# maxtime = '14h'
+# process_name = 'BParking_Bd_JpsiKst_SoftQCDnonD_scale5_TuneCP5_HELAMP'
+# nev = 50000
 
 
 time_scale = {'m':1, 'h':60, 'd':60*24}

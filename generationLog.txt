@@ -1,1 +1,5 @@
 2021-04-29 09:38:30  BParking_Bd_JpsiKst_SoftQCDnonD_scale5_TuneCP5_HELAMP  st_seed=10001  n_ev=50000  n_jobs=10000  maxtime=14h  PU=c2
+2021-09-22 04:09:09  BParking_Tag_Bu_DstDuX_SoftQCDnonD_scale5_TuneCP5  st_seed=1  n_ev=200000  n_jobs=10000  maxtime=15h  PU=c2
+2021-09-23 01:39:11  BParking_Tag_Bu_DstDuX_SoftQCDnonD_scale5_TuneCP5  st_seed=1  n_ev=400000  n_jobs=10000  maxtime=18h  PU=c2
+2021-09-23 02:42:02  BParking_Tag_Bu_DstDdX_SoftQCDnonD_scale5_TuneCP5  st_seed=1  n_ev=300000  n_jobs=10000  maxtime=18h  PU=c2
+2021-09-24 02:41:37  BParking_Tag_Bu_DstDdX_SoftQCDnonD_scale5_TuneCP5  st_seed=10001  n_ev=300000  n_jobs=10000  maxtime=18h  PU=c2
