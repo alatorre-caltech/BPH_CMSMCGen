@@ -14,8 +14,8 @@ set -e
 ## B(s) -> D** mu nu
 # process_name=BParking_Tag_Bu_MuNuDstst_Pip_SoftQCDnonD_scale5_TuneCP5_ISGW2
 # process_name=BParking_Tag_Bd_MuNuDstst_Pi0_SoftQCDnonD_scale5_TuneCP5_ISGW2
-process_name=BParking_Tag_Bd_MuNuDstst_PiPi_SoftQCDnonD_scale5_TuneCP5_ISGW2
-# process_name=BParking_Tag_Bu_MuNuDstst_PiPi_SoftQCDnonD_scale5_TuneCP5_ISGW2
+# process_name=BParking_Tag_Bd_MuNuDstst_PiPi_SoftQCDnonD_scale5_TuneCP5_ISGW2
+process_name=BParking_Tag_Bu_MuNuDstst_PiPi_SoftQCDnonD_scale5_TuneCP5_ISGW2
 
 # process_name=BParking_Tag_Bu_TauNuDstst_Pip_SoftQCDnonD_scale5_TuneCP5_ISGW2
 # process_name=BParking_Tag_Bd_TauNuDstst_Pi0_SoftQCDnonD_scale5_TuneCP5_ISGW2
@@ -124,7 +124,7 @@ process_name=BParking_Tag_Bd_MuNuDstst_PiPi_SoftQCDnonD_scale5_TuneCP5_ISGW2
 
 output_flag=test
 
-# N_PU=c0
+# N_PU=c2
 N_PU=GENOnly
 
 version=PU${N_PU}_10-2-3

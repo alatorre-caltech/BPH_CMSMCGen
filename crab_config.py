@@ -8,14 +8,24 @@ njobs = 10000
 N_PU = 'c2'
 
 #----------------- Background samples -----------------
-st_seed = 1
-maxtime = '18h'
-process_name = 'BParking_Tag_Bd_MuNuDstst_PiPi_SoftQCDnonD_scale5_TuneCP5_ISGW2'
-nev = 150000
+# st_seed = 1
+# maxtime = '18h'
+# process_name = 'BParking_Tag_Bd_MuNuDstst_PiPi_SoftQCDnonD_scale5_TuneCP5_ISGW2'
+# nev = 100000
 
 # st_seed = 1
 # maxtime = '18h'
 # process_name = 'BParking_Tag_Bu_MuNuDstst_PiPi_SoftQCDnonD_scale5_TuneCP5_ISGW2'
+# nev = 100000
+
+st_seed = 100000
+maxtime = '18h'
+process_name = 'BParking_Tag_Bd_TauNuDstst_PiPi_SoftQCDnonD_scale5_TuneCP5_ISGW2'
+nev = 150000
+
+# st_seed = 200000
+# maxtime = '18h'
+# process_name = 'BParking_Tag_Bu_TauNuDstst_PiPi_SoftQCDnonD_scale5_TuneCP5_ISGW2'
 # nev = 150000
 
 # st_seed = 10001
@@ -47,7 +57,7 @@ config.General.transferLogs    = False
 config.JobType.pluginName = 'PrivateMC'
 config.JobType.psetName   = 'placeholder_cfg.py'
 #These files will be placed in the starting directory
-config.JobType.inputFiles = ['Configuration/GenProduction/python/{}_cfi.py'.format(process_name), 'job1023_gen_v2.sh']
+config.JobType.inputFiles = ['Configuration/GenProduction/python/{}_cfi.py'.format(process_name), 'job1023_gen_v2.sh', 'minBiasFilesList_211005.txt']
 # config.JobType.outputFiles = ['outlog.root', 'step1log.root', 'step2log.root', 'step3log.root', 'step4log.root']
 config.JobType.allowUndistributedCMSSW = True
 config.JobType.maxMemoryMB = 5000
