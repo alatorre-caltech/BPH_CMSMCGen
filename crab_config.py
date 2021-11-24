@@ -8,20 +8,23 @@ njobs = 10000
 N_PU = 'c2'
 
 #----------------- Background samples -----------------
-# st_seed = 1
+
+## B(s) -> D** mu nu
+
+# st_seed = 10001
 # maxtime = '18h'
 # process_name = 'BParking_Tag_Bd_MuNuDstst_PiPi_SoftQCDnonD_scale5_TuneCP5_ISGW2'
 # nev = 100000
 
-# st_seed = 1
+# st_seed = 50000
 # maxtime = '18h'
 # process_name = 'BParking_Tag_Bu_MuNuDstst_PiPi_SoftQCDnonD_scale5_TuneCP5_ISGW2'
 # nev = 100000
 
-st_seed = 100000
-maxtime = '18h'
-process_name = 'BParking_Tag_Bd_TauNuDstst_PiPi_SoftQCDnonD_scale5_TuneCP5_ISGW2'
-nev = 150000
+# st_seed = 100000
+# maxtime = '24h'
+# process_name = 'BParking_Tag_Bd_TauNuDstst_PiPi_SoftQCDnonD_scale5_TuneCP5_ISGW2'
+# nev = 150000
 
 # st_seed = 200000
 # maxtime = '18h'
@@ -32,6 +35,14 @@ nev = 150000
 # maxtime = '18h'
 # process_name = 'BParking_Tag_Bu_DstDdX_SoftQCDnonD_scale5_TuneCP5'
 # nev = 300000
+
+## Others
+
+st_seed = 1
+maxtime = '12h'
+process_name = 'BParking_Tag_DstKu_KutoMu_SoftQCDnonD_scale5_TuneCP5'
+nev = 400000
+
 
 #----------------- Anchillary samples -----------------
 # st_seed = 10001

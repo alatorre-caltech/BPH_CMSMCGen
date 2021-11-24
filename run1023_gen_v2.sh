@@ -15,7 +15,8 @@ set -e
 # process_name=BParking_Tag_Bu_MuNuDstst_Pip_SoftQCDnonD_scale5_TuneCP5_ISGW2
 # process_name=BParking_Tag_Bd_MuNuDstst_Pi0_SoftQCDnonD_scale5_TuneCP5_ISGW2
 # process_name=BParking_Tag_Bd_MuNuDstst_PiPi_SoftQCDnonD_scale5_TuneCP5_ISGW2
-process_name=BParking_Tag_Bu_MuNuDstst_PiPi_SoftQCDnonD_scale5_TuneCP5_ISGW2
+process_name=BParking_Tag_Bd_MuNuDstst_PiPi_SoftQCDnonD_scale5_TuneCP5_ISGW2_v2
+# process_name=BParking_Tag_Bu_MuNuDstst_PiPi_SoftQCDnonD_scale5_TuneCP5_ISGW2
 
 # process_name=BParking_Tag_Bu_TauNuDstst_Pip_SoftQCDnonD_scale5_TuneCP5_ISGW2
 # process_name=BParking_Tag_Bd_TauNuDstst_Pi0_SoftQCDnonD_scale5_TuneCP5_ISGW2
@@ -33,7 +34,8 @@ process_name=BParking_Tag_Bu_MuNuDstst_PiPi_SoftQCDnonD_scale5_TuneCP5_ISGW2
 # process_name=BParking_Tag_Bu_DstDdX_SoftQCDnonD_scale5_TuneCP5
 # process_name=BParking_Tag_Bs_DstDsX_SoftQCDnonD_scale5_TuneCP5
 
-
+## Others
+# process_name=BParking_Tag_DstKu_KutoMu_SoftQCDnonD_scale5_TuneCP5
 
 
 
@@ -129,8 +131,8 @@ N_PU=GENOnly
 
 version=PU${N_PU}_10-2-3
 out_loc=/afs/cern.ch/user/o/ocerri/cernbox/BPhysics/data/cmsMC_private
-if [ `uname -n` = "login-1.hep.caltech.edu" ]; then
-  out_loc=/storage/af/user/ocerri/BPhysics/data/cmsMC_private
+if [ `uname -n` = "login-2.hep.caltech.edu" ]; then
+  out_loc=/storage/af/user/ocerri/BPH_RD_Analysis/data/cmsMC_private
 fi
 N_evts=$1
 # N_evts=5000
@@ -142,7 +144,7 @@ EvtGen_dec_file=$PWD/GeneratorInterface/EvtGenInterface/data/evt_voc1.pdl
 if [ ! -d "$out_dir" ]; then
   echo "Creating the output directory"
   echo $out_dir
-  mkdir $out_dir
+  mkdir -p $out_dir
 else
   echo $out_dir
   echo "Directory already existing, cleaning it"
@@ -162,7 +164,7 @@ fi
 #Save output
 exec &> ${out_dir}/test.log
 
-if [ `uname -n` = "login-1.hep.caltech.edu" ]; then
+if [ `uname -n` = "login-2.hep.caltech.edu" ]; then
   cd /storage/af/user/ocerri/generation/test/CMSSW_10_2_3/src
 else
   cd /afs/cern.ch/user/o/ocerri/work/generation_CMSSW/CMSSW_10_2_3/src/
@@ -300,7 +302,7 @@ then
 else
   echo "Step 5: MINIAOD -> CAND"
   date
-  if [ `uname -n` = "login-1.hep.caltech.edu" ]
+  if [ `uname -n` = "login-2.hep.caltech.edu" ]
   then
     cd /storage/af/user/ocerri/work/CMSSW_10_2_3/src/ntuplizer/BPH_RDntuplizer
   else

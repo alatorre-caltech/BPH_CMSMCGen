@@ -50,6 +50,7 @@ processes = {
 'tau_probe': 'BP_Probe_B0_TauNuDmst_Tag-B_MuNuDst_Hardbbbar_evtgen_ISGW2',
 'mu_unb' : 'Unbiased_B0_MuNuDmst_Hardbbbar_evtgen_ISGW2',
 'tau_unb' : 'Unbiased_B0_TauNuDmst_Hardbbbar_evtgen_ISGW2',
+'DstKu' : 'BParking_Tag_DstKu_KutoMu_SoftQCDnonD_scale5_TuneCP5',
 }
 #_____________________________________________________________________________________________________________
 
@@ -80,8 +81,8 @@ if __name__ == "__main__":
     args.process = processes[args.tag]
 
     if args.CMSSW_loc is None:
-        if os.uname()[1] == 'login-1.hep.caltech.edu':
-            args.CMSSW_loc = '/storage/user/ocerri/generation/CMSSW_10_2_3/src'
+        if os.uname()[1] == 'login-2.hep.caltech.edu':
+            args.CMSSW_loc = '/storage/af/user/ocerri/generation/CMSSW_10_2_3/src'
         elif os.uname()[1][:6] == 'lxplus':
             args.CMSSW_loc = '/afs/cern.ch/user/o/ocerri/work/generation_CMSSW/CMSSW_10_2_3/src'
         else:
@@ -89,8 +90,8 @@ if __name__ == "__main__":
             exit()
 
     if args.outdir is None:
-        if os.uname()[1] == 'login-1.hep.caltech.edu':
-            args.outdir = '/storage/user/ocerri/BPhysics/data/cmsMC_private'
+        if os.uname()[1] == 'login-2.hep.caltech.edu':
+            args.outdir = '/storage/af/user/ocerri/BPH_RD_Analysis/data/cmsMC_private'
         elif os.uname()[1][:6] == 'lxplus':
             args.outdir = '/afs/cern.ch/user/o/ocerri/cernbox/BPhysics/data/cmsMC_private'
         else:
@@ -187,12 +188,14 @@ if __name__ == "__main__":
     fsub.write('\n')
     if not args.notNice:
         fsub.write('nice_user = True\n')
-    if os.uname()[1] == 'login-1.hep.caltech.edu':
+    if os.uname()[1] == 'login-2.hep.caltech.edu':
+        fsub.write('+JobQueue = ' + ('"Normal"' if maxRunTime > 120*60 else '"Short"'))
+        fsub.write('\n')
         fsub.write('+RunAsOwner = True')
         fsub.write('\n')
         fsub.write('+InteractiveUser = True')
         fsub.write('\n')
-        fsub.write('+SingularityImage = "/cvmfs/singularity.opensciencegrid.org/bbockelm/cms:rhel7"')
+        fsub.write('+SingularityImage = "/cvmfs/singularity.opensciencegrid.org/cmssw/cms:rhel7"')
         fsub.write('\n')
         fsub.write('+SingularityBindCVMFS = True')
         fsub.write('\n')
@@ -218,8 +221,8 @@ if __name__ == "__main__":
     fsub.write('\n')
     fsub.write('max_retries    = 3')
     fsub.write('\n')
-    fsub.write('requirements   = Machine =!= LastRemoteHost && TARGET.Machine != "blade-1.tier2"')
-    fsub.write('\n')
+    # fsub.write('requirements   = Machine =!= LastRemoteHost && TARGET.Machine != "blade-1.tier2"')
+    # fsub.write('\n')
     fsub.write('universe = vanilla')
     fsub.write('\n')
     fsub.write('queue '+str(njobs))
