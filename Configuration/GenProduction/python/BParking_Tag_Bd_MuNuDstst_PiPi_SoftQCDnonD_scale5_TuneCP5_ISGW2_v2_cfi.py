@@ -141,9 +141,9 @@ Decay MyB0
 0.000675   MySinglePionD'_1-   pi0   mu+    nu_mu  PHSP;
 0.000250   MySinglePionD_2*-   pi0   mu+    nu_mu  PHSP;
 
-0.0030   Myanti-D_10    pi-  mu  nu_mu  PHSP;
-0.0027   Myanti-D'_10   pi-  mu  nu_mu  PHSP;
-0.0010   Myanti-D_2*0   pi-  mu  nu_mu  PHSP;
+0.0030   Myanti-D_10    pi-  mu+  nu_mu  PHSP;
+0.0027   Myanti-D'_10   pi-  mu+  nu_mu  PHSP;
+0.0010   Myanti-D_2*0   pi-  mu+  nu_mu  PHSP;
 Enddecay
 CDecay Myanti-B0
 
