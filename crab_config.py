@@ -11,15 +11,16 @@ N_PU = 'c2'
 
 ## B(s) -> D** mu nu
 
-# st_seed = 10001
-# maxtime = '18h'
+st_seed = 10001
+maxtime = '18h'
 # process_name = 'BParking_Tag_Bd_MuNuDstst_PiPi_SoftQCDnonD_scale5_TuneCP5_ISGW2'
-# nev = 100000
+process_name = 'BParking_Tag_Bd_MuNuDstst_PiPi_SoftQCDnonD_scale5_TuneCP5_ISGW2_v2'
+nev = 150000
 
-# st_seed = 50000
+# st_seed = 100000
 # maxtime = '18h'
 # process_name = 'BParking_Tag_Bu_MuNuDstst_PiPi_SoftQCDnonD_scale5_TuneCP5_ISGW2'
-# nev = 100000
+# nev = 200000
 
 # st_seed = 100000
 # maxtime = '24h'
@@ -38,10 +39,10 @@ N_PU = 'c2'
 
 ## Others
 
-st_seed = 1
-maxtime = '12h'
-process_name = 'BParking_Tag_DstKu_KutoMu_SoftQCDnonD_scale5_TuneCP5'
-nev = 400000
+# st_seed = 1
+# maxtime = '12h'
+# process_name = 'BParking_Tag_DstKu_KutoMu_SoftQCDnonD_scale5_TuneCP5'
+# nev = 400000
 
 
 #----------------- Anchillary samples -----------------
