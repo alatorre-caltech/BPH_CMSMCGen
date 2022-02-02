@@ -11,16 +11,18 @@ N_PU = 'c2'
 
 ## B(s) -> D** mu nu
 
-st_seed = 10001
-maxtime = '18h'
-# process_name = 'BParking_Tag_Bd_MuNuDstst_PiPi_SoftQCDnonD_scale5_TuneCP5_ISGW2'
-process_name = 'BParking_Tag_Bd_MuNuDstst_PiPi_SoftQCDnonD_scale5_TuneCP5_ISGW2_v2'
-nev = 150000
-
-# st_seed = 100000
+# st_seed = 10001
 # maxtime = '18h'
+# process_name = 'BParking_Tag_Bd_MuNuDstst_PiPi_SoftQCDnonD_scale5_TuneCP5_ISGW2'
+# process_name = 'BParking_Tag_Bd_MuNuDstst_PiPi_SoftQCDnonD_scale5_TuneCP5_ISGW2_v2'
+process_name = 'BParking_Tag_Bd_MuNuDstPiPi_SoftQCDnonD_scale5_TuneCP5'
+# nev = 150000
+
+st_seed = 100000
+maxtime = '18h'
 # process_name = 'BParking_Tag_Bu_MuNuDstst_PiPi_SoftQCDnonD_scale5_TuneCP5_ISGW2'
-# nev = 200000
+process_name = 'BParking_Tag_Bu_MuNuDstPiPi_SoftQCDnonD_scale5_TuneCP5'
+nev = 150000
 
 # st_seed = 100000
 # maxtime = '24h'

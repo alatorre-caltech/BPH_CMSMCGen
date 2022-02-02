@@ -16,3 +16,6 @@
 2021-11-23 17:14:21  BParking_Tag_DstKu_KutoMu_SoftQCDnonD_scale5_TuneCP5  st_seed=1  n_ev=400000  n_jobs=10000  maxtime=12h  PU=c2
 2021-11-23 17:20:17  BParking_Tag_DstKu_KutoMu_SoftQCDnonD_scale5_TuneCP5  st_seed=1  n_ev=400000  n_jobs=10000  maxtime=12h  PU=c2
 2021-11-23 22:19:42  BParking_Tag_Bd_MuNuDstst_PiPi_SoftQCDnonD_scale5_TuneCP5_ISGW2_v2  st_seed=10001  n_ev=150000  n_jobs=10000  maxtime=18h  PU=c2
+2022-01-21 20:48:44  BParking_Tag_Bd_MuNuDstPiPi_SoftQCDnonD_scale5_TuneCP5  st_seed=10001  n_ev=150000  n_jobs=10000  maxtime=18h  PU=c2
+2022-01-21 20:49:51  BParking_Tag_Bd_MuNuDstPiPi_SoftQCDnonD_scale5_TuneCP5  st_seed=10001  n_ev=150000  n_jobs=10000  maxtime=18h  PU=c2
+2022-02-01 18:20:24  BParking_Tag_Bu_MuNuDstPiPi_SoftQCDnonD_scale5_TuneCP5  st_seed=100000  n_ev=150000  n_jobs=10000  maxtime=18h  PU=c2
