@@ -25,32 +25,21 @@ def compileCMSSW(CMSSW_loc):
         return True
     else: return False
 
-def createBatchName(a):
-    knownTags = ['B0_JpsiKst', 'B0_Mu', 'B0_Tau']
-    n = None
-    for t in knownTags:
-        if t in a.process:
-            n = 'B' + t.split('_')[1]
-    if n is None:
-        n = 'jobs_' + a.maxtime
-    else:
-        n += '_{:.0f}k'.format(float(a.nev)/1000)
-    return n
-
 #_____________________________________________________________________________________________________________
 processes = {
-'mu'         : 'BP_Tag_B0_MuNuDmst_Hardbbbar_evtgen_ISGW2',
-'mu_softQCD' : 'BP_Tag_B0_MuNuDmst_SoftQCDall_evtgen_ISGW2',
-'tau'        : 'BP_Tag_B0_TauNuDmst_Hardbbbar_evtgen_ISGW2',
-'Dstst'      : 'BPH_Tag-Bp_MuNuDstst_DmstPi_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen_ISGW2',
-'KDst'       : 'BPH_Tag-Mu_Probe-B0_KDmst-pD0bar-kp_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen_SVS',
-'JpsiKst'    : 'BPH_Tag-Probe_B0_JpsiKst-mumuKpi-kp_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen_SVV',
-'JpsiKstFSR' : 'BPH_Tag-Probe_B0_JpsiKst-mumuKpi-kp_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgenFSR_SVV',
-'mu_probe': 'BP_Probe_B0_MuNuDmst_Tag-B_MuNuDst_Hardbbbar_evtgen_ISGW2',
-'tau_probe': 'BP_Probe_B0_TauNuDmst_Tag-B_MuNuDst_Hardbbbar_evtgen_ISGW2',
-'mu_unb' : 'Unbiased_B0_MuNuDmst_Hardbbbar_evtgen_ISGW2',
-'tau_unb' : 'Unbiased_B0_TauNuDmst_Hardbbbar_evtgen_ISGW2',
-'DstKu' : 'BParking_Tag_DstKu_KutoMu_SoftQCDnonD_scale5_TuneCP5',
+# 'mu'         : 'BP_Tag_B0_MuNuDmst_Hardbbbar_evtgen_ISGW2',
+# 'mu_softQCD' : 'BP_Tag_B0_MuNuDmst_SoftQCDall_evtgen_ISGW2',
+# 'tau'        : 'BP_Tag_B0_TauNuDmst_Hardbbbar_evtgen_ISGW2',
+# 'Dstst'      : 'BPH_Tag-Bp_MuNuDstst_DmstPi_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen_ISGW2',
+# 'KDst'       : 'BPH_Tag-Mu_Probe-B0_KDmst-pD0bar-kp_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen_SVS',
+# 'JpsiKst'    : 'BPH_Tag-Probe_B0_JpsiKst-mumuKpi-kp_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen_SVV',
+# 'JpsiKstFSR' : 'BPH_Tag-Probe_B0_JpsiKst-mumuKpi-kp_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgenFSR_SVV',
+# 'mu_probe': 'BP_Probe_B0_MuNuDmst_Tag-B_MuNuDst_Hardbbbar_evtgen_ISGW2',
+# 'tau_probe': 'BP_Probe_B0_TauNuDmst_Tag-B_MuNuDst_Hardbbbar_evtgen_ISGW2',
+# 'mu_unb' : 'Unbiased_B0_MuNuDmst_Hardbbbar_evtgen_ISGW2',
+# 'tau_unb' : 'Unbiased_B0_TauNuDmst_Hardbbbar_evtgen_ISGW2',
+# 'DstKu' : 'BParking_Tag_DstKu_KutoMu_SoftQCDnonD_scale5_TuneCP5',
+'Bu_DDs1': 'BParking_Tag_Bu_DDs1_SoftQCDnonD_scale5_TuneCP5',
 }
 #_____________________________________________________________________________________________________________
 
@@ -91,7 +80,8 @@ if __name__ == "__main__":
 
     if args.outdir is None:
         if os.uname()[1] == 'login-2.hep.caltech.edu':
-            args.outdir = '/storage/af/user/ocerri/BPH_RD_Analysis/data/cmsMC_private'
+            # args.outdir = '/storage/af/user/ocerri/BPH_RD_Analysis/data/cmsMC_private'
+            args.outdir = '/storage/af/group/rdst_analysis/BPhysics/data/cmsMC'
         elif os.uname()[1][:6] == 'lxplus':
             args.outdir = '/afs/cern.ch/user/o/ocerri/cernbox/BPhysics/data/cmsMC_private'
         else:
@@ -215,13 +205,13 @@ if __name__ == "__main__":
     fsub.write('on_exit_hold = (ExitBySignal == True) || (ExitCode != 0)')   # Send the job to Held state on failure.
     fsub.write('\n')
     if args.notNice:
-        fsub.write('periodic_release =  (NumJobStarts < 3) && ((CurrentTime - EnteredCurrentStatus) > (60*20))')   # Periodically retry the jobs for 3 times with an interval of 20 minutes.
+        fsub.write('periodic_release =  (NumJobStarts < 2) && ((CurrentTime - EnteredCurrentStatus) > (60*10))')   # Periodically retry the jobs for 3 times with an interval of 10 minutes.
         fsub.write('\n')
     fsub.write('+PeriodicRemove = ((JobStatus =?= 2) && ((MemoryUsage =!= UNDEFINED && MemoryUsage > 2.5*RequestMemory)))')
     fsub.write('\n')
-    fsub.write('max_retries    = 3')
+    fsub.write('max_retries    = 2')
     fsub.write('\n')
-    # fsub.write('requirements   = Machine =!= LastRemoteHost && TARGET.Machine != "blade-1.tier2"')
+    fsub.write('requirements   = Machine =!= LastRemoteHost')
     # fsub.write('\n')
     fsub.write('universe = vanilla')
     fsub.write('\n')
@@ -236,7 +226,7 @@ if __name__ == "__main__":
 
     print 'Submitting jobs...'
     cmd = 'cd tmp_return; condor_submit jobs.jdl'
-    cmd += ' -batch-name ' + createBatchName(args)
+    cmd += ' -batch-name ' + '_'.join(['gen', args.process, 'PU'+str(args.PU)])
     output = processCmd(cmd)
     print 'Jobs submitted'
     os.rename('tmp_return/jobs.jdl', outdir+'/cfg/jobs.jdl')
