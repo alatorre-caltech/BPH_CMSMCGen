@@ -39,6 +39,7 @@ processes = {
 # 'mu_unb' : 'Unbiased_B0_MuNuDmst_Hardbbbar_evtgen_ISGW2',
 # 'tau_unb' : 'Unbiased_B0_TauNuDmst_Hardbbbar_evtgen_ISGW2',
 # 'DstKu' : 'BParking_Tag_DstKu_KutoMu_SoftQCDnonD_scale5_TuneCP5',
+'Bd_DDs1': 'BParking_Tag_Bd_DDs1_SoftQCDnonD_scale5_TuneCP5',
 'Bu_DDs1': 'BParking_Tag_Bu_DDs1_SoftQCDnonD_scale5_TuneCP5',
 }
 #_____________________________________________________________________________________________________________
@@ -96,7 +97,7 @@ if __name__ == "__main__":
     if args.version:
         version += '_' + args.version
 
-    outdir     = args.outdir+'/'+args.process+'_PU'+str(args.PU)+'_'+version+'/jobs_out'
+    outdir     = args.outdir+'/'+args.process+'_PU'+str(args.PU)+'_'+version+'/jobs_MINIAOD'
     if args.jobsTag:
         outdir += '_' + args.jobsTag
 
@@ -212,7 +213,7 @@ if __name__ == "__main__":
     fsub.write('max_retries    = 2')
     fsub.write('\n')
     fsub.write('requirements   = Machine =!= LastRemoteHost')
-    # fsub.write('\n')
+    fsub.write('\n')
     fsub.write('universe = vanilla')
     fsub.write('\n')
     fsub.write('queue '+str(njobs))
@@ -229,10 +230,10 @@ if __name__ == "__main__":
     cmd += ' -batch-name ' + '_'.join(['gen', args.process, 'PU'+str(args.PU)])
     output = processCmd(cmd)
     print 'Jobs submitted'
-    os.rename('tmp_return/jobs.jdl', outdir+'/cfg/jobs.jdl')
+    os.system('mv tmp_return/jobs.jdl '+outdir+'/cfg/jobs.jdl')
     call = '"' + ' '.join(sys.argv)
-    call += '; starting seed: ' + str(args.st_seed)
+    call += ' (starting seed: ' + str(args.st_seed) +')'
     call += '"'
-    cmd = 'echo ' + call + ' >> ' + outdir+'/cfg/call.log'
+    cmd = 'echo `date` ' + call + ' >> ' + outdir+'/cfg/call.log'
     os.system(cmd)
     os.system('cd ..')
