@@ -35,14 +35,14 @@ Alias      MyLepD_s*+        D_s*+
 Alias      MyLepD_s*-        D_s*-
 Alias      MyLepD_s1+        D_s1+
 Alias      MyLepD_s1-        D_s1-
-Alias      MyLepD_s1_2536-   D_s2*- #Hijacking this other resonance even if has the wrong spin
-Alias      MyLepD_s1_2536+   D_s2*+ #Hijacking this other resonance even if has the wrong spin
+Alias      MyLepD_s1_2536-   D'_s1-
+Alias      MyLepD_s1_2536+   D'_s1+
 Alias      MyD0              D0
 Alias      Myanti-D0         anti-D0
 Alias      MyD*-             D*-
 Alias      MyD*+             D*+
-Alias      MyD_s1_2536-      D_s2*- #Hijacking this other resonance even if has the wrong spin
-Alias      MyD_s1_2536+      D_s2*+ #Hijacking this other resonance even if has the wrong spin
+Alias      MyD_s1_2536-      D'_s1-
+Alias      MyD_s1_2536+      D'_s1+
 Alias      MyB0              B0
 Alias      Myanti-B0         anti-B0
 

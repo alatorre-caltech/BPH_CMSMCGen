@@ -62,10 +62,10 @@ if __name__ == "__main__":
     parser.add_argument ('--notNice', action='store_true', default=False, help='Run nice jobs')
     parser.add_argument ('--jobsTag', help='Tag appended at the end of the output folder', default='')
 
-    parser.add_argument ('--maxtime', help='Max wall run time [s=seconds, m=minutes, h=hours, d=days]', default='4h')
-    parser.add_argument ('--memory', help='min virtual memory in MB', default='3900')
+    parser.add_argument ('--maxtime', help='Max wall run time [s=seconds, m=minutes, h=hours, d=days]', default='8h')
+    parser.add_argument ('--memory', help='min virtual memory in MB', default='2500')
     parser.add_argument ('--disk', help='min disk space in KB', default='5000000')
-    parser.add_argument ('--cpu', help='cpu threads', default='2')
+    parser.add_argument ('--cpu', help='cpu threads', default='1')
 
     args = parser.parse_args()
     args.process = processes[args.tag]
