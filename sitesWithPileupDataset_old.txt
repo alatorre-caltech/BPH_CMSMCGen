@@ -1,3 +1,0 @@
-T2_UA_KIPT
-T2_US_MIT
-T2_US_Caltech
