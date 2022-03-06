@@ -41,6 +41,7 @@ processes = {
 # 'DstKu' : 'BParking_Tag_DstKu_KutoMu_SoftQCDnonD_scale5_TuneCP5',
 'Bd_DDs1': 'BParking_Tag_Bd_DDs1_SoftQCDnonD_scale5_TuneCP5',
 'Bu_DDs1': 'BParking_Tag_Bu_DDs1_SoftQCDnonD_scale5_TuneCP5',
+'B_DstDXX':'BParking_Tag_B_DstDXX_SoftQCDnonD_scale5_TuneCP5',
 }
 #_____________________________________________________________________________________________________________
 

@@ -14,8 +14,10 @@ generator = cms.EDFilter("Pythia8GeneratorFilter",
             list_forced_decays = cms.vstring(
                 'Myanti-B0',
                 'MyB0',
+                'MyB+',
+                'MyB-'
             ),
-            operates_on_particles = cms.vint32(511),
+            operates_on_particles = cms.vint32(511, 521),
             convertPythiaCodes = cms.untracked.bool(False),
             user_decay_embedded= cms.vstring(
 """
@@ -45,6 +47,8 @@ Alias      MyD_s1_2536-      D'_s1-
 Alias      MyD_s1_2536+      D'_s1+
 Alias      MyB0              B0
 Alias      Myanti-B0         anti-B0
+Alias      MyB+              B+
+Alias      MyB-              B-
 
 ChargeConj MyLepTau+        MyLepTau-
 ChargeConj MyLepD0          MyLepanti-D0
@@ -59,6 +63,7 @@ ChargeConj MyD0             Myanti-D0
 ChargeConj MyD*-            MyD*+
 ChargeConj MyD_s1_2536-     MyD_s1_2536+
 ChargeConj MyB0             Myanti-B0
+ChargeConj MyB+             MyB-
 
 Decay MyD0
 1.000       K-  pi+           PHSP;
@@ -168,17 +173,19 @@ Enddecay
 CDecay MyD_s1_2536-
 
 Decay MyB0
-# 9.3e-3 (Gamma 101) * 75.4e-3 (Ds -> muX) = 701.22e-6 = 0.7012e-3
-0.7012   MyD*-        MyLepD_s1+                        SVV_HELAMP 0.4904 0. 0.7204 0. 0.4904 0.; #[Reconstructed PDG2011]
-# 0.5*0.28e-3 (Gamma 103 / 2) * 159e-3 (Dd -> muX) = 22.26e-6 = 0.0223e-3
-0.0223   MyLepD-      MyD_s1_2536+                      PHSP;
-# 0.5*0.5e-3 (gamma 106/2) * 92.45e-3 (Dd* -> muX) = 23.11e-6 = 0.0231e-3
-0.0231    MyLepD*-     MyD_s1_2536+                      PHSP;
-# 0.5e-3 (Gamma 106) * 76.63e-3 (D_s1_2536 -> muX) = 38.32e-6 = 0.0383e-3
-0.0383    MyD*-        MyLepD_s1_2536+                   PHSP;
+0.1 MyD*- MyLepD0 pi+ pi0    PHSP;
+0.1 MyD*- MyLepD+ pi+ pi-    PHSP;
+0.1 MyD*- MyLepD0 rho+       PHSP;
+0.1 MyD*- MyLepD+ K+ pi-     PHSP;
 Enddecay
-# Tot = 0.7849e-3
 CDecay Myanti-B0
+
+Decay MyB+
+0.1 MyD*- MyLepD0 rho+ K+      PHSP;
+0.1 MyD*- MyLepD+ pi+ anti-K0  PHSP;
+0.1 MyD*- MyLepD+ rho+         PHSP;
+Enddecay
+CDecay MyB-
 
 End
 """
@@ -207,13 +214,6 @@ End
 
 ###### Filters ##########
 
-bmesonFilter = cms.EDFilter("PythiaFilter",
-    MaxEta = cms.untracked.double(999999),
-    MinEta = cms.untracked.double(-999999),
-    MinPt = cms.untracked.double(0),
-    ParticleID = cms.untracked.int32(511) # B0
-)
-
 tagfilter = cms.EDFilter("PythiaFilter",
     MaxEta = cms.untracked.double(1.6),
     MinEta = cms.untracked.double(-1.6),
@@ -234,4 +234,4 @@ D0filter = cms.EDFilter(
 )
 
 
-ProductionFilterSequence = cms.Sequence(generator + bmesonFilter + tagfilter + D0filter)
+ProductionFilterSequence = cms.Sequence(generator + tagfilter + D0filter)
