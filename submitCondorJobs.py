@@ -46,7 +46,7 @@ processes = {
 #_____________________________________________________________________________________________________________
 
 #_____________________________________________________________________________________________________________
-#example line: ./submitCondorJobs.py mu --nev 50000 --njobs 100 -f --PU 20
+#example line: ./submitCondorJobs.py mu --nev 150000 --njobs 1000 -f --PU c2
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument ('tag', type=str, choices=processes.keys(), help='Process tag')
