@@ -11,12 +11,12 @@ N_PU = 'c2'
 
 ## B(s) -> D** mu nu
 
-st_seed = 20001
-maxtime = '18h'
+# st_seed = 20001
+# maxtime = '18h'
 # process_name = 'BParking_Tag_Bd_MuNuDstst_PiPi_SoftQCDnonD_scale5_TuneCP5_ISGW2'
 # process_name = 'BParking_Tag_Bd_MuNuDstst_PiPi_SoftQCDnonD_scale5_TuneCP5_ISGW2_v2'
-process_name = 'BParking_Tag_Bd_MuNuDstPiPi_SoftQCDnonD_scale5_TuneCP5'
-nev = 200000
+# process_name = 'BParking_Tag_Bd_MuNuDstPiPi_SoftQCDnonD_scale5_TuneCP5'
+# nev = 200000
 
 # st_seed = 100000
 # maxtime = '18h'
@@ -46,6 +46,11 @@ nev = 200000
 # process_name = 'BParking_Tag_DstKu_KutoMu_SoftQCDnonD_scale5_TuneCP5'
 # nev = 400000
 
+st_seed = 1
+maxtime = '12h'
+process_name = 'BParking_Tag_B_DstX_SoftQCDnonD_scale5_TuneCP5'
+nev = 10000
+
 
 #----------------- Anchillary samples -----------------
 # st_seed = 10001
@@ -71,7 +76,7 @@ config.General.transferLogs    = False
 config.JobType.pluginName = 'PrivateMC'
 config.JobType.psetName   = 'placeholder_cfg.py'
 #These files will be placed in the starting directory
-config.JobType.inputFiles = ['Configuration/GenProduction/python/{}_cfi.py'.format(process_name), 'job1023_gen_v2.sh', 'minBiasFilesList_211005.txt']
+config.JobType.inputFiles = ['Configuration/GenProduction/python/{}_cfi.py'.format(process_name), 'job1023_gen_v2.sh']
 # config.JobType.outputFiles = ['outlog.root', 'step1log.root', 'step2log.root', 'step3log.root', 'step4log.root']
 config.JobType.allowUndistributedCMSSW = True
 config.JobType.maxMemoryMB = 5000
@@ -96,7 +101,7 @@ if N_PU > 0:
     with open('sitesWithPileupDataset.txt') as file:
         for ln in file.readlines():
             ln = ln[:-1]
-            if ln[:2]=='T0' or ln[:2]=='T1': continue
+            if ln[:2]=='T0' or ln[:2]=='T1' or ln[:2]=='T3': continue
             list.append(ln)
     config.Site.whitelist = list
 
