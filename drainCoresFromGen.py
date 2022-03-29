@@ -10,6 +10,7 @@ parser = argparse.ArgumentParser(description='Free cores from matching condor jo
                                  )
 parser.add_argument ('--batch_name', default=['gen_.*'], help='Patter used to match BATCH_NAME.', nargs='+')
 parser.add_argument ('--nToFree', '-n', type=int, default=10, help='Number of jobs to put on hold.')
+parser.add_argument ('--verbose', action='store_true', default=False, help='Verbose.')
 args = parser.parse_args()
 
 cmd = 'condor_hold -constraint \'('
@@ -20,7 +21,6 @@ print cmd
 status, output = commands.getstatusoutput(cmd)
 if status:
     print output
-    exit()
 
 cmd = 'condor_q -json -constraint \'('
 cmd += ' || '.join(['regexp("'+p+'",JobBatchName)' for p in args.batch_name])
@@ -44,11 +44,18 @@ for job in matching_jobs:
     elif job['JobStatus'] == jobStatusDic['running']:
         jobs_id.append(auxId)
         jobs_running_time.append(time.time() - job['JobCurrentStartDate'])
-print 'Job on idle held', n_idle2hold
+print 'Job left on idle held', n_idle2hold
 wasted_time = 0
+n_run2hold = 0
 for i in np.argsort(jobs_running_time)[:args.nToFree]:
     wasted_time += jobs_running_time[i]
-    os.system('condor_hold ' + jobs_id[i])
+    cmd = 'condor_hold ' + jobs_id[i]
+    status, output = commands.getstatusoutput(cmd)
+    if status or args.verbose:
+        print output
+    if not status:
+        n_run2hold += 1
+print 'Job evicted form runnign to hold', n_run2hold
 print 'Average wall time wasted:', str(datetime.timedelta(seconds=np.ceil(wasted_time/args.nToFree)))
 print 'Total CPU time wasted:', str(datetime.timedelta(seconds=np.ceil(wasted_time)))
 # print jobs_id[i], str(datetime.timedelta(seconds=jobs_running_time[i]))
