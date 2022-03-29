@@ -4,7 +4,7 @@ from CRABClient.UserUtilities import config
 import datetime
 
 N_Threads = 1
-njobs = 10000
+njobs = 1000
 N_PU = 'c2'
 
 #----------------- Background samples -----------------
@@ -49,7 +49,7 @@ N_PU = 'c2'
 st_seed = 1
 maxtime = '12h'
 process_name = 'BParking_Tag_B_DstX_SoftQCDnonD_scale5_TuneCP5'
-nev = 10000
+nev = 1000
 
 
 #----------------- Anchillary samples -----------------
