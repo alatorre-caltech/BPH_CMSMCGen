@@ -2,6 +2,8 @@
 import os, json, argparse, commands, datetime, time
 import numpy as np
 
+jobStatusDic = {'idle':1, 'running':2, 'hold':5}
+
 parser = argparse.ArgumentParser(description='Free cores from matching condor jobs.',
                                  epilog='Test example: ./drainCoresFromGen.py',
                                  add_help=True
@@ -10,14 +12,25 @@ parser.add_argument ('--batch_name', default=['gen_.*'], help='Patter used to ma
 parser.add_argument ('--nToFree', '-n', type=int, default=10, help='Number of jobs to put on hold.')
 args = parser.parse_args()
 
-cmd = 'condor_q -json -constraint \'' + ' || '.join(['regexp("'+p+'",JobBatchName)' for p in args.batch_name]) + '\''
+cmd = 'condor_hold -constraint \'('
+cmd += ' || '.join(['regexp("'+p+'",JobBatchName)' for p in args.batch_name])
+cmd += ') && JobStatus == ' + str(jobStatusDic['idle'])
+cmd += '\''
 print cmd
 status, output = commands.getstatusoutput(cmd)
 if status:
     print output
     exit()
 
-jobStatusDic = {'idle':1, 'running':2, 'hold':5}
+cmd = 'condor_q -json -constraint \'('
+cmd += ' || '.join(['regexp("'+p+'",JobBatchName)' for p in args.batch_name])
+cmd += ') && JobStatus == ' + str(jobStatusDic['running'])
+cmd += '\''
+print cmd
+status, output = commands.getstatusoutput(cmd)
+if status:
+    print output
+    exit()
 
 matching_jobs = json.loads(output)
 jobs_id = []
