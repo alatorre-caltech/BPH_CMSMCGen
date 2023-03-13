@@ -1,19 +1,25 @@
 #!/usr/bin/env python
+"""
+Script to submit MC jobs to the condor queue. Example:
+
+    $./submit-condor-jobs mu --events 150000 --jobs 1000 -f --pileup c2
+"""
 from __future__ import print_function
-import os, sys, subprocess, re
+import os, sys, re
 import commands
-import time
 from glob import glob
 from os.path import getmtime
 
-def processCmd(cmd, quite = 0):
+def processCmd(cmd, quiet=False):
     status, output = commands.getstatusoutput(cmd)
-    if (status !=0 and not quite):
+    if status != 0 and not quiet:
         print('Error in processing command:\n   ['+cmd+']')
         print('Output:\n   ['+output+'] \n')
     return output
 
 def compileCMSSW(cmssw_loc):
+    # Get the current working directory so we can change back after we finish
+    # compiling
     cwd = os.getcwd()
     aux = raw_input('Do you want to compile CMSSW now? (y/n)\n')
     if 'y' in aux:
@@ -22,38 +28,40 @@ def compileCMSSW(cmssw_loc):
         cmd += '; source /cvmfs/cms.cern.ch/cmsset_default.sh'
         cmd += '; eval `scramv1 runtime -sh`'
         cmd += '; scram b -j12'
-        os.system(cmd)
-        os.chdir(cwd)
+        try:
+            os.system(cmd)
+        finally:
+            # Switch back to the current working directory
+            os.chdir(cwd)
         return True
     else:
         return False
 
 PROCESSES = {
-    # 'mu'         : 'BP_Tag_B0_MuNuDmst_Hardbbbar_evtgen_ISGW2',
-    # 'mu_softQCD' : 'BP_Tag_B0_MuNuDmst_SoftQCDall_evtgen_ISGW2',
-    # 'tau'        : 'BP_Tag_B0_TauNuDmst_Hardbbbar_evtgen_ISGW2',
-    # 'Dstst'      : 'BPH_Tag-Bp_MuNuDstst_DmstPi_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen_ISGW2',
-    # 'KDst'       : 'BPH_Tag-Mu_Probe-B0_KDmst-pD0bar-kp_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen_SVS',
-    # 'JpsiKst'    : 'BPH_Tag-Probe_B0_JpsiKst-mumuKpi-kp_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen_SVV',
-    # 'JpsiKstFSR' : 'BPH_Tag-Probe_B0_JpsiKst-mumuKpi-kp_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgenFSR_SVV',
-    # 'mu_probe': 'BP_Probe_B0_MuNuDmst_Tag-B_MuNuDst_Hardbbbar_evtgen_ISGW2',
-    # 'tau_probe': 'BP_Probe_B0_TauNuDmst_Tag-B_MuNuDst_Hardbbbar_evtgen_ISGW2',
-    # 'mu_unb' : 'Unbiased_B0_MuNuDmst_Hardbbbar_evtgen_ISGW2',
-    # 'tau_unb' : 'Unbiased_B0_TauNuDmst_Hardbbbar_evtgen_ISGW2',
-    # 'DstKu' : 'BParking_Tag_DstKu_KutoMu_SoftQCDnonD_scale5_TuneCP5',
-    'Bd_DDs1': 'BParking_Tag_Bd_DDs1_SoftQCDnonD_scale5_TuneCP5',
-    'Bu_DDs1': 'BParking_Tag_Bu_DDs1_SoftQCDnonD_scale5_TuneCP5',
-    'B_DstDXX':'BParking_Tag_B_DstDXX_SoftQCDnonD_scale5_TuneCP5',
-    'B_DstX':  'BParking_Tag_B_DstX_SoftQCDnonD_scale5_TuneCP5',
-    'JpsiKst': 'BParking_Bd_JpsiKst_SoftQCDnonD_scale5_TuneCP5_HELAMP',
+    # 'mu':         'BP_Tag_B0_MuNuDmst_Hardbbbar_evtgen_ISGW2',
+    # 'mu_softQCD': 'BP_Tag_B0_MuNuDmst_SoftQCDall_evtgen_ISGW2',
+    # 'tau':        'BP_Tag_B0_TauNuDmst_Hardbbbar_evtgen_ISGW2',
+    # 'Dstst':      'BPH_Tag-Bp_MuNuDstst_DmstPi_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen_ISGW2',
+    # 'KDst':       'BPH_Tag-Mu_Probe-B0_KDmst-pD0bar-kp_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen_SVS',
+    # 'JpsiKst':    'BPH_Tag-Probe_B0_JpsiKst-mumuKpi-kp_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgen_SVV',
+    # 'JpsiKstFSR': 'BPH_Tag-Probe_B0_JpsiKst-mumuKpi-kp_13TeV-pythia8_Hardbbbar_PTFilter5_0p0-evtgenFSR_SVV',
+    # 'mu_probe':   'BP_Probe_B0_MuNuDmst_Tag-B_MuNuDst_Hardbbbar_evtgen_ISGW2',
+    # 'tau_probe':  'BP_Probe_B0_TauNuDmst_Tag-B_MuNuDst_Hardbbbar_evtgen_ISGW2',
+    # 'mu_unb':     'Unbiased_B0_MuNuDmst_Hardbbbar_evtgen_ISGW2',
+    # 'tau_unb':    'Unbiased_B0_TauNuDmst_Hardbbbar_evtgen_ISGW2',
+    # 'DstKu':      'BParking_Tag_DstKu_KutoMu_SoftQCDnonD_scale5_TuneCP5',
+    'Bd_DDs1':      'BParking_Tag_Bd_DDs1_SoftQCDnonD_scale5_TuneCP5',
+    'Bu_DDs1':      'BParking_Tag_Bu_DDs1_SoftQCDnonD_scale5_TuneCP5',
+    'B_DstDXX':     'BParking_Tag_B_DstDXX_SoftQCDnonD_scale5_TuneCP5',
+    'B_DstX':       'BParking_Tag_B_DstX_SoftQCDnonD_scale5_TuneCP5',
+    'JpsiKst':      'BParking_Bd_JpsiKst_SoftQCDnonD_scale5_TuneCP5_HELAMP',
 }
 
-# Example: ./submitCondorJobs.py mu --events 150000 --jobs 1000 -f --pileup c2
 if __name__ == "__main__":
     from os.path import join, expanduser
     import argparse
 
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser("Submit MC jobs to condor")
     parser.add_argument ('tag', type=str, choices=PROCESSES.keys(), help='Process tag')
     parser.add_argument ('-e','--events', help='number of events per job', default=1000)
     parser.add_argument ('-j','--jobs', help='number of jobs', default=10)
@@ -62,7 +70,7 @@ if __name__ == "__main__":
     parser.add_argument ('--version', help='Process version', default='')
     parser.add_argument ('--cmssw-loc', help='CMSSW src loc', default=None)
     parser.add_argument ('--outdir', help='output directory ', default=None)
-    parser.add_argument ('-f', '--force_production', action='store_true', help='Proceed even if the directory is already existing')
+    parser.add_argument ('-f', '--force', action='store_true', help='Proceed even if the directory is already existing')
     parser.add_argument ('--not-nice', action='store_true', default=False, help='Run nice jobs')
     parser.add_argument ('--jobs-tag', help='Tag appended at the end of the output folder', default='')
     parser.add_argument ('--maxtime', help='Max wall run time [s=seconds, m=minutes, h=hours, d=days]', default='8h')
@@ -132,7 +140,7 @@ if __name__ == "__main__":
         os.makedirs(outdir)
         os.makedirs(outdir+'/out/')
         os.makedirs(outdir+'/cfg/')
-    elif not args.force_production:
+    elif not args.force:
         print('Output dir: "'+outdir+'" exists.')
         aux = raw_input('Continue anyway? (y/n)\n')
         if aux == 'n':
