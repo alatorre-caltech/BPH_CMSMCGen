@@ -50,7 +50,7 @@ Enddecay
 
 
 Decay MyB0
-1.000     MyJ/psi  MyK*0         SVV_HELAMP PKHminus PKphHminus PKHzero PKphHzero PKHplus PKphHplus; #[Reconstructed PDG2011]
+1.000     MyJ/psi  MyK*0         SVV_HELAMP PKHplus PKphHplus PKHzero PKphHzero PKHminus PKphHminus; #[Reconstructed PDG2011]
 Enddecay
 CDecay Myanti-B0
 
