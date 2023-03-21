@@ -90,14 +90,14 @@ date
 echo "Step 2: GEN-SIM -> RAW" >> ${output_flag}.log
 echo `date +%s.%N` >> ${output_flag}.log
 
-localMinBiasFiles=/storage/af/user/ocerri/BPH_CMSMCGen/minBiasFilesList_localPath.txt
-if [ -f "$localMinBiasFiles" ]; then
-    pileup_input="filelist:/storage/af/user/ocerri/BPH_CMSMCGen/minBiasFilesList_localPath.txt"
-    echo "Using local min bias files."
-else
-    pileup_input="dbs:/MinBias_TuneCP5_13TeV-pythia8/RunIIFall18GS-102X_upgrade2018_realistic_v9-v1/GEN-SIM"
-    echo "Fetching pileup dataset from BDS"
-fi
+#localMinBiasFiles=/storage/af/user/ocerri/BPH_CMSMCGen/minBiasFilesList_localPath.txt
+#if [ -f "$localMinBiasFiles" ]; then
+#    pileup_input="filelist:/storage/af/user/ocerri/BPH_CMSMCGen/minBiasFilesList_localPath.txt"
+#    echo "Using local min bias files."
+#else
+pileup_input="dbs:/MinBias_TuneCP5_13TeV-pythia8/RunIIFall18GS-102X_upgrade2018_realistic_v9-v1/GEN-SIM"
+echo "Fetching pileup dataset from BDS"
+#fi
 
 
 if [ "$N_PU" == "0" ]
