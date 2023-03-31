@@ -1,8 +1,9 @@
 #!/usr/bin/env python
 """
-Script to submit MC jobs to the condor queue. Example:
+Script to submit MC jobs to the condor queue. Examples:
 
-    $./submit-condor-jobs mu --events 150000 --jobs 1000 -f --pileup c2
+    $ ./submit-condor-jobs mu --events 150000 --jobs 1000 -f --pileup c2
+    $ ./submit-condor-jobs -e 200000 -j 6000 JpsiKst --pileup c2
 """
 from __future__ import print_function
 import os, sys, re
@@ -161,16 +162,19 @@ if __name__ == "__main__":
         if aux == 'y':
             args.seed = n_max + 1
 
-    os.system('chmod +x job1023_gen_v1.sh')
     print('Creating submission script')
 
     fsub = open('jobs.jdl', 'w')
     fsub.write('executable    = ' + os.environ['PWD'] + '/job1023_gen_v2.sh')
     fsub.write('\n')
+    exec_args = str(args.events)+' '+str(args.seed)+' $(ProcId) '+args.process+' '+outdir+' '+args.cmssw_loc+' '+str(args.pileup)+' '+str(args.cpu)+' '+os.environ['HOME']
     exec_args = str(args.events)+' '+str(args.seed)+' $(ProcId) '+args.process+' '+outdir+' '+args.cmssw_loc+' '+str(args.pileup)+' '+str(args.cpu)
     fsub.write('arguments     = ' + exec_args)
     fsub.write('\n')
     fsub.write('output        = {}/out/job_$(ProcId)_$(ClusterId).out'.format(outdir))
+    fsub.write('\n')
+    fsub.write('stream_output = True\n')
+    fsub.write('stream_error  = True\n')
     fsub.write('\n')
     fsub.write('error         = {}/out/job_$(ProcId)_$(ClusterId).err'.format(outdir))
     fsub.write('\n')
@@ -231,7 +235,7 @@ if __name__ == "__main__":
 
     print('Submitting jobs...')
     cmd = 'cd tmp_return; condor_submit jobs.jdl'
-    cmd += ' -batch-name ' + '_'.join(['gen', args.process, 'PU'+str(args.pileup)])
+    cmd += ' -batch-name ' + '_'.join(['gen', args.process, 'PU'+str(args.pileup), args.version])
     output = processCmd(cmd)
     print('Jobs submitted')
     os.system('mv tmp_return/jobs.jdl '+outdir+'/cfg/jobs.jdl')

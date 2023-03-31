@@ -1,5 +1,6 @@
 #!/bin/bash
 set -e
+set -x
 #Meant to run with HTCondor
 
 #This job does not compile the CMSSW with the fragments. Be mindful and compile it haead.
@@ -20,6 +21,14 @@ N_PU=$7
 echo "N_PU=$N_PU"
 N_Threads=$8
 echo "N_Threads=$N_Threads"
+
+# Need to set the home directory environment variable explicitly because for
+# some reason on condor jobs, the home directory gets set to /wntmp/[username]
+if [ -z "$9" ]; then
+export HOME=/storage/af/user/alatorre
+else
+export HOME=$9
+fi
 
 N_seed=$((st_seed+proc_ID))
 echo "N_seed=$N_seed"
